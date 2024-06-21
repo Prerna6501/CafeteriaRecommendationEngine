@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/FRE/.vs/FRE/DesignTimeBuild
+/FRE/.vs/FRE/FileContentIndex
+/FRE/ClientSide/bin/Debug/net8.0
+/FRE/ClientSide/obj
+/FRE/.vs/ServerSide/DesignTimeBuild
+/FRE/.vs/ServerSide/FileContentIndex
+/FRE/.vs
+/FRE/Common/bin/Debug/net8.0
+/FRE/Common/obj
+/FRE/ServerSide/bin/Debug/net8.0
+/FRE/ServerSide/obj
