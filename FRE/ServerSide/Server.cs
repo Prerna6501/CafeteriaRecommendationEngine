@@ -102,7 +102,50 @@ namespace ServerSide
                     string password = authData[2].Trim();
                     return await authService.AuthenticateUser(userId, name, password);
 
+                case "ADD_MENU_ITEM":
+                    var result = await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
+                    await notificationService.CreateNotification((int)NotificationTypeEnum.NewItemAdded, int.Parse(parameters));
+                    return result;
+
+                case "UPDATE_MENU":
+                    return await MenuItemRequestHandler.HandleUpdateMenuItem(parameters, menuItemService);
+
+                case "DELETE_MENU_ITEM":
+                    var response = await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);                    
+                    await notificationService.CreateNotification((int)NotificationTypeEnum.Deleted, int.Parse(parameters));
+                    return response;
+
+                case "VIEW_MENU":
+                    return await MenuItemRequestHandler.HandleViewMenuItem(menuItemService);
+
+                case "GIVE_FEEDBACK":
+                    return await FeedbackRequestHandler.HandleGiveFeedback(parameters, feedbackService);
+
+                case "VIEW_FEEDBACK_ITEM":
+                    return await FeedbackRequestHandler.HandleViewFeedbackForItem(parameters, feedbackService);
+
+                case "VIEW_FEEDBACK_EMPLOYEE":
+                    return await FeedbackRequestHandler.HandleViewFeedbackByEmployee(parameters, feedbackService);
+
+                case "GET_RECOMMENDED_ITEMS":
+                    return await chefService.GetTopMenuItemsByMealType(parameters);
+
+                //case "ROLLOUT_CHOICES":
+                //    return await chefService.RolloutChoices(parameters);
+
+                case "VIEW_CHOICE_VOTING_RESULT":
+                    return await chefService.GetVotingResults();
+
+                //case "GIVE_FINAL_MENU":
+                //    return await chefService();
+
+                //case "CHANGE_AVAILABILITY":
                
+                //case "VIEW_MONTHLY_REPORT": optional
+                //    return await chefService.ViewMonthlyReport();
+
+
+
                 default:
                     return $"Invalid request type: {requestType}";
             }
