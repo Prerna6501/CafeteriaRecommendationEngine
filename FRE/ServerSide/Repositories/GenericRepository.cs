@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ServerSide.Data;
 using ServerSide.Repositories.Interfaces;
 using System.Linq.Expressions;
@@ -18,9 +17,9 @@ namespace ServerSide.Repositories
             _dbSet = _dbContext.Set<T>();
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public virtual async Task<T?> UpdateAsync(T entity)
         {
-            EntityEntry<T> entityEntry = _dbSet.Update(entity);
+            var entityEntry = _dbSet.Update(entity);
             if (entityEntry.State == EntityState.Modified)
             {
                 await SaveChangesAsync();
@@ -54,7 +53,7 @@ namespace ServerSide.Repositories
 
         public async Task<List<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
     }
 }

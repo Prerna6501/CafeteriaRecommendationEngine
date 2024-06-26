@@ -361,8 +361,7 @@ namespace ServerSide.Data
                     {
                         NotificationTypeId = 1,
                         CreatedDate = DateTime.Now,
-                        IsDeleted = false,
-                        IsRead = false,
+                        IsDeleted = false,                       
                         Message = "Orange Juice was added in the menu"
                     }
                 });

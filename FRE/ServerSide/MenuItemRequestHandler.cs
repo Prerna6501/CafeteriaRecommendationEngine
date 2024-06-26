@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ServerSide.Entity;
 using ServerSide.Services.Interfaces;
 
@@ -40,15 +41,18 @@ namespace ServerSide
 
         public static async Task<string> HandleViewMenuItem(IMenuItemService menuItemService)
         {
-            var response = await menuItemService.GetAllAsync();
+            var response = await menuItemService.Where(x => x.IsDeleted == false && x.IsAvailable == true).ToListAsync();
             return JsonConvert.SerializeObject(response, Formatting.Indented);
         }
 
         public static async Task<string> HandleDeleteMenuItem(string parameter, IMenuItemService menuItemService)
         {
             var itemToBeDeleted = menuItemService.Where(x => x.Id == Convert.ToInt32(parameter)).FirstOrDefault();
-            var status = await menuItemService.DeleteAsync(itemToBeDeleted);
-            return status.ToString();
+            if(itemToBeDeleted == null) { return "No menuitem found"; }
+            itemToBeDeleted.IsDeleted = true;
+            itemToBeDeleted.IsAvailable = false;
+            var response = await menuItemService.UpdateAsync(itemToBeDeleted);
+            return JsonConvert.SerializeObject(response, Formatting.Indented);
         }
 
     }

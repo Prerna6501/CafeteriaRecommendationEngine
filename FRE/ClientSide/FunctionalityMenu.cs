@@ -292,7 +292,10 @@ namespace ClientSide
             string request = $"DELETE_MENU_ITEM|{id}";
             string response = await HandleRequest.SendRequest(request);
 
-            Console.WriteLine(response);
+            MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(response);
+            var table = new ConsoleTable("Name", "IsDeleted");
+            table.AddRow(menuItem.Name, menuItem.IsDeleted);
+            table.Write(Format.Alternative);
         }
     }
 }

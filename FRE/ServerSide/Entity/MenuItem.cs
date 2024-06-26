@@ -10,5 +10,6 @@
         public int MenuItemTypeId { get; set; }
         public List<Feedback> Feedbacks { get; set; }   
         public List<FixedMeal> FixedMeals { get; set; }
+        public MenuItemType MenuItemType { get; set; }
     }
 }

@@ -34,48 +34,44 @@ namespace ServerSide.Data
             modelBuilder.Entity<MenuItem>()
                 .HasMany(f => f.Feedbacks)
                 .WithOne()
-                .HasForeignKey(f => f.MenuItemId);
+                .HasForeignKey(f => f.MenuItemId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<MenuItem>()
                 .HasOne(f => f.MenuItemType)
                 .WithMany()
-                .HasForeignKey(f => f.MenuItemTypeId);
+                .HasForeignKey(f => f.MenuItemTypeId)
+                .OnDelete(DeleteBehavior.Restrict); 
 
             modelBuilder.Entity<User>()
                 .HasMany(f => f.Feedbacks)
                 .WithOne()
-                .HasForeignKey(f => f.MenuItemId);
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<FixedMeal>()
                 .HasOne(fm => fm.MenuItem)
                 .WithMany()
-                .HasForeignKey(fm => fm.MenuItemId);
+                .HasForeignKey(fm => fm.MenuItemId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<FixedMeal>()
                 .HasOne(fm => fm.MealType)
                 .WithMany()
-                .HasForeignKey(fm => fm.MealTypeId);
+                .HasForeignKey(fm => fm.MealTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Notification>()
                 .HasOne(n => n.NotificationType)
                 .WithMany()
-                .HasForeignKey(n => n.NotificationTypeId);
+                .HasForeignKey(n => n.NotificationTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<VotingResult>()
                 .HasOne(v => v.MenuItem)
                 .WithMany()
-                .HasForeignKey(v => v.MenuItemId);
-
-            modelBuilder.Entity<VotingResult>()
-                .HasOne(v => v.MealType)
-                .WithMany()
-                .HasForeignKey(v => v.MealtypeId);
-
-
-            modelBuilder.Entity<MenuItem>()
-                .HasMany(f => f.Feedbacks)
-                .WithOne()
-                .HasForeignKey(f => f.MenuItemId);
+                .HasForeignKey(v => v.MenuItemId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

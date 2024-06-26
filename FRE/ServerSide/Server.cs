@@ -104,7 +104,7 @@ namespace ServerSide
 
                 case "ADD_MENU_ITEM":
                     var result = await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
-                    await notificationService.CreateNotification((int)NotificationTypeEnum.NewItemAdded, int.Parse(parameters));
+                    //await notificationService.CreateNotification((int)NotificationTypeEnum.NewItemAdded, int.Parse(parameters));
                     return result;
 
                 case "UPDATE_MENU":
@@ -112,7 +112,7 @@ namespace ServerSide
 
                 case "DELETE_MENU_ITEM":
                     var response = await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);                    
-                    await notificationService.CreateNotification((int)NotificationTypeEnum.Deleted, int.Parse(parameters));
+                    //await notificationService.CreateNotification((int)NotificationTypeEnum.Deleted, int.Parse(parameters));
                     return response;
 
                 case "VIEW_MENU":
