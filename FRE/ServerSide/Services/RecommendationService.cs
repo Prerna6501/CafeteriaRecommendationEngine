@@ -1,4 +1,5 @@
 ﻿using Common.Enums;
+using Common.Models;
 using Microsoft.EntityFrameworkCore;
 using ServerSide.Entity;
 using ServerSide.Services.Interfaces;
@@ -43,21 +44,26 @@ namespace ServerSide.Services
             return highestSentiment;
         }
 
-        public async Task<List<MenuItem>> GetTopRecommendations(int mealTypeId ,int topN)
+        public async Task<List<MenuItemModel>> GetTopRecommendations(int mealTypeId ,int topN)
         {
-            int menuItemId = mealTypeId == 1 ? (int)MenuItemEnum.Breakfast : (int)MenuItemEnum.Meals;
-            List<MenuItem> menuItems = await _menuItemService.Where(x => x.MenuItemTypeId ==menuItemId).ToListAsync();
-            var recommendedList = menuItems.Select(item => new
+            int menuTypeId = mealTypeId == 1 ? (int)MenuItemEnum.Breakfast : (int)MenuItemEnum.Meals;
+            List<MenuItem> menuItems = await _menuItemService.Where(x => x.MenuItemTypeId == menuTypeId).Include(x => x.MenuItemType).ToListAsync();
+            List<MenuItemModel> menuItemModel = new List<MenuItemModel>();
+            foreach (MenuItem item in menuItems)
             {
-                Item = item,
-                Score = CalculateScore(item)
-            })
-            .OrderByDescending(x => x.Score)
-            .Take(topN)
-            .Select(x => x.Item)
-            .ToList();
+                var averageScore = await CalculateScore(item);
+                menuItemModel.Add(new MenuItemModel
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    AverageRating = averageScore,
+                    MenuItemType = item.MenuItemType.Name,
+                    Price = item.Price,
+                    Sentiments = "TBC"
+                });
+            }
 
-            return recommendedList;
+            return menuItemModel.OrderByDescending(x => x.AverageRating).Take(topN).ToList();
         }
 
         private string AnalyzeSentimentForComment(string comment)
@@ -78,12 +84,18 @@ namespace ServerSide.Services
             }
         }
 
-        private double CalculateScore(MenuItem item)
+        private async Task<double> CalculateScore(MenuItem item)
         {
-            if (item.Feedbacks.Count == 0) return 0;
-            
-            double averageRating = item.Feedbacks.Select(x => x.Rating).Average();
-            return averageRating;
+            List<Feedback> feedbacks = await _feedbackService.Where(x => x.MenuItemId == item.Id).ToListAsync();
+            if (feedbacks.Any())
+            {
+                double averageRating = feedbacks.Select(x => x.Rating).Average();
+                return averageRating;
+            }
+            else
+            {
+                return 0.0;
+            }
         }
     }
 }

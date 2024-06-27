@@ -7,6 +7,6 @@
         public int Price { get; set; }
         public string MenuItemType { get; set; }
         public string Sentiments { get; set; }
-        public decimal AverageRating { get; set; }
+        public double AverageRating { get; set; }
     }
 }

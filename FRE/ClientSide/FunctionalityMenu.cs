@@ -1,4 +1,5 @@
-﻿using ConsoleTables;
+﻿using Common.Models;
+using ConsoleTables;
 using Newtonsoft.Json;
 using ServerSide.Entity;
 
@@ -169,11 +170,11 @@ namespace ClientSide
             string topN = Console.ReadLine();
             string request = $"GET_RECOMMENDED_ITEMS|{mealtypeId},{topN}";
             string response = await HandleRequest.SendRequest(request);
-            List<MenuItem> menuItem = JsonConvert.DeserializeObject<List<MenuItem>>(response);
-            var table = new ConsoleTable("Id", "Name", "Price");
-            foreach (var item in menuItem)
+            List<MenuItemModel> menuItemModel = JsonConvert.DeserializeObject<List<MenuItemModel>>(response);
+            var table = new ConsoleTable("Id", "Name", "Sentiment", "Average Rating");
+            foreach (var item in menuItemModel)
             {
-                table.AddRow(item.Id, item.Name, item.Price);
+                table.AddRow(item.Id, item.Name, item.Sentiments, item.AverageRating);
             }
             table.Write(Format.Alternative);
         }
