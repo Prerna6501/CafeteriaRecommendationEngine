@@ -27,7 +27,13 @@ namespace ServerSide.Services
         public async Task<string> GetVotingResults()
         {
             var result = await _votingResultService.GetVotingResults();
-            return JsonConvert.SerializeObject(result);
+            return JsonConvert.SerializeObject(result, Formatting.Indented);
+        }
+
+        public async Task<string> RolloutChoices(string message)
+        {
+            var result = await _votingResultService.CreateVotingForRolledOutChoices(message);
+            return result;
         }
     }
 }

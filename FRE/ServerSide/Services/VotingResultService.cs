@@ -26,5 +26,9 @@ namespace ServerSide.Services
         {
            return await _votingResultRepository.GetVoteCount(menuItemId);
         }      
+        public async Task<string> CreateVotingForRolledOutChoices(string request)
+        {
+            return await _votingResultRepository.CreateVotingForRolledOutChoices(request);
+        }
     }
 }

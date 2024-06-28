@@ -11,5 +11,6 @@ namespace ServerSide.Services.Interfaces
     {
         public Task<List<VotingResult>> GetVotingResults();
         public Task<int> GetVoteCount(int menuItemId);
+        public Task<string> CreateVotingForRolledOutChoices(string request);
     }
 }

@@ -181,9 +181,16 @@ namespace ClientSide
 
         private static async Task RolloutChoices()
         {
-            Console.WriteLine("Enter the Roll out menu for ");
-            string request = "ROLLOUT_CHOICES|";
+            Console.WriteLine("Enter the Roll out menu for breakfast (comma-separated):");
+            string breakFastOptions = Console.ReadLine();
+            Console.WriteLine("Enter the Roll out menu for lunch (comma-separated):");
+            string lunchOptions = Console.ReadLine();
+            Console.WriteLine("Enter the Roll out menu for dinner (comma-separated):");
+            string dinnerOptions = Console.ReadLine();
+
+            string request = $"ROLLOUT_CHOICES|Breakfast:{breakFastOptions};Lunch:{lunchOptions};Dinner:{dinnerOptions}";
             string response = await HandleRequest.SendRequest(request);
+
             Console.WriteLine(response);
         }
 

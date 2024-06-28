@@ -12,7 +12,7 @@ namespace ServerSide.Services
         private readonly IFeedbackService _feedbackService;
 
         //Add more
-        private static readonly List<string> PositiveKeywords = new List<string> { "good", "great", "excellent", "love", "fantastic", "happy", "delicious","amazing"};
+        private static readonly List<string> PositiveKeywords = new List<string> { "good", "great", "excellent", "love", "fantastic", "happy", "delicious","amazing", "tasty"};
         private static readonly List<string> NegativeKeywords = new List<string> { "bad", "not good", "terrible", "awful", "horrible", "disgusting", "hate", "poor" };
         
         public RecommendationService(IMenuItemService menuItemService, IFeedbackService feedbackService)
@@ -26,7 +26,7 @@ namespace ServerSide.Services
 
             List<string> sentiments = new List<string>();
             List<Feedback> feedbacks = await _feedbackService.Where(x => x.MenuItemId == id).ToListAsync();
-
+            if(feedbacks.Count == 0) { return "No feedbacks at the momemt"; }
             Dictionary<string, int> sentimentCounts = new Dictionary<string, int>
                 {
                     { "Positive", 0 },
@@ -52,6 +52,7 @@ namespace ServerSide.Services
             foreach (MenuItem item in menuItems)
             {
                 var averageScore = await CalculateScore(item);
+                var sentiment = await AnalyzeSentimentForMenuItem(item.Id);
                 menuItemModel.Add(new MenuItemModel
                 {
                     Id = item.Id,
@@ -59,7 +60,7 @@ namespace ServerSide.Services
                     AverageRating = averageScore,
                     MenuItemType = item.MenuItemType.Name,
                     Price = item.Price,
-                    Sentiments = "TBC"
+                    Sentiments = sentiment
                 });
             }
 

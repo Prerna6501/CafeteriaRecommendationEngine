@@ -130,8 +130,8 @@ namespace ServerSide
                 case "GET_RECOMMENDED_ITEMS":
                     return await chefService.GetTopMenuItemsByMealType(parameters);
 
-                //case "ROLLOUT_CHOICES":
-                //    return await chefService.RolloutChoices(parameters);
+                case "ROLLOUT_CHOICES":
+                    return await chefService.RolloutChoices(parameters);
 
                 case "VIEW_CHOICE_VOTING_RESULT":
                     return await chefService.GetVotingResults();
