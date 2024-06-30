@@ -149,8 +149,15 @@ namespace ClientSide
             string request = $"VIEW_FEEDBACK_ITEM|{itemId}";
             string response = await HandleRequest.SendRequest(request);
 
-            Console.WriteLine("Feedback for the item:");
-            Console.WriteLine(response);
+            Console.WriteLine("Feedback for the item:\n");
+
+            List<FeedbackModel> feedbacks = JsonConvert.DeserializeObject<List<FeedbackModel>>(response);
+            var table = new ConsoleTable( "FeedBack Id", "MenuItem Id", "Rating", "Comments");
+            foreach (var item in feedbacks)
+            {
+                table.AddRow(item.Id, item.MenuItemId, item.Rating, item.Comment);
+            }
+            table.Write(Format.Alternative);
         }
 
         private static async Task ViewAllFeedbackByEmployee()

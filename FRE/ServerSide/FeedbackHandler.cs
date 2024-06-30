@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ServerSide.Entity;
 using ServerSide.Services;
@@ -29,8 +30,21 @@ namespace ServerSide
         public static async Task<string> HandleViewFeedbackForItem(string parameters, FeedbackService feedbackService)
         {
             int menuItemId = int.Parse(parameters.Trim());
-            var feedbacks = await feedbackService.Where(x => x.MenuItemId == menuItemId).ToListAsync(); 
-            return JsonConvert.SerializeObject(feedbacks);
+            var feedbacks = await feedbackService.Where(x => x.MenuItemId == menuItemId).Include(x => x.MenuItem).ToListAsync(); 
+            List<FeedbackModel> feedbackModels = new List<FeedbackModel>();
+
+            foreach (var feedback in feedbacks)
+            {
+                feedbackModels.Add(new FeedbackModel
+                {
+                    Id = feedback.Id,
+                    MenuItemId = menuItemId,
+                    MenuItemName = feedback.MenuItem.Name,
+                    Rating = feedback.Rating,
+                    Comment = feedback.Comment
+                });
+            }
+            return JsonConvert.SerializeObject(feedbackModels, Formatting.Indented);
         }
 
         public static async Task<string> HandleViewFeedbackByEmployee(string parameters, FeedbackService feedbackService)
