@@ -14,14 +14,14 @@ namespace ServerSide.Data.Extentions
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IRecommendationService, RecommendationService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
-            services.AddScoped<IChefService, ChefService>();
+            services.AddScoped<IChefService, ChefRequestHandler>();
             services.AddScoped<IVotingResultService, VotingResultService>();
             services.AddScoped<VotingResultService>();
             services.AddScoped<AuthService>();
             services.AddScoped<MenuItemService>();
             services.AddScoped<FeedbackService>();
             services.AddScoped<NotificationService>();
-            services.AddScoped<ChefService>();
+            services.AddScoped<ChefRequestHandler>();
             services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
             return services;

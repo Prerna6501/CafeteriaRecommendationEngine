@@ -4,12 +4,12 @@ using ServerSide.Services.Interfaces;
 
 namespace ServerSide.Services
 {
-    public class ChefService : IChefService
+    public class ChefRequestHandler : IChefService
     {
         private readonly IRecommendationService _recommendationService;
         private readonly IVotingResultService _votingResultService;
 
-        public ChefService(IRecommendationService recommendationService, IVotingResultService votingResultService)
+        public ChefRequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService)
         {
             _recommendationService = recommendationService;
             _votingResultService = votingResultService;
@@ -34,6 +34,7 @@ namespace ServerSide.Services
         {
             var result = await _votingResultService.CreateVotingForRolledOutChoices(message);
             return result;
-        }
+        }     
+        
     }
 }

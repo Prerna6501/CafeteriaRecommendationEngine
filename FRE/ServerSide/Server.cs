@@ -85,7 +85,7 @@ namespace ServerSide
             var notificationService = serviceProvider.GetRequiredService<NotificationService>();
             var menuItemService = serviceProvider.GetRequiredService<MenuItemService>();
             var feedbackService = serviceProvider.GetRequiredService<FeedbackService>();
-            var chefService = serviceProvider.GetRequiredService<ChefService>();
+            var chefService = serviceProvider.GetRequiredService<ChefRequestHandler>();
             
 
             switch (requestType.ToUpper())
