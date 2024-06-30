@@ -198,7 +198,13 @@ namespace ClientSide
         {
             string request = "VIEW_CHOICE_VOTING_RESULT|";
             string response = await HandleRequest.SendRequest(request);
-            Console.WriteLine(response);
+            List<VotingResultModel> votingResults = JsonConvert.DeserializeObject<List<VotingResultModel>>(response);
+            var table = new ConsoleTable("Menuitem Id", "MenuItem Name", "MealType", "Votes");
+            foreach (var item in votingResults)
+            {
+                table.AddRow(item.MenuItemId, item.MenuItemName, item.MealType, item.Votes);
+            }
+            table.Write(Format.Alternative);
         }
 
         private static async Task GiveFinalMenu()

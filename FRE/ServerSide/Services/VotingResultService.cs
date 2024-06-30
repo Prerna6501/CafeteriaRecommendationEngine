@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.Models;
+using Microsoft.EntityFrameworkCore;
 using ServerSide.Entity;
 using ServerSide.Repositories.Interfaces;
 using ServerSide.Services.Interfaces;
@@ -17,9 +18,22 @@ namespace ServerSide.Services
         {
             _votingResultRepository = votingResultRepository;
         }
-        public async Task<List<VotingResult>> GetVotingResults()
+        public async Task<List<VotingResultModel>> GetVotingResults()
         {
-            return await _votingResultRepository.GetVotingResults();
+            var votingResult = await _votingResultRepository.GetVotingResults();
+            var votingResultModel = new List<VotingResultModel>();
+            foreach (var result in votingResult)
+            {
+                votingResultModel.Add(new VotingResultModel
+                {
+                    Id = result.Id,
+                    MenuItemId = result.MenuItemId,
+                    MenuItemName = result.MenuItem.Name,
+                    MealType = result.MealType.Name,
+                    Votes = result.NoOfVotes                   
+                });
+            }
+            return votingResultModel;
         }
 
         public async Task<int> GetVoteCount(int menuItemId)
