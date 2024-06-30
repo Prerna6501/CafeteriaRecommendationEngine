@@ -55,6 +55,23 @@ namespace ServerSide
             return JsonConvert.SerializeObject(response, Formatting.Indented);
         }
 
+        public static async Task<string> ChangeAvailability(string parameter, IMenuItemService menuItemService)
+        {
+            string[] updateParams = parameter.Split(',');
+            var menuItemTobeUpdated = await menuItemService.Where(x => x.Id == Convert.ToInt32(updateParams[0])).FirstOrDefaultAsync();
+            if(menuItemTobeUpdated != null)
+            {
+                menuItemTobeUpdated.IsAvailable = Convert.ToBoolean(updateParams[1]);
+                await menuItemService.UpdateAsync(menuItemTobeUpdated);
+                //notification to be created
+                return "Sucessfullyy updated";
+            }
+            else
+            {
+                return "Not present at the moment";
+            }
+
+        }
     }
 }
 

@@ -139,7 +139,8 @@ namespace ServerSide
                 //case "GIVE_FINAL_MENU":
                 //    return await chefService();
 
-                //case "CHANGE_AVAILABILITY":
+                case "CHANGE_AVAILABILITY":
+                    return await MenuItemRequestHandler.ChangeAvailability(parameters, menuItemService);
                
                 //case "VIEW_MONTHLY_REPORT": optional
                 //    return await chefService.ViewMonthlyReport();
