@@ -70,7 +70,7 @@ namespace ClientSide
                         await ViewChoiceVotingResult();
                         break;
                     case 4:
-                        await GiveFinalMenu();
+                        await RolloutFinalMeal();
                         break;
                     case 5:
                         await ChangeAvailability();
@@ -214,9 +214,16 @@ namespace ClientSide
             table.Write(Format.Alternative);
         }
 
-        private static async Task GiveFinalMenu()
+        private static async Task RolloutFinalMeal()
         {
-            string request = "GIVE_FINAL_MENU|";
+            Console.WriteLine("Enter the Final menu for breakfast(1):");
+            string breakFastOption = Console.ReadLine();
+            Console.WriteLine("Enter the Final menu for lunch (2):");
+            string lunchOptions = Console.ReadLine();
+            Console.WriteLine("Enter the Final menu for dinner (2):");
+            string dinnerOptions = Console.ReadLine();
+
+            string request = $"ROLLOUT_FINAL_MEAL|Breakfast:{breakFastOption};Lunch:{lunchOptions};Dinner:{dinnerOptions}";
             string response = await HandleRequest.SendRequest(request);
             Console.WriteLine(response);
         }

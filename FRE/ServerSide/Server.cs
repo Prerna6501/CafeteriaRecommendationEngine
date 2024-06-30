@@ -136,16 +136,14 @@ namespace ServerSide
                 case "VIEW_CHOICE_VOTING_RESULT":
                     return await chefService.GetVotingResults();
 
-                //case "GIVE_FINAL_MENU":
-                //    return await chefService();
+                case "ROLLOUT_FINAL_MEAL":
+                    return await chefService.RolloutFinalMeal(parameters);
 
                 case "CHANGE_AVAILABILITY":
                     return await MenuItemRequestHandler.ChangeAvailability(parameters, menuItemService);
 
                 //case "VIEW_MONTHLY_REPORT": optional
                 //    return await chefService.ViewMonthlyReport();
-
-
 
                 default:
                     return $"Invalid request type: {requestType}";

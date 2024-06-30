@@ -8,11 +8,13 @@ namespace ServerSide.Services
     {
         private readonly IRecommendationService _recommendationService;
         private readonly IVotingResultService _votingResultService;
+        private readonly IFixedMealService _fixedMealService;
 
-        public ChefRequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService)
+        public ChefRequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService)
         {
             _recommendationService = recommendationService;
             _votingResultService = votingResultService;
+            _fixedMealService = fixedMealService;
         }
 
         public async Task<string> GetTopMenuItemsByMealType(string parameters)
@@ -32,9 +34,12 @@ namespace ServerSide.Services
 
         public async Task<string> RolloutChoices(string message)
         {
-            var result = await _votingResultService.CreateVotingForRolledOutChoices(message);
-            return result;
-        }     
+            return await _votingResultService.CreateVotingForRolledOutChoices(message);
+        }  
         
+        public async Task<string> RolloutFinalMeal(string message)
+        {
+            return await _fixedMealService.RolloutFinalMeal(message);
+        }
     }
 }
