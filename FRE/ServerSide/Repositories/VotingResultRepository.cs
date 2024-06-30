@@ -18,7 +18,7 @@ namespace ServerSide.Repositories
 
         public async Task<List<VotingResult>> GetVotingResults()
         {
-            return await _dbContext.VotingResults.Include(vr => vr.MenuItem).ToListAsync();
+            return await _dbContext.VotingResults.Include(v => v.MealType).Include(vr => vr.MenuItem).Where(vr => vr.CreatedDate.Date == DateTime.Now.Date).ToListAsync();
         }
 
         public async Task<string> CreateVotingForRolledOutChoices(string request)
