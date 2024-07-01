@@ -14,7 +14,7 @@ namespace ServerSide.Data.Extentions
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IRecommendationService, RecommendationService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
-            services.AddScoped<IChefService, ChefRequestHandler>();
+            services.AddScoped<IRequestHandler, RequestHandler>();
             services.AddScoped<IVotingResultService, VotingResultService>();
             services.AddScoped<IFixedMealService, FixedMealService>();
             services.AddScoped<VotingResultService>();
@@ -22,7 +22,7 @@ namespace ServerSide.Data.Extentions
             services.AddScoped<MenuItemService>();
             services.AddScoped<FeedbackService>();
             services.AddScoped<NotificationService>();
-            services.AddScoped<ChefRequestHandler>();
+            services.AddScoped<RequestHandler>();
             services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
             return services;

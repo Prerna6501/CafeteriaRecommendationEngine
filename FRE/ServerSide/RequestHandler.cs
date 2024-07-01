@@ -4,13 +4,13 @@ using ServerSide.Services.Interfaces;
 
 namespace ServerSide.Services
 {
-    public class ChefRequestHandler : IChefService
+    public class RequestHandler : IRequestHandler
     {
         private readonly IRecommendationService _recommendationService;
         private readonly IVotingResultService _votingResultService;
         private readonly IFixedMealService _fixedMealService;
 
-        public ChefRequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService)
+        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService)
         {
             _recommendationService = recommendationService;
             _votingResultService = votingResultService;
@@ -40,6 +40,11 @@ namespace ServerSide.Services
         public async Task<string> RolloutFinalMeal(string message)
         {
             return await _fixedMealService.RolloutFinalMeal(message);
+        }
+
+        public async Task<string> VoteMenuItems(string parameters)
+        {
+           return await _votingResultService.VoteMenuItems(parameters);
         }
     }
 }

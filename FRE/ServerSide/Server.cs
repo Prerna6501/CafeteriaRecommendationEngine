@@ -85,7 +85,7 @@ namespace ServerSide
             var notificationService = serviceProvider.GetRequiredService<NotificationService>();
             var menuItemService = serviceProvider.GetRequiredService<MenuItemService>();
             var feedbackService = serviceProvider.GetRequiredService<FeedbackService>();
-            var chefService = serviceProvider.GetRequiredService<ChefRequestHandler>();
+            var requestHandler = serviceProvider.GetRequiredService<IRequestHandler>();
             
 
             switch (requestType.ToUpper())
@@ -128,16 +128,16 @@ namespace ServerSide
                     return await FeedbackRequestHandler.HandleViewFeedbackByEmployee(parameters, feedbackService);
 
                 case "GET_RECOMMENDED_ITEMS":
-                    return await chefService.GetTopMenuItemsByMealType(parameters);
+                    return await requestHandler.GetTopMenuItemsByMealType(parameters);
 
                 case "ROLLOUT_CHOICES":
-                    return await chefService.RolloutChoices(parameters);
+                    return await requestHandler.RolloutChoices(parameters);
 
                 case "VIEW_CHOICE_VOTING_RESULT":
-                    return await chefService.GetVotingResults();
+                    return await requestHandler.GetVotingResults();
 
                 case "ROLLOUT_FINAL_MEAL":
-                    return await chefService.RolloutFinalMeal(parameters);
+                    return await requestHandler.RolloutFinalMeal(parameters);
 
                 case "CHANGE_AVAILABILITY":
                     return await MenuItemRequestHandler.ChangeAvailability(parameters, menuItemService);
@@ -146,7 +146,8 @@ namespace ServerSide
                 //    return await chefService.ViewMonthlyReport();
 
                 case "GET_ROLLOUT_CHOICES":
-                    return await chefService.GetVotingResults();
+                    return await requestHandler.GetVotingResults();
+               
                 default:
                     return $"Invalid request type: {requestType}";
             }
