@@ -106,10 +106,10 @@ namespace ClientSide
             while (true)
             {                
                 Console.WriteLine("Employee Functionality\nPlease select:");
-                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu \n");
+                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu\n6. Vote for Roll out menu\n7. Logout\n");
                 string input = Console.ReadLine();
                 bool isValidChoice = int.TryParse(input, out int choice);
-                if (!isValidChoice || choice < 1 || choice > 5)
+                if (!isValidChoice || choice < 1 || choice > 7)
                 {
                     Console.WriteLine("Wrong choice, try again...\n");
                     continue;
@@ -167,7 +167,20 @@ namespace ClientSide
                 table.AddRow(item.MenuItemId, item.MenuItemName, item.MealType);
             }
             table.Write(Format.Alternative);
-            }
+        }
+
+        private static async Task VoteForMenuItems()
+        {
+            Console.WriteLine("Enter MenuItem ID for breakfast");
+            string breakfast = Console.ReadLine();
+            Console.WriteLine("Enter MenuItem ID for lunch");
+            string lunch = Console.ReadLine();
+            Console.WriteLine("Enter MenuItem ID for dinner");
+            string dinner = Console.ReadLine();
+
+            string request = $"VOTE_MENU_ITEM|Breakfast:{breakfast};Lunch:{lunch};Dinner:{dinner}";
+            string response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
         }
 
         private static async Task GiveFeedback(int userId)

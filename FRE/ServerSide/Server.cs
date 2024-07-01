@@ -86,7 +86,7 @@ namespace ServerSide
             var menuItemService = serviceProvider.GetRequiredService<MenuItemService>();
             var feedbackService = serviceProvider.GetRequiredService<FeedbackService>();
             var requestHandler = serviceProvider.GetRequiredService<IRequestHandler>();
-            
+
 
             switch (requestType.ToUpper())
             {
@@ -111,7 +111,7 @@ namespace ServerSide
                     return await MenuItemRequestHandler.HandleUpdateMenuItem(parameters, menuItemService);
 
                 case "DELETE_MENU_ITEM":
-                    var response = await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);                    
+                    var response = await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);
                     //await notificationService.CreateNotification((int)NotificationTypeEnum.Deleted, int.Parse(parameters));
                     return response;
 
@@ -144,6 +144,9 @@ namespace ServerSide
 
                 //case "VIEW_MONTHLY_REPORT": optional
                 //    return await chefService.ViewMonthlyReport();
+
+                case "VOTE_MENU_ITEM":
+                    return await requestHandler.VoteMenuItems(parameters);
 
                 case "GET_ROLLOUT_CHOICES":
                     return await requestHandler.GetVotingResults();
