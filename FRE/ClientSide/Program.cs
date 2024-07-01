@@ -9,7 +9,7 @@ namespace ClientSide
     {
         static async Task Main(string[] args)
         {       
-            Console.Write("Enter Employee ID: ");
+            Console.Write("Enter User ID: ");
             string id = Console.ReadLine();
             Console.Write("Enter Name: ");
             string name = Console.ReadLine();
@@ -22,7 +22,7 @@ namespace ClientSide
             {
                 if(role == EnumExtensions.GetDescription(UserTypeEnum.Employee))
                 {
-                    await FunctionalityMenu.EmployeeFunctionality();
+                    await FunctionalityMenu.EmployeeFunctionality(int.Parse(id));
                 }
                 else if(role == EnumExtensions.GetDescription(UserTypeEnum.Chef))
                 {

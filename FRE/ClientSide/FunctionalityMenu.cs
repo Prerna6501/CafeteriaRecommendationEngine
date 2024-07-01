@@ -90,7 +90,7 @@ namespace ClientSide
             }
         }
 
-        public static async Task EmployeeFunctionality()
+        public static async Task EmployeeFunctionality(int userId)
         {
             while (true)
             {                
@@ -110,7 +110,7 @@ namespace ClientSide
                         await ViewMenuItems();
                         break;
                     case 2:
-                        await GiveFeedback();
+                        await GiveFeedback(userId);
                         break;
                     case 3:
                         await ViewFeedbackForItem();
@@ -120,6 +120,9 @@ namespace ClientSide
                         break;
                     case 5:
                         await GetRolloutChoices();
+                        break;
+                    case 6:
+                        await VoteForMenuItems();
                         break;
                     case 7:
                         Console.WriteLine("Logout");
@@ -144,7 +147,7 @@ namespace ClientSide
             }
         }
 
-        private static async Task GiveFeedback()
+        private static async Task GiveFeedback(int userId)
         {
             Console.WriteLine("Enter MenuItem ID to give feedback:");
             string itemId = Console.ReadLine();
@@ -153,7 +156,7 @@ namespace ClientSide
             Console.WriteLine("Enter your comments:");
             string comments = Console.ReadLine();
 
-            string request = $"GIVE_FEEDBACK|{itemId},{rating},{comments}";
+            string request = $"GIVE_FEEDBACK|{itemId},{rating},{comments},{userId}";
             string response = await HandleRequest.SendRequest(request);
             Console.WriteLine(response);
         }

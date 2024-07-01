@@ -20,11 +20,12 @@ namespace ServerSide
             int menuItemId = int.Parse(param[0].Trim());
             int rating = int.Parse(param[1].Trim());
             string comments = param[2].Trim();
+            int userId = int.Parse(param[3].Trim());
 
-            Feedback feedback = new Feedback { MenuItemId = menuItemId, Rating = rating, Comment = comments, CreatedDate = DateTime.Now };
+            Feedback feedback = new Feedback { MenuItemId = menuItemId, Rating = rating, Comment = comments, CreatedDate = DateTime.Now, UserId = userId };
             await feedbackService.CreateAsync(feedback);
 
-            return "Feedback given successfully.";
+            return "\nFeedback given successfully.\n";
         }
 
         public static async Task<string> HandleViewFeedbackForItem(string parameters, FeedbackService feedbackService)
