@@ -25,15 +25,19 @@ namespace ClientSide
                 {
                     case 1:
                         await ViewMenuItems();
+                        PrintSeparatorLine();
                         break;
                     case 2:
                         await CreateMenuItem();
+                        PrintSeparatorLine();
                         break;
                     case 3:
                         await UpdateMenuItem();
+                        PrintSeparatorLine();
                         break;
                     case 4:
                         await DeleteMenuItem();
+                        PrintSeparatorLine();
                         break;
                     case 5:
                         Console.WriteLine("Logout");
@@ -62,24 +66,31 @@ namespace ClientSide
                 {
                     case 1:
                         await GetRecommendedItems();
+                        PrintSeparatorLine();
                         break;
                     case 2:
                         await RolloutChoices();
+                        PrintSeparatorLine();
                         break;
                     case 3:
                         await ViewChoiceVotingResult();
+                        PrintSeparatorLine();
                         break;
                     case 4:
                         await RolloutFinalMeal();
+                        PrintSeparatorLine();
                         break;
                     case 5:
                         await ChangeAvailability();
+                        PrintSeparatorLine();
                         break;
                     case 6:
                         await ViewFeedbackForItem();
+                        PrintSeparatorLine();
                         break;
                     case 7:
-                        await ViewMonthlyReport();
+                        await ViewMonthlyReport();//OPTIONAL
+                        PrintSeparatorLine();
                         break;
                     case 8:
                         Console.WriteLine("Logout");
@@ -108,29 +119,41 @@ namespace ClientSide
                 {
                     case 1:
                         await ViewMenuItems();
+                        PrintSeparatorLine();
                         break;
                     case 2:
                         await GiveFeedback(userId);
+                        PrintSeparatorLine();
                         break;
                     case 3:
                         await ViewFeedbackForItem();
+                        PrintSeparatorLine();
                         break;
                     case 4:
                         await ViewAllFeedbackByEmployee();
+                        PrintSeparatorLine();
                         break;
                     case 5:
                         await GetRolloutChoices();
+                        PrintSeparatorLine();
                         break;
                     case 6:
                         await VoteForMenuItems();
+                        PrintSeparatorLine();
                         break;
                     case 7:
                         Console.WriteLine("Logout");
+                        PrintSeparatorLine();
                         return;
                     default:
                         break;
                 }
             }
+        }
+
+        private static async void PrintSeparatorLine()
+        {
+            Console.WriteLine("===========================================================================================================================================");
         }
 
         private static async Task GetRolloutChoices()
