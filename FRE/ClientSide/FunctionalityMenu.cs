@@ -130,7 +130,7 @@ namespace ClientSide
                         PrintSeparatorLine();
                         break;
                     case 4:
-                        await ViewAllFeedbackByEmployee();
+                        await ViewAllFeedbackByEmployee(userId);
                         PrintSeparatorLine();
                         break;
                     case 5:
@@ -203,13 +203,19 @@ namespace ClientSide
             table.Write(Format.Alternative);
         }
 
-        private static async Task ViewAllFeedbackByEmployee()
+        private static async Task ViewAllFeedbackByEmployee(int userId)
         {
-            string request = "VIEW_FEEDBACK_EMPLOYEE|";
+            string request = $"VIEW_FEEDBACK_EMPLOYEE|{userId}";
             string response = await HandleRequest.SendRequest(request);
 
-            Console.WriteLine("All feedback given by you:");
-            Console.WriteLine(response);
+            Console.WriteLine("All feedback given by you:\n");
+            List<FeedbackModel> feedbacks = JsonConvert.DeserializeObject<List<FeedbackModel>>(response);
+            var table = new ConsoleTable("FeedBack Id", "MenuItem Id","MenuItem Name", "Rating", "Comments");
+            foreach (var item in feedbacks)
+            {
+                table.AddRow(item.Id, item.MenuItemId,item.MenuItemName, item.Rating, item.Comment);
+            }
+            table.Write(Format.Alternative);
         }
 
         private static async Task GetRecommendedItems()

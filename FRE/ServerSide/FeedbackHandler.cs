@@ -51,9 +51,20 @@ namespace ServerSide
         public static async Task<string> HandleViewFeedbackByEmployee(string parameters, FeedbackService feedbackService)
         {
             int id = int.Parse(parameters.Trim());
-            var feedbacks = await feedbackService.Where(x => x.UserId == id).ToListAsync();
-
-            return JsonConvert.SerializeObject(feedbacks);
+            var feedbacks = await feedbackService.Where(x => x.UserId == id).Include(x => x.MenuItem).ToListAsync();
+            List<FeedbackModel> feedbackModels = new List<FeedbackModel>();
+            foreach (var feedback in feedbacks)
+            {
+                feedbackModels.Add(new FeedbackModel
+                {
+                    Id = feedback.Id,
+                    Comment = feedback.Comment,
+                    MenuItemName = feedback.MenuItem.Name,
+                    Rating = feedback.Rating,
+                    MenuItemId = feedback.MenuItem.Id,
+                });
+            }
+            return JsonConvert.SerializeObject(feedbackModels, Formatting.Indented);
         }
     }
 }
