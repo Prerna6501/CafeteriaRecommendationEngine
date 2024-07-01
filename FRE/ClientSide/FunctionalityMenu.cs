@@ -12,12 +12,12 @@ namespace ClientSide
             while (true)
             {
                 Console.WriteLine("Admin Funtionality /n Please select :");
-                Console.WriteLine("1.View MenuItem \n2.Create MenuItems \n3.Update Menultems \n4.Delete MenuItems \n5.Exit");
+                Console.WriteLine("1.View MenuItem \n2.Create MenuItems \n3.Update Menultems \n4.Delete MenuItems \n5.Exit\n");
                 string input = Console.ReadLine();
                 bool IsValidChoice = int.TryParse(input, out int choice);
                 if (!IsValidChoice || choice < 1 || choice > 5)
                 {
-                    Console.WriteLine("Wrong choice, try again...");
+                    Console.WriteLine("Wrong choice, try again...\n");
                     continue;
                 }
 
@@ -49,12 +49,12 @@ namespace ClientSide
             while (true)
             {
                 Console.WriteLine("Chef Functionality\nPlease select:");
-                Console.WriteLine("1. Get Recommended Items\n2. Rollout Choices\n3. View Choice Voting Result\n4. Give Final Menu\n5. Change Availability\n6. View Feedback for a particular item\n7. View Monthly Report\n8. Exit");
+                Console.WriteLine("1. Get Recommended Items\n2. Rollout Choices\n3. View Choice Voting Result\n4. Give Final Menu\n5. Change Availability\n6. View Feedback for a particular item\n7. View Monthly Report\n8. Exit\n");
                 string input = Console.ReadLine();
                 bool isValidChoice = int.TryParse(input, out int choice);
                 if (!isValidChoice || choice < 1 || choice > 8)
                 {
-                    Console.WriteLine("Wrong choice, try again...");
+                    Console.WriteLine("Wrong choice, try again...\n");
                     continue;
                 }
 
@@ -95,12 +95,12 @@ namespace ClientSide
             while (true)
             {                
                 Console.WriteLine("Employee Functionality\nPlease select:");
-                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Exit");
+                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu \n");
                 string input = Console.ReadLine();
                 bool isValidChoice = int.TryParse(input, out int choice);
                 if (!isValidChoice || choice < 1 || choice > 5)
                 {
-                    Console.WriteLine("Wrong choice, try again...");
+                    Console.WriteLine("Wrong choice, try again...\n");
                     continue;
                 }
 
