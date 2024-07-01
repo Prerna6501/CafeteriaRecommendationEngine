@@ -119,11 +119,28 @@ namespace ClientSide
                         await ViewAllFeedbackByEmployee();
                         break;
                     case 5:
+                        await GetRolloutChoices();
+                        break;
+                    case 7:
                         Console.WriteLine("Logout");
                         return;
                     default:
                         break;
                 }
+            }
+        }
+
+        private static async Task GetRolloutChoices()
+        {
+            string request = "GET_ROLLOUT_CHOICES|";
+            string response = await HandleRequest.SendRequest(request);
+            List<VotingResultModel> votingResults = JsonConvert.DeserializeObject<List<VotingResultModel>>(response);
+            var table = new ConsoleTable("MenuItem Id", "MenuItem Name", "MealType");
+            foreach (var item in votingResults)
+            {
+                table.AddRow(item.MenuItemId, item.MenuItemName, item.MealType);
+            }
+            table.Write(Format.Alternative);
             }
         }
 

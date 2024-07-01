@@ -145,6 +145,8 @@ namespace ServerSide
                 //case "VIEW_MONTHLY_REPORT": optional
                 //    return await chefService.ViewMonthlyReport();
 
+                case "GET_ROLLOUT_CHOICES":
+                    return await chefService.GetVotingResults();
                 default:
                     return $"Invalid request type: {requestType}";
             }
