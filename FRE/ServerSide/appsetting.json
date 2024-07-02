@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "REDatabase": "Initial Catalog=FoodRE;Password=Test@12345678;User ID=sa;Data Source=localhost;TrustServerCertificate=True;"   
+  }
+}

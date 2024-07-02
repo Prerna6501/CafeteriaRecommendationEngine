@@ -103,17 +103,13 @@ namespace ServerSide
                     return await authService.AuthenticateUser(userId, name, password);
 
                 case "ADD_MENU_ITEM":
-                    var result = await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
-                    //await notificationService.CreateNotification((int)NotificationTypeEnum.NewItemAdded, int.Parse(parameters));
-                    return result;
+                    return await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
 
                 case "UPDATE_MENU":
                     return await MenuItemRequestHandler.HandleUpdateMenuItem(parameters, menuItemService);
 
                 case "DELETE_MENU_ITEM":
-                    var response = await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);
-                    //await notificationService.CreateNotification((int)NotificationTypeEnum.Deleted, int.Parse(parameters));
-                    return response;
+                    return await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);
 
                 case "VIEW_MENU":
                     return await MenuItemRequestHandler.HandleViewMenuItem(menuItemService);
