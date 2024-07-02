@@ -335,7 +335,7 @@ namespace ServerSide.Data
                     },
                     new NotificationType
                     {
-                        Name = "Final Preparation"
+                        Name = "Final Preparation(Fixed meal)"
                     },
                     new NotificationType
                     {
@@ -343,7 +343,7 @@ namespace ServerSide.Data
                     },
                     new NotificationType
                     {
-                        Name = "Unavailability"
+                        Name = "Avalability"
                     },
                     new NotificationType
                     {

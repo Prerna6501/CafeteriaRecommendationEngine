@@ -14,9 +14,16 @@ namespace ServerSide.Services
             _notificationRepository = notificationRepository;
         }
 
-        public Task CreateNotification(int type, int id)
+        public async Task CreateNotification(int typeId, string message)
         {
-            throw new NotImplementedException();
+            Notification notification = new Notification
+            {
+                NotificationTypeId = typeId,
+                Message = message,
+                CreatedDate = DateTime.Now,
+                IsDeleted = false,                
+            };
+            await _notificationRepository.CreateAsync(notification);
         }
     }
 }

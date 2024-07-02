@@ -42,6 +42,11 @@ namespace ServerSide.Services
             return await _fixedMealService.RolloutFinalMeal(message);
         }
 
+        public Task<string> ViewMonthlyReport()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<string> VoteMenuItems(string parameters)
         {
            return await _votingResultService.VoteMenuItems(parameters);

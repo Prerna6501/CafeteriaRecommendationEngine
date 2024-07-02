@@ -19,7 +19,7 @@ namespace ServerSide
                 IsDeleted = false,
                 MenuItemTypeId = Convert.ToInt32(addParams[3])
             };
-            var response = await menuItemService.CreateAsync(menuItemAdd);
+            var response = await menuItemService.AddMenuItem(menuItemAdd);
             return JsonConvert.SerializeObject(response, Formatting.Indented);
         }
 
@@ -47,30 +47,18 @@ namespace ServerSide
 
         public static async Task<string> HandleDeleteMenuItem(string parameter, IMenuItemService menuItemService)
         {
-            var itemToBeDeleted = menuItemService.Where(x => x.Id == Convert.ToInt32(parameter)).FirstOrDefault();
-            if(itemToBeDeleted == null) { return "No menuitem found"; }
-            itemToBeDeleted.IsDeleted = true;
-            itemToBeDeleted.IsAvailable = false;
-            var response = await menuItemService.UpdateAsync(itemToBeDeleted);
-            return JsonConvert.SerializeObject(response, Formatting.Indented);
+            int menuItemId = Convert.ToInt32(parameter);
+            var response = await menuItemService.RemoveMenuItem(menuItemId);
+            
+            if(response == null) { return "No menuitem found"; }
+
+            else { return JsonConvert.SerializeObject(response, Formatting.Indented); }      
         }
 
         public static async Task<string> ChangeAvailability(string parameter, IMenuItemService menuItemService)
         {
             string[] updateParams = parameter.Split(',');
-            var menuItemTobeUpdated = await menuItemService.Where(x => x.Id == Convert.ToInt32(updateParams[0])).FirstOrDefaultAsync();
-            if(menuItemTobeUpdated != null)
-            {
-                menuItemTobeUpdated.IsAvailable = Convert.ToBoolean(updateParams[1]);
-                await menuItemService.UpdateAsync(menuItemTobeUpdated);
-                //notification to be created
-                return "Sucessfullyy updated";
-            }
-            else
-            {
-                return "Not present at the moment";
-            }
-
+            return await menuItemService.UpdateAvailability(Convert.ToInt32(updateParams[0]), Convert.ToBoolean(updateParams[1]));           
         }
     }
 }
