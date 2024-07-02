@@ -13,6 +13,7 @@ namespace ServerSide.Services.Interfaces
         public Task<string> GetVotingResults();
         public Task<string> RolloutChoices(string message);
         public Task<string> RolloutFinalMeal(string message);
+        public Task<string> ViewMonthlyReport();
         public Task<string> VoteMenuItems(string parameters);
     }
 }

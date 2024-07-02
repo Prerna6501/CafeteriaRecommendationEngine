@@ -142,8 +142,8 @@ namespace ServerSide
                 case "CHANGE_AVAILABILITY":
                     return await MenuItemRequestHandler.ChangeAvailability(parameters, menuItemService);
 
-                //case "VIEW_MONTHLY_REPORT": optional
-                //    return await chefService.ViewMonthlyReport();
+                case "VIEW_MONTHLY_REPORT":
+                    return await requestHandler.ViewMonthlyReport();
 
                 case "VOTE_MENU_ITEM":
                     return await requestHandler.VoteMenuItems(parameters);

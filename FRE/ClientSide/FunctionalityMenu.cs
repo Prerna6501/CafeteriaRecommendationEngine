@@ -1,4 +1,5 @@
-﻿using Common.Models;
+﻿using Common.Enums;
+using Common.Models;
 using ConsoleTables;
 using Newtonsoft.Json;
 using ServerSide.Entity;
@@ -7,7 +8,29 @@ namespace ClientSide
 {
     class FunctionalityMenu
     {
-        public static async Task AdminFunctionality()
+        public static async Task GetFunctionalityMenu(string role, string userId)
+        {
+            if (role != null)
+            {
+                if (role == EnumExtensions.GetDescription(UserTypeEnum.Employee))
+                {
+                    await EmployeeFunctionality(int.Parse(userId));
+                }
+                else if (role == EnumExtensions.GetDescription(UserTypeEnum.Chef))
+                {
+                    await ChefFunctionality();
+                }
+                else if (role == EnumExtensions.GetDescription(UserTypeEnum.Admin))
+                {
+                    await AdminFunctionality();
+                }
+                else
+                {
+                    Console.WriteLine("Invalid role");
+                }
+            }
+        }
+        private static async Task AdminFunctionality()
         {
             while (true)
             {
@@ -48,7 +71,7 @@ namespace ClientSide
             }
         }
 
-        public static async Task ChefFunctionality()
+        private static async Task ChefFunctionality()
         {
             while (true)
             {
@@ -101,7 +124,7 @@ namespace ClientSide
             }
         }
 
-        public static async Task EmployeeFunctionality(int userId)
+        private static async Task EmployeeFunctionality(int userId)
         {
             while (true)
             {                

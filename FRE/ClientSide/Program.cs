@@ -18,25 +18,7 @@ namespace ClientSide
                        
             string loginMessage = $"AUTHENTICATE_USER|{id},{name},{password}";
             string role = await AuthFunction.AuthenticateUser(loginMessage);
-            if(role != null)
-            {
-                if(role == EnumExtensions.GetDescription(UserTypeEnum.Employee))
-                {
-                    await FunctionalityMenu.EmployeeFunctionality(int.Parse(id));
-                }
-                else if(role == EnumExtensions.GetDescription(UserTypeEnum.Chef))
-                {
-                    await FunctionalityMenu.ChefFunctionality();
-                }
-                else if(role == EnumExtensions.GetDescription(UserTypeEnum.Admin))
-                {
-                    await FunctionalityMenu.AdminFunctionality();
-                }
-                else
-                {
-                    Console.WriteLine("Invalid role");
-                }
-            }
+            await FunctionalityMenu.GetFunctionalityMenu(role, id);
         }
     }
 }
