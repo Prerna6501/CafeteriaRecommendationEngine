@@ -146,7 +146,10 @@ namespace ServerSide
 
                 case "GET_ROLLOUT_CHOICES":
                     return await requestHandler.GetVotingResults();
-               
+
+                case "GET_NOTIFICATIONS":
+                    return await requestHandler.GetNotifications();
+
                 default:
                     return $"Invalid request type: {requestType}";
             }

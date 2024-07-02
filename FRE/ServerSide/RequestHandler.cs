@@ -9,12 +9,21 @@ namespace ServerSide.Services
         private readonly IRecommendationService _recommendationService;
         private readonly IVotingResultService _votingResultService;
         private readonly IFixedMealService _fixedMealService;
+        private readonly INotificationService _notificationService;
 
-        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService)
+        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService, INotificationService notificationService)
         {
             _recommendationService = recommendationService;
             _votingResultService = votingResultService;
             _fixedMealService = fixedMealService;
+            _notificationService = notificationService;
+        }
+
+        public async Task<string> GetNotifications()
+        {
+            var result = await _notificationService.GetAllAsync();
+            if(result == null) { return "No notifications at the moment."; }
+            return JsonConvert.SerializeObject(result, Formatting.Indented);
         }
 
         public async Task<string> GetTopMenuItemsByMealType(string parameters)

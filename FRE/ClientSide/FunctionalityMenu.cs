@@ -165,6 +165,10 @@ namespace ClientSide
                         PrintSeparatorLine();
                         break;
                     case 7:
+                        await GetNotifications();
+                        PrintSeparatorLine();
+                        break;
+                    case 8:
                         Console.WriteLine("Logout");
                         PrintSeparatorLine();
                         return;
@@ -172,6 +176,19 @@ namespace ClientSide
                         break;
                 }
             }
+        }
+
+        private static async Task GetNotifications()
+        {
+            string request = "GET_NOTIFICATIONS|";
+            string response = await HandleRequest.SendRequest(request);
+            List<Notification> notificationList = JsonConvert.DeserializeObject<List<Notification>>(response);
+            var table = new ConsoleTable("Id", "Message", "Date");
+            foreach (var item in notificationList)
+            {
+                table.AddRow(item.Id, item.Message, item.CreatedDate);
+            }
+            table.Write(Format.MarkDown);
         }
 
         private static async void PrintSeparatorLine()
