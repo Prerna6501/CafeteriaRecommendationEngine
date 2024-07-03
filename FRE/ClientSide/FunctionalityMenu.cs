@@ -76,11 +76,11 @@ namespace ClientSide
             while (true)
             {
                 Console.WriteLine("Chef Functionality\nPlease select:");
-                Console.WriteLine("1. Get Recommended Items\n2. Rollout Choices\n3. View Choice Voting Result\n4. Give Final Menu\n5. Change Availability\n6. View Feedback for a particular item\n7. View Monthly Report\n8. Get Discard List\n9. Remove discarded item\n10. Get Detailed feedback\n11. View Detailed feebacks for a particular item\n12. Exit\n");
+                Console.WriteLine("1. Get Recommended Items\n2. Rollout Choices\n3. View Choice Voting Result\n4. Give Final Menu\n5. Change Availability\n6. View Feedback for a particular item\n7. View Monthly Report\n8. Get Discard List\n9. Remove discarded item\n10. Get Detailed feedback from user \n11. View Detailed feebacks for a particular item\n12. Exit\n");
 
                 string input = Console.ReadLine();
                 bool isValidChoice = int.TryParse(input, out int choice);
-                if (!isValidChoice || choice < 1 || choice > 8)
+                if (!isValidChoice || choice < 1 || choice > 12)
                 {
                     Console.WriteLine("Wrong choice, try again...\n");
                     continue;
@@ -120,8 +120,19 @@ namespace ClientSide
                         await GetDiscardList();
                         PrintSeparatorLine();
                         break;
-
+                    case 9:
+                        await RemoveDiscardedItem();
+                        PrintSeparatorLine();
+                        break;
                     case 10:
+                        await GetDetailedFeedbackFromUser();
+                        PrintSeparatorLine();
+                        break;
+                    case 11:
+                        await ViewDetailedFeebacksForAItem();
+                        PrintSeparatorLine();
+                        break;                   
+                    case 12:
                         Console.WriteLine("Logout");
                         return;
                     default:
@@ -185,6 +196,42 @@ namespace ClientSide
                     default:
                         break;
                 }
+            }
+        }
+
+        private static async Task RemoveDiscardedItem()
+        {
+            Console.WriteLine("Enter DiscardID that you want to remove permanently");
+            var discardId = Console.ReadLine();
+            var request = $"REMOVE_DISCARD_ITEM|{discardId}";
+            var response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
+        }
+
+        private static async Task GetDetailedFeedbackFromUser()
+        {
+            Console.WriteLine("Enter DiscardID that you want detailed feedback from the user.");
+            var discardId = Console.ReadLine();
+            var request = $"GET_DETAILED_FEEDBACK_ITEM|{discardId}";
+            var response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
+        }
+
+        private static async Task ViewDetailedFeebacksForAItem()
+        {
+            Console.WriteLine("Enter DiscardID that you want detailed feedback.");
+            var discardId = Console.ReadLine();
+            var request = $"VIEW_DETAILED_FEEDBACK_ITEM|{discardId}";
+            var response = await HandleRequest.SendRequest(request);
+            List<DetailedFeedbackViewModel> feedbacks = JsonConvert.DeserializeObject<List<DetailedFeedbackViewModel>>(response);
+            foreach(var feedback in feedbacks)
+            {
+                Console.WriteLine($"Id :{feedback.Id}");
+                Console.WriteLine($"DiscardItem Id:{feedback.DiscardItemId}");
+                Console.WriteLine($"UserId :{feedback.UserId}");
+                Console.WriteLine($"Question :{feedback.Question}");
+                Console.WriteLine($"Response :{feedback.Comment}");
+                Console.WriteLine("\n----------------------------------------------------\n");
             }
         }
 

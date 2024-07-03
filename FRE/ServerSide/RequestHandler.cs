@@ -1,4 +1,5 @@
 ﻿using Common.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ServerSide.Services.Interfaces;
 
@@ -27,6 +28,12 @@ namespace ServerSide.Services
         {
             DetailedFeedbackModel detailedFeedbackModel = JsonConvert.DeserializeObject<DetailedFeedbackModel>(parameters);
             return await _detailedFeedbackService.GiveDetailedFeedback(detailedFeedbackModel);
+        }
+
+        public async Task<string> RequestDetailedFeedbackFromUser(string parameters)
+        {            
+            int discardId = int.Parse(parameters.Trim());
+            return await _discardItemService.RequestDetailedFeedback(discardId);
         }
 
         public async Task<string> GetDiscardItems()
@@ -63,6 +70,12 @@ namespace ServerSide.Services
             return JsonConvert.SerializeObject(result, Formatting.Indented);
         }
 
+        public async Task<string> RemoveDiscardItem(string parameters)
+        {
+            int discardId = int.Parse(parameters.Trim());
+            return await _discardItemService.RemoveMenuItem(discardId);
+        }
+
         public async Task<string> RolloutChoices(string message)
         {
             return await _votingResultService.CreateVotingForRolledOutChoices(message);
@@ -71,6 +84,27 @@ namespace ServerSide.Services
         public async Task<string> RolloutFinalMeal(string message)
         {
             return await _fixedMealService.RolloutFinalMeal(message);
+        }
+
+        public async Task<string> ViewDetailedFeedbackOfItem(string parameters)
+        {
+            int discardId = int.Parse(parameters.Trim());
+            //var detailedFeedback = _detailedFeedbackService.Where(x => x.DiscardItemId== discardId).Include(x => x.QuestionType).Include(y => y.DiscardItem).ThenInclude(x => x.MenuItem);
+            var detailedFeedback =await _detailedFeedbackService.Where(x => x.DiscardItemId == discardId).Include(x => x.QuestionType).ToListAsync();
+            List<DetailedFeedbackViewModel> result = new List<DetailedFeedbackViewModel>();
+            foreach(var item in detailedFeedback)
+            {
+                result.Add(new DetailedFeedbackViewModel
+                {
+                    Id = item.Id,
+                    DiscardItemId = item.DiscardItemId,
+                    UserId = item.UserId,
+                    Comment = item.Comment,
+                    Question = item.QuestionType.Question
+                });
+            }
+            var serilizedResult = JsonConvert.SerializeObject(result, Formatting.Indented);
+            return serilizedResult;
         }
 
         public Task<string> ViewMonthlyReport()
