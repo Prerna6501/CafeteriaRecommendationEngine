@@ -12,5 +12,6 @@
         public UserType UserType { get; set; }
         public List<Feedback> Feedbacks { get; set; }
         public List<VotingResult> VotingResults { get; set; }
+        public EmployeeProfile? EmployeeProfile { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace ServerSide.Data
         public DbSet<DetailedFeedback> DetailedFeedbacks { get; set; }
         public DbSet<QuestionType> QuestionTypes { get; set; }
         public DbSet<DiscardItem> DiscardItems { get; set; }
+        public DbSet<EmployeeProfile> EmployeeProfiles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -104,6 +105,12 @@ namespace ServerSide.Data
                 .HasOne(x => x.MenuItem)
                 .WithMany(x => x.DiscardItems)
                 .HasForeignKey(y => y.MenuItemId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EmployeeProfile>()
+                .HasOne(x => x.User)
+                .WithOne(y => y.EmployeeProfile)
+                .HasForeignKey<EmployeeProfile>(p => p.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

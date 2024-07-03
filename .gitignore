@@ -13,3 +13,5 @@
 /FRE/Common/obj
 /FRE/ServerSide/bin/Debug/net8.0
 /FRE/ServerSide/obj
+/FRE/UnitTests
+/.vs
