@@ -13,8 +13,9 @@ namespace ServerSide.Services
         private readonly INotificationService _notificationService;
         private readonly IDetailedFeedbackService _detailedFeedbackService;
         private readonly IDiscardItemService _discardItemService;
+        private readonly IProfileService _profileService;
 
-        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService, INotificationService notificationService, IDetailedFeedbackService detailedFeedbackService, IDiscardItemService discardItemService)
+        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService, INotificationService notificationService, IDetailedFeedbackService detailedFeedbackService, IDiscardItemService discardItemService, IProfileService profileService)
         {
             _recommendationService = recommendationService;
             _votingResultService = votingResultService;
@@ -22,6 +23,7 @@ namespace ServerSide.Services
             _notificationService = notificationService;
             _detailedFeedbackService = detailedFeedbackService;
             _discardItemService = discardItemService;
+            _profileService = profileService;
         }
 
         public async Task<string> AddDetailedFeedback(string parameters)
@@ -115,6 +117,12 @@ namespace ServerSide.Services
         public async Task<string> VoteMenuItems(string parameters)
         {
             return await _votingResultService.VoteMenuItems(parameters);
+        }
+
+        public async Task<string> SetupProfile(string parameters)
+        {
+            EmployeeProfileModel employeeProfileModel = JsonConvert.DeserializeObject<EmployeeProfileModel>(parameters);
+            return await _profileService.SetupProfile(employeeProfileModel);
         }
     }
 }

@@ -16,5 +16,6 @@ namespace ServerSide.Services.Interfaces
         public Task<string> ViewDetailedFeedbackOfItem(string parameters);
         public Task<string> ViewMonthlyReport();
         public Task<string> VoteMenuItems(string parameters);
+        public Task<string> SetupProfile(string parameters);
     }
 }

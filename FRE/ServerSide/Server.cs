@@ -163,6 +163,9 @@ namespace ServerSide
                 case "GET_DETAILED_FEEDBACK_ITEM":
                     return await requestHandler.RequestDetailedFeedbackFromUser(parameters);
 
+                case "SETUP_PROFILE":
+                    return await requestHandler.SetupProfile(parameters);
+
                 default:
                     return $"Invalid request type: {requestType}";
             }

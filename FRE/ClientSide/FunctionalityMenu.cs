@@ -190,7 +190,7 @@ namespace ClientSide
                         PrintSeparatorLine();
                         break;
                     case 9:
-                        await SetupProfile();
+                        await SetupProfile(userId);
                         PrintSeparatorLine();
                         break;
 
@@ -204,7 +204,7 @@ namespace ClientSide
             }
         }
 
-        private static async Task SetupProfile()
+        private static async Task SetupProfile(int userId)
         {
             EmployeeProfileModel profile = new EmployeeProfileModel();
             Console.WriteLine("Add Your Profile:");
@@ -223,6 +223,8 @@ namespace ClientSide
             Console.WriteLine("4) Do you have a sweet tooth? - Yes, No");
             profile.HasSweetTooth = Console.ReadLine().ToLower() == "yes";
 
+            profile.UserId = userId;
+            
             string serializedProfile = JsonConvert.SerializeObject(profile, Formatting.Indented);
             string request = $"SETUP_PROFILE|{serializedProfile}";
             string response = await HandleRequest.SendRequest(request);
