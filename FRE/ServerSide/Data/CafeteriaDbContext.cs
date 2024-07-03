@@ -99,6 +99,12 @@ namespace ServerSide.Data
                 .WithMany()
                 .HasForeignKey(d => d.QuestionTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<DiscardItem>()
+                .HasOne(x => x.MenuItem)
+                .WithMany(x => x.DiscardItems)
+                .HasForeignKey(y => y.MenuItemId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

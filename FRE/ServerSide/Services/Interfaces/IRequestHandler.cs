@@ -3,6 +3,7 @@
     public interface IRequestHandler
     {
         public Task<string> AddDetailedFeedback(string parameters);
+        public Task<string> GetDiscardItems();
         public Task<string> GetNotifications();
         public Task<string> GetTopMenuItemsByMealType(string parameters);
         public Task<string> GetVotingResults();

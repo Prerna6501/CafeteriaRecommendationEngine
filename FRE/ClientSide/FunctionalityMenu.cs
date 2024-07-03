@@ -190,7 +190,15 @@ namespace ClientSide
 
         private static async Task GetDiscardList()
         {
-
+            string request = "GET_DISCARD_LIST|";
+            string response = await HandleRequest.SendRequest(request);
+            List<DiscardItemModel> discardItemList = JsonConvert.DeserializeObject<List<DiscardItemModel>>(response);
+            var table = new ConsoleTable("DiscardId", "MenuItemId", "Status", "Average rating", "Sentiments");
+            foreach (var item in discardItemList)
+            {
+                table.AddRow(item.Id, item.Name, item.Status, item.AverageRating, item.Sentiments);
+            }
+            table.Write(Format.Alternative);
         }
 
         private static async Task GiveDetailFeedback(int userId)

@@ -151,6 +151,9 @@ namespace ServerSide
                 case "ADD_DETAILED_FEEDBACK":
                     return await requestHandler.AddDetailedFeedback(parameters);
 
+                case "GET_DISCARD_LIST":
+                    return await requestHandler.GetDiscardItems();
+
                 default:
                     return $"Invalid request type: {requestType}";
             }

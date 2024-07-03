@@ -67,6 +67,41 @@ namespace ServerSide.Services
             return menuItemModel.OrderByDescending(x => x.AverageRating).Take(topN).ToList();
         }
 
+        public async Task<(double averageRating, string sentiment)> GetMonthlySentimentRatingForMenuItem(int menuItemId)
+        {
+            DateTime now = DateTime.Now;
+            DateTime startOfMonth = new DateTime(now.Year, now.Month, 1);
+            DateTime startOfNextMonth = startOfMonth.AddMonths(1);
+
+            List<Feedback> feedbacks = await _feedbackService
+                .Where(x => x.MenuItemId == menuItemId && x.CreatedDate >= startOfMonth && x.CreatedDate < startOfNextMonth)
+                .ToListAsync();
+
+            if (!feedbacks.Any())
+            {
+                return (0.0, "No feedbacks for the current month");
+            }
+
+            double averageRating = feedbacks.Average(x => x.Rating);
+
+            Dictionary<string, int> sentimentCounts = new Dictionary<string, int>
+            {
+                { "Positive", 0 },
+                { "Negative", 0 },
+                { "Neutral", 0 }
+            };
+
+            foreach (Feedback feedback in feedbacks)
+            {
+                string sentiment = AnalyzeSentimentForComment(feedback.Comment);
+                sentimentCounts[sentiment]++;
+            }
+
+            string highestSentiment = sentimentCounts.OrderByDescending(x => x.Value).First().Key;
+
+            return (averageRating, highestSentiment);
+        }
+
         private string AnalyzeSentimentForComment(string comment)
         {
             string lowerComment = comment.ToLower();

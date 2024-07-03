@@ -11,20 +11,28 @@ namespace ServerSide.Services
         private readonly IFixedMealService _fixedMealService;
         private readonly INotificationService _notificationService;
         private readonly IDetailedFeedbackService _detailedFeedbackService;
+        private readonly IDiscardItemService _discardItemService;
 
-        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService, INotificationService notificationService, IDetailedFeedbackService detailedFeedbackService)
+        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService, INotificationService notificationService, IDetailedFeedbackService detailedFeedbackService, IDiscardItemService discardItemService)
         {
             _recommendationService = recommendationService;
             _votingResultService = votingResultService;
             _fixedMealService = fixedMealService;
             _notificationService = notificationService;
             _detailedFeedbackService = detailedFeedbackService;
+            _discardItemService = discardItemService;
         }
 
         public async Task<string> AddDetailedFeedback(string parameters)
         {
             DetailedFeedbackModel detailedFeedbackModel = JsonConvert.DeserializeObject<DetailedFeedbackModel>(parameters);
             return await _detailedFeedbackService.GiveDetailedFeedback(detailedFeedbackModel);
+        }
+
+        public async Task<string> GetDiscardItems()
+        {
+            var result = await _discardItemService.GetDiscardItemList();
+            return JsonConvert.SerializeObject(result, Formatting.Indented);
         }
 
         public async Task<string> GetNotifications()

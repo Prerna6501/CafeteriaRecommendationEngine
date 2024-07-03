@@ -8,6 +8,7 @@
         public double AverageRating { get; set; }
         public string Sentiments { get; set; }
         public DateTime CreatedDate { get; set; }
+        public MenuItem MenuItem { get; set; }
         public List<DetailedFeedback> DetailedFeedbacks { get; set; }
     }
 }
