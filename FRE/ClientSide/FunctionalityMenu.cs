@@ -146,7 +146,7 @@ namespace ClientSide
             while (true)
             {
                 Console.WriteLine("Employee Functionality\nPlease select:");
-                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu\n6. Vote for Roll out menu\n7. Get notifications\n8. Give detailed feedback\n9. Logout\n");
+                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu\n6. Vote for Roll out menu\n7. Get notifications\n8. Give detailed feedback\n9. Setup Profile\n10. Logout");
                 string input = Console.ReadLine();
                 bool isValidChoice = int.TryParse(input, out int choice);
                 if (!isValidChoice || choice < 1 || choice > 10)
@@ -190,6 +190,11 @@ namespace ClientSide
                         PrintSeparatorLine();
                         break;
                     case 9:
+                        await SetupProfile();
+                        PrintSeparatorLine();
+                        break;
+
+                    case 10:
                         Console.WriteLine("Logout");
                         PrintSeparatorLine();
                         return;
@@ -197,6 +202,31 @@ namespace ClientSide
                         break;
                 }
             }
+        }
+
+        private static async Task SetupProfile()
+        {
+            EmployeeProfileModel profile = new EmployeeProfileModel();
+            Console.WriteLine("Add Your Profile:");
+            Console.WriteLine("1) Please select one - 1.Vegetarian, 2.Non Vegetarian, 3.Eggetarian");
+            var dietPreferenceChoice = int.Parse(Console.ReadLine());
+            profile.DietPreference = (DietPreferenceEnum)(dietPreferenceChoice);
+
+            Console.WriteLine("2) Please select your spice level - 1.High, 2.Medium, 3.Low");
+            var spiceLevelChoice = int.Parse(Console.ReadLine());
+            profile.SpiceLevel = (SpiceLevelEnum)(spiceLevelChoice - 1);
+
+            Console.WriteLine("3) What do you prefer most? - 1.North Indian, 2.South Indian, 3.Other");
+            var cuisinePreferenceChoice = int.Parse(Console.ReadLine());
+            profile.CuisinePreference = (CuisinePreferenceEnum)(cuisinePreferenceChoice - 1);
+
+            Console.WriteLine("4) Do you have a sweet tooth? - Yes, No");
+            profile.HasSweetTooth = Console.ReadLine().ToLower() == "yes";
+
+            string serializedProfile = JsonConvert.SerializeObject(profile, Formatting.Indented);
+            string request = $"SETUP_PROFILE|{serializedProfile}";
+            string response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
         }
 
         private static async Task RemoveDiscardedItem()
