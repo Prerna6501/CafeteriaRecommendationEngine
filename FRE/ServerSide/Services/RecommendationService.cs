@@ -12,9 +12,9 @@ namespace ServerSide.Services
         private readonly IFeedbackService _feedbackService;
 
         //Add more
-        private static readonly List<string> PositiveKeywords = new List<string> { "good", "great", "excellent", "love", "fantastic", "happy", "delicious","amazing", "tasty"};
+        private static readonly List<string> PositiveKeywords = new List<string> { "good", "great", "excellent", "love", "fantastic", "happy", "delicious", "amazing", "tasty" };
         private static readonly List<string> NegativeKeywords = new List<string> { "bad", "not good", "terrible", "awful", "horrible", "disgusting", "hate", "poor" };
-        
+
         public RecommendationService(IMenuItemService menuItemService, IFeedbackService feedbackService)
         {
             _menuItemService = menuItemService;
@@ -26,7 +26,7 @@ namespace ServerSide.Services
 
             List<string> sentiments = new List<string>();
             List<Feedback> feedbacks = await _feedbackService.Where(x => x.MenuItemId == id).ToListAsync();
-            if(feedbacks.Count == 0) { return "No feedbacks at the momemt"; }
+            if (feedbacks.Count == 0) { return "No feedbacks at the momemt"; }
             Dictionary<string, int> sentimentCounts = new Dictionary<string, int>
                 {
                     { "Positive", 0 },
@@ -44,7 +44,7 @@ namespace ServerSide.Services
             return highestSentiment;
         }
 
-        public async Task<List<MenuItemModel>> GetTopRecommendations(int mealTypeId ,int topN)
+        public async Task<List<MenuItemModel>> GetTopRecommendations(int mealTypeId, int topN)
         {
             int menuTypeId = mealTypeId == 1 ? (int)MenuItemEnum.Breakfast : (int)MenuItemEnum.Meals;
             List<MenuItem> menuItems = await _menuItemService.Where(x => x.MenuItemTypeId == menuTypeId).Include(x => x.MenuItemType).ToListAsync();

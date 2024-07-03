@@ -1,5 +1,4 @@
 ﻿using Common.Models;
-using ServerSide.Entity;
 
 namespace ServerSide.Services.Interfaces
 {

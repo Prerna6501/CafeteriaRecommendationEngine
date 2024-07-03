@@ -26,7 +26,7 @@ namespace ServerSide.Repositories
             try
             {
                 var segments = request.Split(';');
-                
+
                 foreach (var segment in segments)
                 {
                     var mealTypeAndItems = segment.Split(':');
@@ -52,7 +52,7 @@ namespace ServerSide.Repositories
                         {
                             MenuItemId = menuItem.Id,
                             MealtypeId = mealType.Id,
-                            NoOfVotes = 0,  
+                            NoOfVotes = 0,
                             CreatedDate = DateTime.Now
                         };
 

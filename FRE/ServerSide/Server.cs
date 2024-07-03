@@ -1,6 +1,4 @@
-﻿using Common.Enums;
-using Microsoft.Extensions.DependencyInjection;
-using ServerSide.Entity;
+﻿using Microsoft.Extensions.DependencyInjection;
 using ServerSide.Services;
 using ServerSide.Services.Interfaces;
 using System.Net;
@@ -149,7 +147,7 @@ namespace ServerSide
 
                 case "GET_NOTIFICATIONS":
                     return await requestHandler.GetNotifications();
-                
+
                 case "ADD_DETAILED_FEEDBACK":
                     return await requestHandler.AddDetailedFeedback(parameters);
 

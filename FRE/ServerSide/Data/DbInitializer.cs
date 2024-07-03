@@ -361,12 +361,12 @@ namespace ServerSide.Data
                     {
                         NotificationTypeId = 1,
                         CreatedDate = DateTime.Now,
-                        IsDeleted = false,                       
+                        IsDeleted = false,
                         Message = "Orange Juice was added in the menu"
                     }
                 });
                 context.SaveChanges();
-            }                       
+            }
 
             if (!context.Feedbacks.Any())
             {
@@ -544,7 +544,7 @@ namespace ServerSide.Data
                 context.SaveChanges();
             }
 
-            if(!context.QuestionTypes.Any())
+            if (!context.QuestionTypes.Any())
             {
                 context.AddRange(new[]
                 {
@@ -578,7 +578,7 @@ namespace ServerSide.Data
                     },
                     new DiscardItem
                     {
-                        MenuItemId = 2, 
+                        MenuItemId = 2,
                         Status = "Removed",
                         AverageRating = 1.6,
                         Sentiments = "Negative",

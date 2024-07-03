@@ -49,16 +49,16 @@ namespace ServerSide
         {
             int menuItemId = Convert.ToInt32(parameter);
             var response = await menuItemService.RemoveMenuItem(menuItemId);
-            
-            if(response == null) { return "No menuitem found"; }
 
-            else { return JsonConvert.SerializeObject(response, Formatting.Indented); }      
+            if (response == null) { return "No menuitem found"; }
+
+            else { return JsonConvert.SerializeObject(response, Formatting.Indented); }
         }
 
         public static async Task<string> ChangeAvailability(string parameter, IMenuItemService menuItemService)
         {
             string[] updateParams = parameter.Split(',');
-            return await menuItemService.UpdateAvailability(Convert.ToInt32(updateParams[0]), Convert.ToBoolean(updateParams[1]));           
+            return await menuItemService.UpdateAvailability(Convert.ToInt32(updateParams[0]), Convert.ToBoolean(updateParams[1]));
         }
     }
 }

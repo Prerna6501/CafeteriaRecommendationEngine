@@ -87,7 +87,7 @@ namespace ServerSide.Services
 
         private string GenerateNotificationMessage(List<string> breakfastItems, List<string> lunchItems, List<string> dinnerItems)
         {
-            return string.Format(AppConstants.FixedMealNotification,DateTime.Now.AddDays(1).ToShortDateString(),string.Join(", ", breakfastItems),string.Join(", ", lunchItems),string.Join(", ", dinnerItems));
+            return string.Format(AppConstants.FixedMealNotification, DateTime.Now.AddDays(1).ToShortDateString(), string.Join(", ", breakfastItems), string.Join(", ", lunchItems), string.Join(", ", dinnerItems));
         }
 
         private async Task CreateFixedMeal(MenuItem menuItem, MealType mealType)

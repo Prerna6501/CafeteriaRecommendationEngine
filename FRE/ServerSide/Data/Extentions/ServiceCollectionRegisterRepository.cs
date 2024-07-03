@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ServerSide.Repositories;
 using ServerSide.Repositories.Interfaces;
-using ServerSide.Services;
-using ServerSide.Services.Interfaces;
 
 namespace ServerSide.Data.Extentions
 {

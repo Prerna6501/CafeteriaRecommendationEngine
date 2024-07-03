@@ -3,12 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ServerSide.Entity;
 using ServerSide.Services;
-using ServerSide.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServerSide
 {
@@ -31,7 +25,7 @@ namespace ServerSide
         public static async Task<string> HandleViewFeedbackForItem(string parameters, FeedbackService feedbackService)
         {
             int menuItemId = int.Parse(parameters.Trim());
-            var feedbacks = await feedbackService.Where(x => x.MenuItemId == menuItemId).Include(x => x.MenuItem).ToListAsync(); 
+            var feedbacks = await feedbackService.Where(x => x.MenuItemId == menuItemId).Include(x => x.MenuItem).ToListAsync();
             List<FeedbackModel> feedbackModels = new List<FeedbackModel>();
 
             foreach (var feedback in feedbacks)

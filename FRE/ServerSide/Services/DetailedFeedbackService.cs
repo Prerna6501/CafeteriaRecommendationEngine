@@ -3,15 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using ServerSide.Entity;
 using ServerSide.Repositories.Interfaces;
 using ServerSide.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServerSide.Services
 {
-    public class DetailedFeedbackService : GenericService<DetailedFeedback> , IDetailedFeedbackService
+    public class DetailedFeedbackService : GenericService<DetailedFeedback>, IDetailedFeedbackService
     {
         private readonly IDetailedFeedbackRepository _detailedFeedbackRepository;
         private readonly IDiscardItemService _discardItemService;
@@ -23,7 +18,7 @@ namespace ServerSide.Services
         }
         public async Task<string> GiveDetailedFeedback(DetailedFeedbackModel feedbackModel)
         {
-            DiscardItem? discardItem = await _discardItemService.Where(x => x.Id ==feedbackModel.DiscardItemId).FirstOrDefaultAsync();
+            DiscardItem? discardItem = await _discardItemService.Where(x => x.Id == feedbackModel.DiscardItemId).FirstOrDefaultAsync();
             if (discardItem == null)
             {
                 return "Invalid Discard Item Id.";

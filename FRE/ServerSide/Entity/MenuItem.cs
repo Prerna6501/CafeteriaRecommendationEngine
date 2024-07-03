@@ -8,7 +8,7 @@
         public bool IsAvailable { get; set; }
         public bool IsDeleted { get; set; }
         public int MenuItemTypeId { get; set; }
-        public List<Feedback> Feedbacks { get; set; }   
+        public List<Feedback> Feedbacks { get; set; }
         public List<FixedMeal> FixedMeals { get; set; }
         public List<VotingResult> VotingResults { get; set; }
         public MenuItemType MenuItemType { get; set; }

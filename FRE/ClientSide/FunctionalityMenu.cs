@@ -76,7 +76,8 @@ namespace ClientSide
             while (true)
             {
                 Console.WriteLine("Chef Functionality\nPlease select:");
-                Console.WriteLine("1. Get Recommended Items\n2. Rollout Choices\n3. View Choice Voting Result\n4. Give Final Menu\n5. Change Availability\n6. View Feedback for a particular item\n7. View Monthly Report\n8. Exit\n");
+                Console.WriteLine("1. Get Recommended Items\n2. Rollout Choices\n3. View Choice Voting Result\n4. Give Final Menu\n5. Change Availability\n6. View Feedback for a particular item\n7. View Monthly Report\n8. Get Discard List\n9. Remove discarded item\n10. Get Detailed feedback\n11. View Detailed feebacks for a particular item\n12. Exit\n");
+
                 string input = Console.ReadLine();
                 bool isValidChoice = int.TryParse(input, out int choice);
                 if (!isValidChoice || choice < 1 || choice > 8)
@@ -116,6 +117,11 @@ namespace ClientSide
                         PrintSeparatorLine();
                         break;
                     case 8:
+                        await GetDiscardList();
+                        PrintSeparatorLine();
+                        break;
+
+                    case 10:
                         Console.WriteLine("Logout");
                         return;
                     default:
@@ -127,7 +133,7 @@ namespace ClientSide
         private static async Task EmployeeFunctionality(int userId)
         {
             while (true)
-            {                
+            {
                 Console.WriteLine("Employee Functionality\nPlease select:");
                 Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu\n6. Vote for Roll out menu\n7. Get notifications\n8. Give detailed feedback\n9. Logout\n");
                 string input = Console.ReadLine();
@@ -180,6 +186,11 @@ namespace ClientSide
                         break;
                 }
             }
+        }
+
+        private static async Task GetDiscardList()
+        {
+
         }
 
         private static async Task GiveDetailFeedback(int userId)
@@ -278,7 +289,7 @@ namespace ClientSide
             Console.WriteLine("Feedback for the item:\n");
 
             List<FeedbackModel> feedbacks = JsonConvert.DeserializeObject<List<FeedbackModel>>(response);
-            var table = new ConsoleTable( "FeedBack Id", "MenuItem Id", "Rating", "Comments");
+            var table = new ConsoleTable("FeedBack Id", "MenuItem Id", "Rating", "Comments");
             foreach (var item in feedbacks)
             {
                 table.AddRow(item.Id, item.MenuItemId, item.Rating, item.Comment);
@@ -293,10 +304,10 @@ namespace ClientSide
 
             Console.WriteLine("All feedback given by you:\n");
             List<FeedbackModel> feedbacks = JsonConvert.DeserializeObject<List<FeedbackModel>>(response);
-            var table = new ConsoleTable("FeedBack Id", "MenuItem Id","MenuItem Name", "Rating", "Comments");
+            var table = new ConsoleTable("FeedBack Id", "MenuItem Id", "MenuItem Name", "Rating", "Comments");
             foreach (var item in feedbacks)
             {
-                table.AddRow(item.Id, item.MenuItemId,item.MenuItemName, item.Rating, item.Comment);
+                table.AddRow(item.Id, item.MenuItemId, item.MenuItemName, item.Rating, item.Comment);
             }
             table.Write(Format.Alternative);
         }

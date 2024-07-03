@@ -1,6 +1,5 @@
 ﻿using Common.Models;
-﻿using Newtonsoft.Json;
-using ServerSide.Entity;
+using Newtonsoft.Json;
 using ServerSide.Services.Interfaces;
 
 namespace ServerSide.Services
@@ -30,12 +29,12 @@ namespace ServerSide.Services
 
         public async Task<string> GetNotifications()
         {
-            var result = await _notificationService.GetAllAsync();            
+            var result = await _notificationService.GetAllAsync();
             var notificationList = JsonConvert.SerializeObject(result, Formatting.Indented);
-            
+
             if (string.IsNullOrEmpty(notificationList))
-            { 
-                return "No notifications at the moment."; 
+            {
+                return "No notifications at the moment.";
             }
 
             return notificationList;
@@ -59,8 +58,8 @@ namespace ServerSide.Services
         public async Task<string> RolloutChoices(string message)
         {
             return await _votingResultService.CreateVotingForRolledOutChoices(message);
-        }  
-        
+        }
+
         public async Task<string> RolloutFinalMeal(string message)
         {
             return await _fixedMealService.RolloutFinalMeal(message);
@@ -73,7 +72,7 @@ namespace ServerSide.Services
 
         public async Task<string> VoteMenuItems(string parameters)
         {
-           return await _votingResultService.VoteMenuItems(parameters);
+            return await _votingResultService.VoteMenuItems(parameters);
         }
     }
 }

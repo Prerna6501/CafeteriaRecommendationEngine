@@ -1,5 +1,4 @@
 ﻿using ServerSide.Entity;
-using ServerSide.Repositories;
 using ServerSide.Repositories.Interfaces;
 using ServerSide.Services.Interfaces;
 
@@ -21,7 +20,7 @@ namespace ServerSide.Services
                 NotificationTypeId = typeId,
                 Message = message,
                 CreatedDate = DateTime.Now,
-                IsDeleted = false,                
+                IsDeleted = false,
             };
             await _notificationRepository.CreateAsync(notification);
         }

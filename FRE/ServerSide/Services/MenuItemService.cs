@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using ServerSide.Entity;
 using ServerSide.Repositories.Interfaces;
 using ServerSide.Services.Interfaces;
-using System.Net;
-using System.Reflection.Metadata;
 
 namespace ServerSide.Services
 {
@@ -17,14 +15,14 @@ namespace ServerSide.Services
         public MenuItemService(IMenuItemRepository menuItemRepository, INotificationService notificationService) : base(menuItemRepository)
         {
             _menuItemRepository = menuItemRepository;
-            _notificationService= notificationService;
+            _notificationService = notificationService;
         }
 
         public async Task<MenuItem> AddMenuItem(MenuItem menuItem)
         {
             var response = await _menuItemRepository.CreateAsync(menuItem);
             await _notificationService.CreateNotification((int)NotificationTypeEnum.NewItemAdded, string.Format(AppConstants.AddMenuItemNotification, response.Name));
-           
+
             return response;
         }
 
@@ -35,7 +33,7 @@ namespace ServerSide.Services
             itemToBeDeleted.IsDeleted = true;
             itemToBeDeleted.IsAvailable = false;
             await _notificationService.CreateNotification((int)NotificationTypeEnum.Deleted, string.Format(AppConstants.DeletedMenuItemNotification, itemToBeDeleted.Name));
-            
+
             return await _menuItemRepository.UpdateAsync(itemToBeDeleted);
         }
 

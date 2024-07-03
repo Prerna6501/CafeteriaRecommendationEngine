@@ -9,7 +9,7 @@ namespace ServerSide
     class program
     {
         static async Task Main(string[] args)
-        {          
+        {
             var configuration = new ConfigurationBuilder()
            .SetBasePath(Directory.GetCurrentDirectory())
            .AddJsonFile("appsetting.json", optional: true, reloadOnChange: true)
