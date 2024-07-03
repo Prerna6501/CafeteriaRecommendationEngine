@@ -21,6 +21,8 @@ namespace ServerSide.Data
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<MenuItemType> MenuItemTypes { get; set; }
         public DbSet<VotingResult> VotingResults { get; set; }
+        public DbSet<DetailedFeedback> DetailedFeedbacks { get; set; }
+        public DbSet<QuestionType> QuestionTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -84,6 +86,18 @@ namespace ServerSide.Data
               .WithMany(m => m.VotingResults)
               .HasForeignKey(v => v.MealtypeId)
               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<DetailedFeedback>()
+                .HasOne(d => d.QuestionType)
+                .WithMany(q => q.DetailedFeedbacks)
+                .HasForeignKey(d => d.QuestionTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<DetailedFeedback>()
+                .HasOne(d => d.MenuItem)
+                .WithMany()
+                .HasForeignKey(d => d.QuestionTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -543,6 +543,27 @@ namespace ServerSide.Data
                 });
                 context.SaveChanges();
             }
+
+            if(!context.QuestionTypes.Any())
+            {
+                context.AddRange(new[]
+                {
+                    new QuestionType
+                    {
+                        Question = " What didn’t you like about {0}?"
+                    },
+                    new QuestionType
+                    {
+                        Question = "How would you like {0} to taste?"
+                    },
+                    new QuestionType
+                    {
+                        Question = "Share your mom’s recipe."
+                    }
+                });
+                context.SaveChanges();
+            }
+            
             return;
         }
     }
