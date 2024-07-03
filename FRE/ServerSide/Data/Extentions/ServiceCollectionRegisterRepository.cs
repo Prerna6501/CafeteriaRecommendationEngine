@@ -18,6 +18,8 @@ namespace ServerSide.Data.Extentions
             services.AddScoped<IVotingResultRepository, VotingResultRepository>();
             services.AddScoped<IFixedMealRepository, FixedMealRepository>();
             services.AddScoped<IMealTypeRepository, MealTypeRepository>();
+            services.AddScoped<IDetailedFeedbackRepository, DetailedFeedbackRepository>();
+            services.AddScoped<IDiscardItemRepository, DiscardItemRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             return services;

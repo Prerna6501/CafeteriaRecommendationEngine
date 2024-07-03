@@ -17,6 +17,8 @@ namespace ServerSide.Data.Extentions
             services.AddScoped<IRequestHandler, RequestHandler>();
             services.AddScoped<IVotingResultService, VotingResultService>();
             services.AddScoped<IFixedMealService, FixedMealService>();
+            services.AddScoped<IDiscardItemService, DiscardItemService>();
+            services.AddScoped<IDetailedFeedbackService, DetailedFeedbackService>();
             services.AddScoped<VotingResultService>();
             services.AddScoped<AuthService>();
             services.AddScoped<MenuItemService>();

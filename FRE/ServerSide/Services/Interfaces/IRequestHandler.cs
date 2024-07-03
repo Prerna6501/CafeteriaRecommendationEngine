@@ -9,6 +9,7 @@ namespace ServerSide.Services.Interfaces
 {
     public interface IRequestHandler
     {
+        public Task<string> AddDetailedFeedback(string parameters);
         public Task<string> GetNotifications();
         public Task<string> GetTopMenuItemsByMealType(string parameters);
         public Task<string> GetVotingResults();

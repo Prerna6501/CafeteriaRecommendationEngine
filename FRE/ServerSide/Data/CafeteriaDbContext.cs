@@ -23,6 +23,7 @@ namespace ServerSide.Data
         public DbSet<VotingResult> VotingResults { get; set; }
         public DbSet<DetailedFeedback> DetailedFeedbacks { get; set; }
         public DbSet<QuestionType> QuestionTypes { get; set; }
+        public DbSet<DiscardItem> DiscardItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -94,7 +95,7 @@ namespace ServerSide.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<DetailedFeedback>()
-                .HasOne(d => d.MenuItem)
+                .HasOne(d => d.QuestionType)
                 .WithMany()
                 .HasForeignKey(d => d.QuestionTypeId)
                 .OnDelete(DeleteBehavior.Restrict);

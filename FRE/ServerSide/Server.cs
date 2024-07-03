@@ -149,6 +149,9 @@ namespace ServerSide
 
                 case "GET_NOTIFICATIONS":
                     return await requestHandler.GetNotifications();
+                
+                case "ADD_DETAILED_FEEDBACK":
+                    return await requestHandler.AddDetailedFeedback(parameters);
 
                 default:
                     return $"Invalid request type: {requestType}";

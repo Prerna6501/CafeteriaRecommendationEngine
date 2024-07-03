@@ -1,3 +1,4 @@
+﻿using Common.Models;
 ﻿using Newtonsoft.Json;
 using ServerSide.Entity;
 using ServerSide.Services.Interfaces;
@@ -10,20 +11,34 @@ namespace ServerSide.Services
         private readonly IVotingResultService _votingResultService;
         private readonly IFixedMealService _fixedMealService;
         private readonly INotificationService _notificationService;
+        private readonly IDetailedFeedbackService _detailedFeedbackService;
 
-        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService, INotificationService notificationService)
+        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService, INotificationService notificationService, IDetailedFeedbackService detailedFeedbackService)
         {
             _recommendationService = recommendationService;
             _votingResultService = votingResultService;
             _fixedMealService = fixedMealService;
             _notificationService = notificationService;
+            _detailedFeedbackService = detailedFeedbackService;
+        }
+
+        public async Task<string> AddDetailedFeedback(string parameters)
+        {
+            DetailedFeedbackModel detailedFeedbackModel = JsonConvert.DeserializeObject<DetailedFeedbackModel>(parameters);
+            return await _detailedFeedbackService.GiveDetailedFeedback(detailedFeedbackModel);
         }
 
         public async Task<string> GetNotifications()
         {
-            var result = await _notificationService.GetAllAsync();
-            if(result == null) { return "No notifications at the moment."; }
-            return JsonConvert.SerializeObject(result, Formatting.Indented);
+            var result = await _notificationService.GetAllAsync();            
+            var notificationList = JsonConvert.SerializeObject(result, Formatting.Indented);
+            
+            if (string.IsNullOrEmpty(notificationList))
+            { 
+                return "No notifications at the moment."; 
+            }
+
+            return notificationList;
         }
 
         public async Task<string> GetTopMenuItemsByMealType(string parameters)

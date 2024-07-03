@@ -563,7 +563,31 @@ namespace ServerSide.Data
                 });
                 context.SaveChanges();
             }
-            
+
+            if (!context.DiscardItems.Any())
+            {
+                context.AddRange(new[]
+                {
+                    new DiscardItem
+                    {
+                        MenuItemId = 1,
+                        Status = "Sent for detailed Feedback",
+                        AverageRating = 1.8,
+                        Sentiments = "Negative",
+                        CreatedDate = DateTime.Now
+                    },
+                    new DiscardItem
+                    {
+                        MenuItemId = 2, 
+                        Status = "Removed",
+                        AverageRating = 1.6,
+                        Sentiments = "Negative",
+                        CreatedDate = DateTime.Now
+                    }
+                });
+                context.SaveChanges();
+            }
+
             return;
         }
     }

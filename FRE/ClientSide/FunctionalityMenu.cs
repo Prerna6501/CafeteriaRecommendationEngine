@@ -129,10 +129,10 @@ namespace ClientSide
             while (true)
             {                
                 Console.WriteLine("Employee Functionality\nPlease select:");
-                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu\n6. Vote for Roll out menu\n7. Logout\n");
+                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu\n6. Vote for Roll out menu\n7. Get notifications\n8. Give detailed feedback\n9. Logout\n");
                 string input = Console.ReadLine();
                 bool isValidChoice = int.TryParse(input, out int choice);
-                if (!isValidChoice || choice < 1 || choice > 7)
+                if (!isValidChoice || choice < 1 || choice > 10)
                 {
                     Console.WriteLine("Wrong choice, try again...\n");
                     continue;
@@ -169,6 +169,10 @@ namespace ClientSide
                         PrintSeparatorLine();
                         break;
                     case 8:
+                        await GiveDetailFeedback(userId);
+                        PrintSeparatorLine();
+                        break;
+                    case 9:
                         Console.WriteLine("Logout");
                         PrintSeparatorLine();
                         return;
@@ -176,6 +180,32 @@ namespace ClientSide
                         break;
                 }
             }
+        }
+
+        private static async Task GiveDetailFeedback(int userId)
+        {
+            Console.WriteLine("Enter the Discard item Id:  ");
+            string discardItemId = Console.ReadLine();
+            Console.WriteLine("What didn’t you like about Food Item?");
+            string dislikeAboutFoodResponse = Console.ReadLine();
+            Console.WriteLine("How would you like Food Item to taste?");
+            string tasteResponse = Console.ReadLine();
+            Console.WriteLine("Share your mom’s recipe.");
+            string momsRecipeResponse = Console.ReadLine();
+
+            DetailedFeedbackModel detailedFeedbackModel = new DetailedFeedbackModel
+            {
+                DiscardItemId = int.Parse(discardItemId),
+                Answer1 = dislikeAboutFoodResponse,
+                Answer2 = tasteResponse,
+                Answer3 = momsRecipeResponse,
+                UserId = userId
+            };
+            string feedback = JsonConvert.SerializeObject(detailedFeedbackModel, Formatting.Indented);
+
+            string request = $"ADD_DETAILED_FEEDBACK|{feedback}";
+            var responseForAddingFeedback = await HandleRequest.SendRequest(request);
+            Console.WriteLine(responseForAddingFeedback);
         }
 
         private static async Task GetNotifications()
