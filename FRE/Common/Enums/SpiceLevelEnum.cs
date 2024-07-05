@@ -2,7 +2,7 @@
 {
     public enum SpiceLevelEnum
     {
-        High=1,
+        High = 1,
         Medium,
         Low
     }

@@ -35,7 +35,7 @@ namespace ServerSide.Services
 
             return result;
         }
-     
+
         public async Task<string> RemoveMenuItem(int discardId)
         {
             var discardItem = await _discardItemRepository.Where(x => x.Id == discardId).FirstOrDefaultAsync();

@@ -131,7 +131,7 @@ namespace ClientSide
                     case 11:
                         await ViewDetailedFeebacksForAItem();
                         PrintSeparatorLine();
-                        break;                   
+                        break;
                     case 12:
                         Console.WriteLine("Logout");
                         return;
@@ -224,7 +224,7 @@ namespace ClientSide
             profile.HasSweetTooth = Console.ReadLine().ToLower() == "yes";
 
             profile.UserId = userId;
-            
+
             string serializedProfile = JsonConvert.SerializeObject(profile, Formatting.Indented);
             string request = $"SETUP_PROFILE|{serializedProfile}";
             string response = await HandleRequest.SendRequest(request);
@@ -256,7 +256,7 @@ namespace ClientSide
             var request = $"VIEW_DETAILED_FEEDBACK_ITEM|{discardId}";
             var response = await HandleRequest.SendRequest(request);
             List<DetailedFeedbackViewModel> feedbacks = JsonConvert.DeserializeObject<List<DetailedFeedbackViewModel>>(response);
-            foreach(var feedback in feedbacks)
+            foreach (var feedback in feedbacks)
             {
                 Console.WriteLine($"Id :{feedback.Id}");
                 Console.WriteLine($"DiscardItem Id:{feedback.DiscardItemId}");

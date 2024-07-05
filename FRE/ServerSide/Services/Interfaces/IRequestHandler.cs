@@ -1,6 +1,4 @@
-﻿using Common.Models;
-
-namespace ServerSide.Services.Interfaces
+﻿namespace ServerSide.Services.Interfaces
 {
     public interface IRequestHandler
     {

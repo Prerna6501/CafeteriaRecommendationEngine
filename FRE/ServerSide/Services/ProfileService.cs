@@ -38,7 +38,7 @@ namespace ServerSide.Services
                 };
                 await _profileRepository.CreateAsync(employeeProfile);
                 return "Successfully created the profile";
+            }
         }
     }
-}
 }
