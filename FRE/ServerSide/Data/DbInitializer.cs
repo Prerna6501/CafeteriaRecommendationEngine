@@ -11,18 +11,18 @@ namespace ServerSide.Data
             {
                 context.AddRange(new UserType[]
                 {
-                    new UserType
-                    {
-                        Name = "Employee"
-                    },
-                    new UserType
-                    {
-                        Name ="Chef"
-                    },
-                    new UserType
-                    {
-                        Name ="Admin"
-                    }
+                        new UserType
+                        {
+                            Name = "Employee"
+                        },
+                        new UserType
+                        {
+                            Name ="Chef"
+                        },
+                        new UserType
+                        {
+                            Name ="Admin"
+                        }
                 });
                 context.SaveChanges();
             }
@@ -31,35 +31,35 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new User
-                    {
-                        Name = "Prerna",
-                        UserTypeId = 1,
-                        PhoneNo = "9265369377",
-                        Email = "prerna.mehta@intimetec.com",
-                        Age = 23,
-                        Password = "Test123"
-                    },
-                    new User
-                    {
-                        Name = "Chef",
-                        UserTypeId = 2,
-                        PhoneNo = "9263444377",
-                        Email = "chef.one@intimetec.com",
-                        Age = 30,
-                        Password = "Test123"
-                    },
-                     new User
-                    {
-                        Name = "Admin",
-                        UserTypeId = 3,
-                        PhoneNo = "9244444377",
-                        Email = "admin.one@intimetec.com",
-                        Age = 28,
-                        Password = "Test123"
-                    },
+                        new User
+                        {
+                            Name = "Prerna",
+                            UserTypeId = 1,
+                            PhoneNo = "9265369377",
+                            Email = "prerna.mehta@intimetec.com",
+                            Age = 23,
+                            Password = "Test123"
+                        },
+                        new User
+                        {
+                            Name = "Chef",
+                            UserTypeId = 2,
+                            PhoneNo = "9263444377",
+                            Email = "chef.one@intimetec.com",
+                            Age = 30,
+                            Password = "Test123"
+                        },
+                         new User
+                        {
+                            Name = "Admin",
+                            UserTypeId = 3,
+                            PhoneNo = "9244444377",
+                            Email = "admin.one@intimetec.com",
+                            Age = 28,
+                            Password = "Test123"
+                        },
 
-                });
+                    });
                 context.SaveChanges();
             }
 
@@ -67,19 +67,19 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new MealType
-                    {
-                       Name = "Breakfast"
-                    },
-                    new MealType
-                    {
-                        Name = "Lunch"
-                    },
-                    new MealType
-                    {
-                        Name = "Dinner"
-                    }
-                });
+                        new MealType
+                        {
+                           Name = "Breakfast"
+                        },
+                        new MealType
+                        {
+                            Name = "Lunch"
+                        },
+                        new MealType
+                        {
+                            Name = "Dinner"
+                        }
+                    });
                 context.SaveChanges();
             }
 
@@ -87,35 +87,35 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new MenuItemType
-                    {
-                       Name = "Beaverages"
-                    },
-                    new MenuItemType
-                    {
-                        Name = "Sandwiches"
-                    },
-                    new MenuItemType
-                    {
-                        Name = "Wraps"
-                    },
-                    new MenuItemType
-                    {
-                        Name = "Healthy Snacks"
-                    },
-                    new MenuItemType
-                    {
-                        Name = "Burgers"
-                    },
-                    new MenuItemType
-                    {
-                        Name = "Meals"
-                    },
-                    new MenuItemType
-                    {
-                        Name = "Breakfast"
-                    }
-                });
+                        new MenuItemType
+                        {
+                           Name = "Beaverages"
+                        },
+                        new MenuItemType
+                        {
+                            Name = "Sandwiches"
+                        },
+                        new MenuItemType
+                        {
+                            Name = "Wraps"
+                        },
+                        new MenuItemType
+                        {
+                            Name = "Healthy Snacks"
+                        },
+                        new MenuItemType
+                        {
+                            Name = "Burgers"
+                        },
+                        new MenuItemType
+                        {
+                            Name = "Meals"
+                        },
+                        new MenuItemType
+                        {
+                            Name = "Breakfast"
+                        }
+                    });
                 context.SaveChanges();
             }
 
@@ -123,190 +123,282 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new MenuItem
-                    {
-                        Name = "Chai",
-                        Price = 15,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 1
-                    },
-                    new MenuItem
-                    {
-                        Name = "Boiled Eggs",
-                        Price = 40,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 4
-                    },
-                    new MenuItem
-                    {
-                        Name = "Peanut Salad",
-                        Price = 60,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 4
-                    },
-                    new MenuItem
-                    {
-                        Name = "Grilled Veg Sandwich",
-                        Price = 70,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 2
-                    },
-                    new MenuItem
-                    {
-                        Name = "Grilled Paneer Sandwich",
-                        Price = 80,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 2
-                    },
-                    new MenuItem
-                    {
-                        Name = "Cheese burger",
-                        Price = 7,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 5
-                    },
-                    new MenuItem
-                    {
-                        Name = "Fruit Salad",
-                        Price = 5,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 4
-                    },
-                    new MenuItem
-                    {
-                        Name = "Paneer Sabji",
-                        Price = 2,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 6
-                    },
-                    new MenuItem
-                    {
-                        Name = "Orange Juice",
-                        Price = 3,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 1
-                    },
-                    new MenuItem
-                    {
-                        Name = "Tandoori Wraps",
-                        Price = 100,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 3
-                    },
-                    new MenuItem
-                    {
-                        Name = "Mexican wrap",
-                        Price = 60,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 3
-                    },
-                    new MenuItem
-                    {
-                        Name = "Pizza",
-                        Price = 1000,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 3
-                    },
-                    new MenuItem
-                    {
-                        Name = "Ice cream",
-                        Price = 25,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 5
-                    },
-                    new MenuItem
-                    {
-                        Name = "Pina colada",
-                        Price = 120,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 3
-                    },
-                    new MenuItem
-                    {
-                        Name = "upma",
-                        Price = 40,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 7
-                    },
-                    new MenuItem
-                    {
-                        Name = "poha",
-                        Price = 30,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 7
-                    },
-                    new MenuItem
-                    {
-                        Name = "Ice tea",
-                        Price = 25,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 3
-                    },
-                    new MenuItem
-                    {
-                        Name = "Dosa",
-                        Price = 50,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 7
-                    },
-                    new MenuItem
-                    {
-                        Name = "Gatte sabji",
-                        Price = 70,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 6
-                    },
-                    new MenuItem
-                    {
-                        Name = "Mix Veg",
-                        Price = 30,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 6
-                    },
-                    new MenuItem
-                    {
-                        Name = "Kadhi pakoda",
-                        Price = 45,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 6
-                    },
-                    new MenuItem
-                    {
-                        Name = "Idli",
-                        Price = 50,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 7
-                    },
-                    new MenuItem
-                    {
-                        Name = "Chole sabji",
-                        Price = 45,
-                        IsAvailable = true,
-                        IsDeleted = false,
-                        MenuItemTypeId = 6
-                    }
+                        new MenuItem
+                        {
+                            Name = "Chai",
+                            Price = 15,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 1,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Boiled Eggs",
+                            Price = 40,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 4,
+                            DietPreference = "Non-Vegetarian",
+                            SpiceLevel = "Low",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Peanut Salad",
+                            Price = 60,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 4,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Grilled Veg Sandwich",
+                            Price = 70,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 2,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Grilled Paneer Sandwich",
+                            Price = 80,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 2,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Cheeseburger",
+                            Price = 7,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 5,
+                            DietPreference = "Non-Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "Other",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Fruit Salad",
+                            Price = 5,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 4,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Low",
+                            CuisinePreference = "Other",
+                            HasSweetTooth = true
+                        },
+                        new MenuItem
+                        {
+                            Name = "Paneer Sabji",
+                            Price = 2,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 6,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Orange Juice",
+                            Price = 3,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 1,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Tandoori Wraps",
+                            Price = 100,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 3,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Mexican Wrap",
+                            Price = 60,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 3,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "Other",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Pizza",
+                            Price = 1000,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 3,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "Other",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Ice Cream",
+                            Price = 25,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 5,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "High",
+                            CuisinePreference = "Other",
+                            HasSweetTooth = true
+                        },
+                        new MenuItem
+                        {
+                            Name = "Pina Colada",
+                            Price = 120,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 3,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "Other",
+                            HasSweetTooth = true
+                        },
+                        new MenuItem
+                        {
+                            Name = "Upma",
+                            Price = 40,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 7,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "South Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Poha",
+                            Price = 30,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 7,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Ice Tea",
+                            Price = 25,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 3,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "Other",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Dosa",
+                            Price = 50,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 7,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "South Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Gatte Sabji",
+                            Price = 70,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 6,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Mix Veg",
+                            Price = 30,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 6,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Kadhi Pakoda",
+                            Price = 45,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 6,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Idli",
+                            Price = 50,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 7,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "South Indian",
+                            HasSweetTooth = false
+                        },
+                        new MenuItem
+                        {
+                            Name = "Chole Sabji",
+                            Price = 45,
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            MenuItemTypeId = 6,
+                            DietPreference = "Vegetarian",
+                            SpiceLevel = "Medium",
+                            CuisinePreference = "North Indian",
+                            HasSweetTooth = false
+                        }
                     });
                 context.SaveChanges();
             }
@@ -315,13 +407,13 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new FixedMeal
-                    {
-                        MealTypeId = 1,
-                        MenuItemId = 8,
-                        PreparedDate = DateTime.Now
-                    }
-                });
+                        new FixedMeal
+                        {
+                            MealTypeId = 1,
+                            MenuItemId = 8,
+                            PreparedDate = DateTime.Now
+                        }
+                    });
                 context.SaveChanges();
             }
 
@@ -329,27 +421,27 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new NotificationType
-                    {
-                        Name = "MenuItem Updates"
-                    },
-                    new NotificationType
-                    {
-                        Name = "Final Preparation(Fixed meal)"
-                    },
-                    new NotificationType
-                    {
-                        Name = "Choose the roll out Item"
-                    },
-                    new NotificationType
-                    {
-                        Name = "Avalability"
-                    },
-                    new NotificationType
-                    {
-                        Name = "Deleted"
-                    }
-                });
+                        new NotificationType
+                        {
+                            Name = "MenuItem Updates"
+                        },
+                        new NotificationType
+                        {
+                            Name = "Final Preparation(Fixed meal)"
+                        },
+                        new NotificationType
+                        {
+                            Name = "Choose the roll out Item"
+                        },
+                        new NotificationType
+                        {
+                            Name = "Avalability"
+                        },
+                        new NotificationType
+                        {
+                            Name = "Deleted"
+                        }
+                    });
                 context.SaveChanges();
             }
 
@@ -357,14 +449,14 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new Notification
-                    {
-                        NotificationTypeId = 1,
-                        CreatedDate = DateTime.Now,
-                        IsDeleted = false,
-                        Message = "Orange Juice was added in the menu"
-                    }
-                });
+                        new Notification
+                        {
+                            NotificationTypeId = 1,
+                            CreatedDate = DateTime.Now,
+                            IsDeleted = false,
+                            Message = "Orange Juice was added in the menu"
+                        }
+                    });
                 context.SaveChanges();
             }
 
@@ -372,111 +464,111 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new Feedback
-                    {
-                        MenuItemId = 9,
-                        UserId = 1,
-                        Rating = 4,
-                        Comment = "Very tasty",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 1,
-                        UserId = 2,
-                        Rating = 3,
-                        Comment = "Good but a bit too sweet",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 4,
-                        UserId = 3,
-                        Rating = 5,
-                        Comment = "Perfectly grilled",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 7,
-                        UserId = 1,
-                        Rating = 4,
-                        Comment = "Fresh and delicious",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 8,
-                        UserId = 2,
-                        Rating = 2,
-                        Comment = "Too spicy",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 10,
-                        UserId = 3,
-                        Rating = 5,
-                        Comment = "Amazing wraps!",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 12,
-                        UserId = 1,
-                        Rating = 4,
-                        Comment = "Great pizza, but a bit pricey",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 14,
-                        UserId = 2,
-                        Rating = 5,
-                        Comment = "Best pina colada I've had",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 15,
-                        UserId = 3,
-                        Rating = 3,
-                        Comment = "Upma was okay",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 16,
-                        UserId = 1,
-                        Rating = 4,
-                        Comment = "Nice poha",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 18,
-                        UserId = 2,
-                        Rating = 4,
-                        Comment = "Dosa was crispy and tasty",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 20,
-                        UserId = 3,
-                        Rating = 3,
-                        Comment = "Average kadhi pakoda",
-                        CreatedDate = DateTime.Now
-                    },
-                    new Feedback
-                    {
-                        MenuItemId = 9,
-                        UserId = 2,
-                        Rating = 5,
-                        Comment = "Excellent sabji",
-                        CreatedDate = DateTime.Now
-                    }
-                });
+                        new Feedback
+                        {
+                            MenuItemId = 9,
+                            UserId = 1,
+                            Rating = 4,
+                            Comment = "Very tasty",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 1,
+                            UserId = 2,
+                            Rating = 3,
+                            Comment = "Good but a bit too sweet",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 4,
+                            UserId = 3,
+                            Rating = 5,
+                            Comment = "Perfectly grilled",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 7,
+                            UserId = 1,
+                            Rating = 4,
+                            Comment = "Fresh and delicious",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 8,
+                            UserId = 2,
+                            Rating = 2,
+                            Comment = "Too spicy",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 10,
+                            UserId = 3,
+                            Rating = 5,
+                            Comment = "Amazing wraps!",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 12,
+                            UserId = 1,
+                            Rating = 4,
+                            Comment = "Great pizza, but a bit pricey",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 14,
+                            UserId = 2,
+                            Rating = 5,
+                            Comment = "Best pina colada I've had",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 15,
+                            UserId = 3,
+                            Rating = 3,
+                            Comment = "Upma was okay",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 16,
+                            UserId = 1,
+                            Rating = 4,
+                            Comment = "Nice poha",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 18,
+                            UserId = 2,
+                            Rating = 4,
+                            Comment = "Dosa was crispy and tasty",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 20,
+                            UserId = 3,
+                            Rating = 3,
+                            Comment = "Average kadhi pakoda",
+                            CreatedDate = DateTime.Now
+                        },
+                        new Feedback
+                        {
+                            MenuItemId = 9,
+                            UserId = 2,
+                            Rating = 5,
+                            Comment = "Excellent sabji",
+                            CreatedDate = DateTime.Now
+                        }
+                    });
                 context.SaveChanges();
             }
 
@@ -484,63 +576,63 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new VotingResult
-                    {
-                        MealtypeId = 1,
-                        MenuItemId = 23,
-                        NoOfVotes = 2,
-                        CreatedDate = DateTime.Now
-                    },
-                    new VotingResult
-                    {
-                        MealtypeId = 1,
-                        MenuItemId = 16,
-                        NoOfVotes = 12,
-                        CreatedDate = DateTime.Now
-                    },
-                    new VotingResult
-                    {
-                        MealtypeId = 1,
-                        MenuItemId = 17,
-                        NoOfVotes = 7,
-                        CreatedDate = DateTime.Now
-                    },
-                    new VotingResult
-                    {
-                        MealtypeId = 2,
-                        MenuItemId = 20,
-                        NoOfVotes = 2,
-                        CreatedDate = DateTime.Now
-                    },
-                    new VotingResult
-                    {
-                        MealtypeId = 2,
-                        MenuItemId = 21,
-                        NoOfVotes = 12,
-                        CreatedDate = DateTime.Now
-                    },
-                    new VotingResult
-                    {
-                        MealtypeId = 2,
-                        MenuItemId = 22,
-                        NoOfVotes = 7,
-                        CreatedDate = DateTime.Now
-                    },
-                    new VotingResult
-                    {
-                        MealtypeId = 3,
-                        MenuItemId = 16,
-                        NoOfVotes = 3,
-                        CreatedDate = DateTime.Now
-                    },
-                    new VotingResult
-                    {
-                        MealtypeId = 3,
-                        MenuItemId = 8,
-                        NoOfVotes = 7,
-                        CreatedDate = DateTime.Now
-                    }
-                });
+                        new VotingResult
+                        {
+                            MealtypeId = 1,
+                            MenuItemId = 23,
+                            NoOfVotes = 2,
+                            CreatedDate = DateTime.Now
+                        },
+                        new VotingResult
+                        {
+                            MealtypeId = 1,
+                            MenuItemId = 16,
+                            NoOfVotes = 12,
+                            CreatedDate = DateTime.Now
+                        },
+                        new VotingResult
+                        {
+                            MealtypeId = 1,
+                            MenuItemId = 17,
+                            NoOfVotes = 7,
+                            CreatedDate = DateTime.Now
+                        },
+                        new VotingResult
+                        {
+                            MealtypeId = 2,
+                            MenuItemId = 20,
+                            NoOfVotes = 2,
+                            CreatedDate = DateTime.Now
+                        },
+                        new VotingResult
+                        {
+                            MealtypeId = 2,
+                            MenuItemId = 21,
+                            NoOfVotes = 12,
+                            CreatedDate = DateTime.Now
+                        },
+                        new VotingResult
+                        {
+                            MealtypeId = 2,
+                            MenuItemId = 22,
+                            NoOfVotes = 7,
+                            CreatedDate = DateTime.Now
+                        },
+                        new VotingResult
+                        {
+                            MealtypeId = 3,
+                            MenuItemId = 16,
+                            NoOfVotes = 3,
+                            CreatedDate = DateTime.Now
+                        },
+                        new VotingResult
+                        {
+                            MealtypeId = 3,
+                            MenuItemId = 8,
+                            NoOfVotes = 7,
+                            CreatedDate = DateTime.Now
+                        }
+                    });
                 context.SaveChanges();
             }
 
@@ -548,19 +640,19 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new QuestionType
-                    {
-                        Question = " What didn’t you like about {0}?"
-                    },
-                    new QuestionType
-                    {
-                        Question = "How would you like {0} to taste?"
-                    },
-                    new QuestionType
-                    {
-                        Question = "Share your mom’s recipe."
-                    }
-                });
+                        new QuestionType
+                        {
+                            Question = " What didn’t you like about {0}?"
+                        },
+                        new QuestionType
+                        {
+                            Question = "How would you like {0} to taste?"
+                        },
+                        new QuestionType
+                        {
+                            Question = "Share your mom’s recipe."
+                        }
+                    });
                 context.SaveChanges();
             }
 
@@ -568,23 +660,23 @@ namespace ServerSide.Data
             {
                 context.AddRange(new[]
                 {
-                    new DiscardItem
-                    {
-                        MenuItemId = 1,
-                        Status = "Sent for detailed Feedback",
-                        AverageRating = 1.8,
-                        Sentiments = "Negative",
-                        CreatedDate = DateTime.Now
-                    },
-                    new DiscardItem
-                    {
-                        MenuItemId = 2,
-                        Status = "Removed",
-                        AverageRating = 1.6,
-                        Sentiments = "Negative",
-                        CreatedDate = DateTime.Now
-                    }
-                });
+                        new DiscardItem
+                        {
+                            MenuItemId = 1,
+                            Status = "Sent for detailed Feedback",
+                            AverageRating = 1.8,
+                            Sentiments = "Negative",
+                            CreatedDate = DateTime.Now
+                        },
+                        new DiscardItem
+                        {
+                            MenuItemId = 2,
+                            Status = "Removed",
+                            AverageRating = 1.6,
+                            Sentiments = "Negative",
+                            CreatedDate = DateTime.Now
+                        }
+                    });
                 context.SaveChanges();
             }
 

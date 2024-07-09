@@ -8,6 +8,10 @@
         public bool IsAvailable { get; set; }
         public bool IsDeleted { get; set; }
         public int MenuItemTypeId { get; set; }
+        public string DietPreference { get; set; }
+        public string SpiceLevel { get; set; }
+        public string CuisinePreference { get; set; }
+        public bool HasSweetTooth { get; set; }
         public List<Feedback> Feedbacks { get; set; }
         public List<FixedMeal> FixedMeals { get; set; }
         public List<VotingResult> VotingResults { get; set; }

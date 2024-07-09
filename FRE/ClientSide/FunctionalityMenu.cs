@@ -501,16 +501,32 @@ namespace ClientSide
         }
         private static async Task CreateMenuItem()
         {
+            CreateMenuItemModel menuItemModel = new CreateMenuItemModel();
             Console.WriteLine("Enter MenuItem Name:");
-            string name = Console.ReadLine();
+            menuItemModel.Name = Console.ReadLine();
             Console.WriteLine("Enter Price:");
-            string price = Console.ReadLine();
+            menuItemModel.Price = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter MenuItem Availability Status (true/false):");
-            string availabilityStatus = Console.ReadLine();
+            menuItemModel.AvailabilityStatus = bool.Parse(Console.ReadLine());
             Console.WriteLine("Enter the MenuTypeId");
-            string MenuItemTypeId = Console.ReadLine();
+            menuItemModel.MenuItemTypeId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Please select one - 1.Vegetarian, 2.Non Vegetarian, 3.Eggetarian");
+            var dietPreferenceChoice = int.Parse(Console.ReadLine());
+            menuItemModel.DietPreference = (DietPreferenceEnum)(dietPreferenceChoice);
 
-            string request = $"ADD_MENU_ITEM|{name},{price},{availabilityStatus},{MenuItemTypeId}";
+            Console.WriteLine("Please select your spice level of the food - 1.High, 2.Medium, 3.Low");
+            var spiceLevelChoice = int.Parse(Console.ReadLine());
+            menuItemModel.SpiceLevel = (SpiceLevelEnum)(spiceLevelChoice);
+
+            Console.WriteLine("Which cuisine it belong to - 1.North Indian, 2.South Indian, 3.Other");
+            var cuisinePreferenceChoice = int.Parse(Console.ReadLine());
+            menuItemModel.CuisinePreference = (CuisinePreferenceEnum)(cuisinePreferenceChoice);
+
+            Console.WriteLine("Is it a sweet dish - Yes, No");
+            menuItemModel.HasSweetTooth = Console.ReadLine().ToLower() == "yes";
+
+            string serializedMenuItem = JsonConvert.SerializeObject(menuItemModel, Formatting.Indented);
+            string request = $"ADD_MENU_ITEM|{serializedMenuItem}";
             string response = await HandleRequest.SendRequest(request);
             MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(response);
             var table = new ConsoleTable("Name", "Price", "MenuTypeId");

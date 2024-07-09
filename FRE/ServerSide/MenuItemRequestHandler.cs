@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ServerSide.Entity;
 using ServerSide.Services.Interfaces;
@@ -9,15 +10,18 @@ namespace ServerSide
     {
         public static async Task<string> HandleAddMenuItem(string parameter, IMenuItemService menuItemService)
         {
-
-            string[] addParams = parameter.Split(',');
+            CreateMenuItemModel createMenuItemModel = JsonConvert.DeserializeObject<CreateMenuItemModel>(parameter);
             var menuItemAdd = new MenuItem
             {
-                Name = addParams[0],
-                Price = Convert.ToInt32(addParams[1]),
-                IsAvailable = Convert.ToBoolean(addParams[2]),
+                Name = createMenuItemModel.Name,
+                Price = createMenuItemModel.Price,
+                IsAvailable = createMenuItemModel.AvailabilityStatus,
                 IsDeleted = false,
-                MenuItemTypeId = Convert.ToInt32(addParams[3])
+                MenuItemTypeId = createMenuItemModel.MenuItemTypeId,
+                DietPreference = createMenuItemModel.DietPreference.ToString(),
+                SpiceLevel = createMenuItemModel.SpiceLevel.ToString(),
+                CuisinePreference = createMenuItemModel.CuisinePreference.ToString(),
+                HasSweetTooth = createMenuItemModel.HasSweetTooth
             };
             var response = await menuItemService.AddMenuItem(menuItemAdd);
             return JsonConvert.SerializeObject(response, Formatting.Indented);

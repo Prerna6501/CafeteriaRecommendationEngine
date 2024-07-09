@@ -21,7 +21,7 @@ namespace ServerSide.Services
         public async Task<MenuItem> AddMenuItem(MenuItem menuItem)
         {
             var response = await _menuItemRepository.CreateAsync(menuItem);
-            await _notificationService.CreateNotification((int)NotificationTypeEnum.NewItemAdded, string.Format(AppConstants.AddMenuItemNotification, response.Name));
+            await _notificationService.CreateNotification((int)NotificationTypeEnum.MenuItemUpdates, string.Format(AppConstants.AddMenuItemNotification, response.Name));
 
             return response;
         }
