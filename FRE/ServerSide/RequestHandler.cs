@@ -124,5 +124,19 @@ namespace ServerSide.Services
             EmployeeProfileModel employeeProfileModel = JsonConvert.DeserializeObject<EmployeeProfileModel>(parameters);
             return await _profileService.SetupProfile(employeeProfileModel);
         }
+
+        public async Task<string> GetDiscardItemName(string parameters)
+        {
+            int discardId = int.Parse(parameters.Trim());
+            var discardItem = await _discardItemService.Where(x => x.Id == discardId).Include(y => y.MenuItem).FirstOrDefaultAsync();
+            if (discardItem != null)
+            {
+                return discardItem.MenuItem.Name;
+            }
+            else
+            {
+                return "Discard item not found.";
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Common.Enums;
+﻿using Common;
+using Common.Enums;
 using Common.Models;
 using ConsoleTables;
 using Newtonsoft.Json;
@@ -284,11 +285,14 @@ namespace ClientSide
         {
             Console.WriteLine("Enter the Discard item Id:  ");
             string discardItemId = Console.ReadLine();
-            Console.WriteLine("What didn’t you like about Food Item?");
+            string requestForDiscardItem = $"GET_DISCARDITEM_NAME|{discardItemId}";
+            string name = await HandleRequest.SendRequest(requestForDiscardItem);
+
+            Console.WriteLine(string.Format(AppConstants.QuestionDislikeAboutItem, name));
             string dislikeAboutFoodResponse = Console.ReadLine();
-            Console.WriteLine("How would you like Food Item to taste?");
+            Console.WriteLine(string.Format(AppConstants.QuestionLikesAboutItem, name));
             string tasteResponse = Console.ReadLine();
-            Console.WriteLine("Share your mom’s recipe.");
+            Console.WriteLine(AppConstants.QuestionMomsRecipe);
             string momsRecipeResponse = Console.ReadLine();
 
             DetailedFeedbackModel detailedFeedbackModel = new DetailedFeedbackModel

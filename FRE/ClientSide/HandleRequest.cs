@@ -19,7 +19,7 @@ namespace ClientSide
                 await stream.WriteAsync(data, 0, data.Length);
                 Console.WriteLine($"Sent: {message}");
 
-                data = new byte[10000];
+                data = new byte[20000];
                 string responseData = string.Empty;
 
                 int bytes = await stream.ReadAsync(data, 0, data.Length);

@@ -15,5 +15,6 @@
         public Task<string> ViewMonthlyReport();
         public Task<string> VoteMenuItems(string parameters);
         public Task<string> SetupProfile(string parameters);
+        public Task<string> GetDiscardItemName(string parameters);
     }
 }

@@ -166,6 +166,9 @@ namespace ServerSide
                 case "SETUP_PROFILE":
                     return await requestHandler.SetupProfile(parameters);
 
+                case "GET_DISCARDITEM_NAME":
+                    return await requestHandler.GetDiscardItemName(parameters);
+
                 default:
                     return $"Invalid request type: {requestType}";
             }
