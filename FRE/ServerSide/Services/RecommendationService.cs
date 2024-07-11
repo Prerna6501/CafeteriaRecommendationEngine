@@ -13,9 +13,8 @@ namespace ServerSide.Services
         private readonly IProfileService _profileService;
         private readonly IVotingResultService _votingResultService;
 
-        //Add more
-        private static readonly List<string> PositiveKeywords = new List<string> { "good", "great", "excellent", "love", "fantastic", "happy", "delicious", "amazing", "tasty" };
-        private static readonly List<string> NegativeKeywords = new List<string> { "bad", "not good", "terrible", "awful", "horrible", "disgusting", "hate", "poor" };
+        private static readonly List<string> PositiveKeywords = new List<string> { "good", "great", "excellent", "love", "fantastic", "happy", "delicious", "amazing", "tasty", "awesome", "wonderful", "superb", "perfect", "outstanding", "pleasing", "satisfying", "fabulous", "magnificent", "phenomenal" };
+        private static readonly List<string> NegativeKeywords = new List<string> { "bad", "not good", "terrible", "awful", "horrible", "disgusting", "hate", "poor", "disappointing", "unpleasant", "displeasing", "unsatisfactory", "dreadful", "repulsive", "lousy", "miserable" };
 
         public RecommendationService(IMenuItemService menuItemService, IFeedbackService feedbackService, IProfileService profileService, IVotingResultService votingResultService)
         {
@@ -51,9 +50,9 @@ namespace ServerSide.Services
         public async Task<List<MenuItemModel>> GetTopRecommendations(int mealTypeId, int topN)
         {
             int menuTypeId = mealTypeId == 1 ? (int)MenuItemEnum.Breakfast : (int)MenuItemEnum.Meals;
-            List<MenuItem> menuItems = await _menuItemService.Where(x => x.MenuItemTypeId == menuTypeId).Include(x => x.MenuItemType).ToListAsync();
+            List<MenuItem> menuItems = await _menuItemService.Where(x => x.MenuItemTypeId == menuTypeId).Include(x => x.MenuItemType).ToListAsync();                      
             var menuItemModel = await GetMenuItemModels(menuItems);
-
+            
             return menuItemModel.OrderByDescending(x => x.AverageRating).Take(topN).ToList();
         }
 
