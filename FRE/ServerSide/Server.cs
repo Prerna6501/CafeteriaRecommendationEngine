@@ -169,6 +169,9 @@ namespace ServerSide
                 case "GET_DISCARDITEM_NAME":
                     return await requestHandler.GetDiscardItemName(parameters);
 
+                case "GET_SORTED_ROLLOUT_MENU":
+                    return await requestHandler.GetRollOutMenuSortedByPreferences(parameters);
+
                 default:
                     return $"Invalid request type: {requestType}";
             }

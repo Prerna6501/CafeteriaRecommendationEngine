@@ -138,5 +138,18 @@ namespace ServerSide.Services
                 return "Discard item not found.";
             }
         }
+        public async Task<string> GetRollOutMenuSortedByPreferences(string parameters)
+        {
+            int userId = int.Parse(parameters.Trim());
+            var result = await _recommendationService.GetRollOutMenuSortedByPreferences(userId);
+            if (result != null)
+            {
+                return JsonConvert.SerializeObject(result, Formatting.Indented);
+            }
+            else
+            {
+                return "No Rolled out menuItems";
+            }
+        }
     }
 }

@@ -16,5 +16,6 @@
         public Task<string> VoteMenuItems(string parameters);
         public Task<string> SetupProfile(string parameters);
         public Task<string> GetDiscardItemName(string parameters);
+        public Task<string> GetRollOutMenuSortedByPreferences(string parameters);
     }
 }
