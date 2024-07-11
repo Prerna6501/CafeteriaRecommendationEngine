@@ -147,10 +147,10 @@ namespace ClientSide
             while (true)
             {
                 Console.WriteLine("Employee Functionality\nPlease select:");
-                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu\n6. Vote for Roll out menu\n7. Get notifications\n8. Give detailed feedback\n9. Setup Profile\n10. Logout");
+                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu\n6. Vote for Roll out menu\n7. Get notifications\n8. Give detailed feedback\n9. Setup Profile\n10. Get Rollout menu with your preferences\n11. Logout");
                 string input = Console.ReadLine();
                 bool isValidChoice = int.TryParse(input, out int choice);
-                if (!isValidChoice || choice < 1 || choice > 10)
+                if (!isValidChoice || choice < 1 || choice > 11)
                 {
                     Console.WriteLine("Wrong choice, try again...\n");
                     continue;
@@ -194,8 +194,12 @@ namespace ClientSide
                         await SetupProfile(userId);
                         PrintSeparatorLine();
                         break;
+                    case 10: 
+                        await GetRollOutMenuSortedByPreferences(userId);
+                        PrintSeparatorLine();
+                        break;
 
-                    case 10:
+                    case 11:
                         Console.WriteLine("Logout");
                         PrintSeparatorLine();
                         return;
@@ -203,6 +207,19 @@ namespace ClientSide
                         break;
                 }
             }
+        }
+
+        private static async Task GetRollOutMenuSortedByPreferences(int userId)
+        {
+            string request = $"GET_SORTED_ROLLOUT_MENU|{userId}";
+            string response = await HandleRequest.SendRequest(request);
+            List<MenuItemModel> menuItemModel = JsonConvert.DeserializeObject<List<MenuItemModel>>(response);
+            var table = new ConsoleTable("Id", "Name", "Sentiment", "Average Rating");
+            foreach (var item in menuItemModel)
+            {
+                table.AddRow(item.Id, item.Name, item.Sentiments, item.AverageRating);
+            }
+            table.Write(Format.Alternative);
         }
 
         private static async Task SetupProfile(int userId)
