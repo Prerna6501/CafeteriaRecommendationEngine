@@ -210,19 +210,19 @@ namespace ClientSide
             EmployeeProfileModel profile = new EmployeeProfileModel();
             Console.WriteLine("Add Your Profile:");
             Console.WriteLine("1) Please select one - 1.Vegetarian, 2.Non Vegetarian, 3.Eggetarian");
-            var dietPreferenceChoice = int.Parse(Console.ReadLine());
+            var dietPreferenceChoice = GetValidChoice(1, 3);
             profile.DietPreference = (DietPreferenceEnum)(dietPreferenceChoice);
 
             Console.WriteLine("2) Please select your spice level - 1.High, 2.Medium, 3.Low");
-            var spiceLevelChoice = int.Parse(Console.ReadLine());
-            profile.SpiceLevel = (SpiceLevelEnum)(spiceLevelChoice - 1);
+            var spiceLevelChoice = GetValidChoice(1, 3);
+            profile.SpiceLevel = (SpiceLevelEnum)(spiceLevelChoice);
 
             Console.WriteLine("3) What do you prefer most? - 1.North Indian, 2.South Indian, 3.Other");
-            var cuisinePreferenceChoice = int.Parse(Console.ReadLine());
+            var cuisinePreferenceChoice = GetValidChoice(1, 3);
             profile.CuisinePreference = (CuisinePreferenceEnum)(cuisinePreferenceChoice - 1);
 
             Console.WriteLine("4) Do you have a sweet tooth? - Yes, No");
-            profile.HasSweetTooth = Console.ReadLine().ToLower() == "yes";
+            profile.HasSweetTooth = GetValidYesNoChoice();
 
             profile.UserId = userId;
 
@@ -231,6 +231,39 @@ namespace ClientSide
             string response = await HandleRequest.SendRequest(request);
             Console.WriteLine(response);
         }
+
+        private static int GetValidChoice(int min, int max)
+        {
+            int choice;
+            while (true)
+            {
+                Console.Write($"Enter a choice ({min}-{max}): ");
+                if (int.TryParse(Console.ReadLine(), out choice) && choice >= min && choice <= max)
+                {
+                    return choice;
+                }
+                Console.WriteLine("Invalid choice, try again...");
+            }
+        }
+
+        private static bool GetValidYesNoChoice()
+        {
+            while (true)
+            {
+                Console.Write("Enter a choice (Yes/No): ");
+                string input = Console.ReadLine().ToLower();
+                if (input == "yes")
+                {
+                    return true;
+                }
+                else if (input == "no")
+                {
+                    return false;
+                }
+                Console.WriteLine("Invalid choice, try again...");
+            }
+        }
+
 
         private static async Task RemoveDiscardedItem()
         {
