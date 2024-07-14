@@ -1,3 +1,4 @@
+﻿using Common.CustomExceptions;
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ServerSide.Services;
 using ServerSide.Services.Interfaces;
@@ -85,7 +86,8 @@ namespace ServerSide
             var feedbackService = serviceProvider.GetRequiredService<FeedbackService>();
             var requestHandler = serviceProvider.GetRequiredService<IRequestHandler>();
 
-
+            try
+            {
             switch (requestType.ToUpper())
             {
                 case "AUTHENTICATE_USER":
@@ -174,6 +176,32 @@ namespace ServerSide
 
                 default:
                     return $"Invalid request type: {requestType}";
+            }
+        }
+            catch (Common.CustomExceptions.ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            catch (UserNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            catch (ProfileNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            catch (InvalidChoiceException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            catch(EntityNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
             }
         }
 
