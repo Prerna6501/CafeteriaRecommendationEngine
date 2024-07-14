@@ -21,17 +21,12 @@ namespace ClientSide
 
                 try
                 {
-                    var response = await AuthFunction.AuthenticateUser(loginMessage);
-                    
+                    var response = await AuthFunction.AuthenticateUser(loginMessage);                    
                     if (ResponseUtils.HandleResponse(response, out var message))
                     {
                         isAuthenticated = true;
                         userId = credentials.UserId;
                         role = message;
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nTry again......\n");
                     }
                 }
                 catch (Exception ex)
