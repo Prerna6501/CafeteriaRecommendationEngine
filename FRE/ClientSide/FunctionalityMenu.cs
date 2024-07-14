@@ -1,6 +1,8 @@
 ﻿using Common;
 using Common.Enums;
+using Common.Helpers;
 using Common.Models;
+using Common.Utilities;
 using ConsoleTables;
 using Newtonsoft.Json;
 using ServerSide.Entity;
@@ -556,36 +558,26 @@ namespace ClientSide
         private static async Task CreateMenuItem()
         {
             CreateMenuItemModel menuItemModel = new CreateMenuItemModel();
-            Console.WriteLine("Enter MenuItem Name:");
-            menuItemModel.Name = Console.ReadLine();
-            Console.WriteLine("Enter Price:");
-            menuItemModel.Price = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter MenuItem Availability Status (true/false):");
-            menuItemModel.AvailabilityStatus = bool.Parse(Console.ReadLine());
-            Console.WriteLine("Enter the MenuTypeId");
-            menuItemModel.MenuItemTypeId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please select one - 1.Vegetarian, 2.Non Vegetarian, 3.Eggetarian");
-            var dietPreferenceChoice = int.Parse(Console.ReadLine());
-            menuItemModel.DietPreference = (DietPreferenceEnum)(dietPreferenceChoice);
-
-            Console.WriteLine("Please select your spice level of the food - 1.High, 2.Medium, 3.Low");
-            var spiceLevelChoice = int.Parse(Console.ReadLine());
-            menuItemModel.SpiceLevel = (SpiceLevelEnum)(spiceLevelChoice);
-
-            Console.WriteLine("Which cuisine it belong to - 1.North Indian, 2.South Indian, 3.Other");
-            var cuisinePreferenceChoice = int.Parse(Console.ReadLine());
-            menuItemModel.CuisinePreference = (CuisinePreferenceEnum)(cuisinePreferenceChoice);
-
-            Console.WriteLine("Is it a sweet dish - Yes, No");
-            menuItemModel.HasSweetTooth = Console.ReadLine().ToLower() == "yes";
+            menuItemModel.Name = Helpers.ReadString("Enter MenuItem Name:");
+            menuItemModel.Price = Helpers.ReadInt("Enter Price:");
+            menuItemModel.AvailabilityStatus = Helpers.ReadBool("Enter MenuItem Availability Status (true/false):");
+            menuItemModel.MenuItemTypeId = Helpers.ReadInt("Enter the MenuTypeId");
+            menuItemModel.DietPreference = (DietPreferenceEnum)Helpers.ReadValidChoice(1, 3, "Please select one - 1.Vegetarian, 2.Non Vegetarian, 3.Eggetarian");
+            menuItemModel.SpiceLevel = (SpiceLevelEnum)Helpers.ReadValidChoice(1, 3, "Please select your spice level of the food - 1.High, 2.Medium, 3.Low");
+            menuItemModel.CuisinePreference = (CuisinePreferenceEnum)Helpers.ReadValidChoice(1, 3, "Which cuisine does it belong to - 1.North Indian, 2.South Indian, 3.Other");
+            menuItemModel.HasSweetTooth = Helpers.ReadYesNo("Is it a sweet dish - Yes, No");
 
             string serializedMenuItem = JsonConvert.SerializeObject(menuItemModel, Formatting.Indented);
             string request = $"ADD_MENU_ITEM|{serializedMenuItem}";
             string response = await HandleRequest.SendRequest(request);
-            MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(response);
+
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(data);
             var table = new ConsoleTable("Name", "Price", "MenuTypeId");
             table.AddRow(menuItem.Name, menuItem.Price, menuItem.MenuItemTypeId);
             table.Write(Format.Alternative);
+        }
         }
 
         private static async Task UpdateMenuItem()

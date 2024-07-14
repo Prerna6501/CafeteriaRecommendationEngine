@@ -10,6 +10,8 @@ namespace ServerSide
     {
         public static async Task<string> HandleAddMenuItem(string parameter, IMenuItemService menuItemService)
         {
+            try
+            {
             CreateMenuItemModel createMenuItemModel = JsonConvert.DeserializeObject<CreateMenuItemModel>(parameter);
             var menuItemAdd = new MenuItem
             {
@@ -25,6 +27,11 @@ namespace ServerSide
             };
             var response = await menuItemService.AddMenuItem(menuItemAdd);
             return JsonConvert.SerializeObject(response, Formatting.Indented);
+        }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         public static async Task<string> HandleUpdateMenuItem(string parameter, IMenuItemService menuItemService)

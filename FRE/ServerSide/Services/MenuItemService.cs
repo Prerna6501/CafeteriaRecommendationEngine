@@ -20,10 +20,22 @@ namespace ServerSide.Services
 
         public async Task<MenuItem> AddMenuItem(MenuItem menuItem)
         {
-            var response = await _menuItemRepository.CreateAsync(menuItem);
-            await _notificationService.CreateNotification((int)NotificationTypeEnum.MenuItemUpdates, string.Format(AppConstants.AddMenuItemNotification, response.Name));
+            try
+            {
+                if (menuItem == null)
+                {
+                    throw new ArgumentNullException("Menu item cannot be null");
+                }
 
-            return response;
+                var response = await _menuItemRepository.CreateAsync(menuItem);
+                await _notificationService.CreateNotification((int)NotificationTypeEnum.MenuItemUpdates, string.Format(AppConstants.AddMenuItemNotification, response.Name));
+
+                return response;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
 
         public async Task<MenuItem> RemoveMenuItem(int menuItemId)

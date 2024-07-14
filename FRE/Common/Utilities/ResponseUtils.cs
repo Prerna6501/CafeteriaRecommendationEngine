@@ -25,10 +25,10 @@ namespace Common.Utilities
             return JsonConvert.SerializeObject(responseModel, Formatting.Indented);
         }
 
-        public static bool HandleResponse(string response, out string message)
+        public static bool HandleResponse(string response, out string data)
         {
             var responseModel = JsonConvert.DeserializeObject<ResponseModel>(response);
-            message = responseModel.Response;
+            data = responseModel.Response;
             if (responseModel.IsSuccesful)
             {
                 Console.WriteLine("Operation successful.");

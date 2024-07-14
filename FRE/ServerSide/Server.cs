@@ -106,7 +106,8 @@ namespace ServerSide
                         return ResponseUtils.CreateSuccessJsonResponse(response);
 
                     case "ADD_MENU_ITEM":
-                        return await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
+                        var addMenuResponse = await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
+                        return ResponseUtils.CreateSuccessJsonResponse(addMenuResponse);
 
                     case "UPDATE_MENU":
                         return await MenuItemRequestHandler.HandleUpdateMenuItem(parameters, menuItemService);
