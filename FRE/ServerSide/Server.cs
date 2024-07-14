@@ -71,7 +71,8 @@ namespace ServerSide
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Exception: {e}");
+                Console.WriteLine($"Exception: {e.Message}");
+            
             }
             finally
             {
@@ -110,13 +111,16 @@ namespace ServerSide
                         return ResponseUtils.CreateSuccessJsonResponse(addMenuResponse);
 
                     case "UPDATE_MENU":
-                        return await MenuItemRequestHandler.HandleUpdateMenuItem(parameters, menuItemService);
+                        var updateMenuResponse = await MenuItemRequestHandler.HandleUpdateMenuItem(parameters, menuItemService);
+                        return ResponseUtils.CreateSuccessJsonResponse(updateMenuResponse);
 
                     case "DELETE_MENU_ITEM":
-                        return await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);
+                        var deleteMenuResponse = await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);
+                        return ResponseUtils.CreateSuccessJsonResponse(deleteMenuResponse);
 
                     case "VIEW_MENU":
-                        return await MenuItemRequestHandler.HandleViewMenuItem(menuItemService);
+                        var viewMenuResponse = await MenuItemRequestHandler.HandleViewMenuItem(menuItemService);
+                        return ResponseUtils.CreateSuccessJsonResponse(viewMenuResponse);
 
                     case "GIVE_FEEDBACK":
                         return await FeedbackRequestHandler.HandleGiveFeedback(parameters, feedbackService);
@@ -185,29 +189,34 @@ namespace ServerSide
             catch (Common.CustomExceptions.ArgumentNullException ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
+                return ResponseUtils.CreateExceptionJsonResponse(ex.Message);
             }
             catch (UserNotFoundException ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
+                return ResponseUtils.CreateExceptionJsonResponse(ex.Message);
             }
             catch (ProfileNotFoundException ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
+                return ResponseUtils.CreateExceptionJsonResponse(ex.Message);
             }
             catch (InvalidChoiceException ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
+                return ResponseUtils.CreateExceptionJsonResponse(ex.Message);
             }
             catch (EntityNotFoundException ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
+                return ResponseUtils.CreateExceptionJsonResponse(ex.Message);
             }
             catch (AuthenticateException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return ResponseUtils.CreateExceptionJsonResponse(ex.Message);
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return ResponseUtils.CreateExceptionJsonResponse(ex.Message);

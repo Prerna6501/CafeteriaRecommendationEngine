@@ -142,7 +142,7 @@ namespace ServerSide.Data
                             IsAvailable = true,
                             IsDeleted = false,
                             MenuItemTypeId = 4,
-                            DietPreference = "Non-Vegetarian",
+                            DietPreference = "NonVegetarian",
                             SpiceLevel = "Low",
                             CuisinePreference = "North Indian",
                             HasSweetTooth = false
@@ -190,7 +190,7 @@ namespace ServerSide.Data
                             IsAvailable = true,
                             IsDeleted = false,
                             MenuItemTypeId = 5,
-                            DietPreference = "Non-Vegetarian",
+                            DietPreference = "NonVegetarian",
                             SpiceLevel = "Medium",
                             CuisinePreference = "Other",
                             HasSweetTooth = false

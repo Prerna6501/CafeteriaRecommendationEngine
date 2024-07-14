@@ -196,7 +196,7 @@ namespace ClientSide
                         await SetupProfile(userId);
                         PrintSeparatorLine();
                         break;
-                    case 10: 
+                    case 10:
                         await GetRollOutMenuSortedByPreferences(userId);
                         PrintSeparatorLine();
                         break;
@@ -291,7 +291,7 @@ namespace ClientSide
             var request = $"REMOVE_DISCARD_ITEM|{discardId}";
             var response = await HandleRequest.SendRequest(request);
             Console.WriteLine(response);
-        }
+            }
 
         private static async Task GetDetailedFeedbackFromUser()
         {
@@ -539,20 +539,17 @@ namespace ClientSide
         private static async Task ViewMenuItems()
         {
             string response = await HandleRequest.SendRequest("VIEW_MENU|");
-            Console.WriteLine("List of MenuItems:");
-            if (response != null)
+
+            if (ResponseUtils.HandleResponse(response, out var data))
             {
-                List<MenuItem> menuItems = JsonConvert.DeserializeObject<List<MenuItem>>(response);
+                Console.WriteLine("List of MenuItems:");
+                List<MenuItem> menuItems = JsonConvert.DeserializeObject<List<MenuItem>>(data);
                 var table = new ConsoleTable("Id", "Name", "Price", "IsAvailable");
                 foreach (var menuItem in menuItems)
                 {
                     table.AddRow(menuItem.Id, menuItem.Name, menuItem.Price, menuItem.IsAvailable);
                 }
                 table.Write(Format.Alternative);
-            }
-            else
-            {
-                Console.WriteLine("NO MenuItem at the moment.");
             }
         }
         private static async Task CreateMenuItem()
@@ -574,48 +571,47 @@ namespace ClientSide
             if (ResponseUtils.HandleResponse(response, out var data))
             {
                 MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(data);
-            var table = new ConsoleTable("Name", "Price", "MenuTypeId");
-            table.AddRow(menuItem.Name, menuItem.Price, menuItem.MenuItemTypeId);
-            table.Write(Format.Alternative);
-        }
+                var table = new ConsoleTable("Name", "Price", "MenuTypeId");
+                table.AddRow(menuItem.Name, menuItem.Price, menuItem.MenuItemTypeId);
+                table.Write(Format.Alternative);
+            }
         }
 
         private static async Task UpdateMenuItem()
         {
-            Console.WriteLine("Enter MenuItem ID:");
-            string id = Console.ReadLine();
-            Console.WriteLine("Enter MenuItem Name:");
-            string name = Console.ReadLine();
-            Console.WriteLine("Enter MenuItem Price:");
-            string price = Console.ReadLine();
-            Console.WriteLine("Enter MenuItem Availability Status (true/false):");
-            string availabilityStatus = Console.ReadLine();
-            Console.WriteLine("Do you want to soft delete (true/false)");
-            string softDelete = Console.ReadLine();
-            Console.WriteLine("Enter the MenuTypeId");
-            string MenuItemTypeId = Console.ReadLine();
+            int id = Helpers.ReadInt("Enter MenuItem ID:");
+            string name = Helpers.ReadString("Enter MenuItem Name:");
+            int price = Helpers.ReadInt("Enter MenuItem Price:");
+            bool availabilityStatus = Helpers.ReadBool("Enter MenuItem Availability Status (true/false):");
+            bool softDelete = Helpers.ReadBool("Do you want to soft delete (true/false):");
+            int menuItemTypeId = Helpers.ReadInt("Enter the MenuTypeId");
 
-            string request = $"UPDATE_MENU|{id},{name},{price},{availabilityStatus},{softDelete}, {MenuItemTypeId}";
+            string request = $"UPDATE_MENU|{id},{name},{price},{availabilityStatus},{softDelete},{menuItemTypeId}";
             string response = await HandleRequest.SendRequest(request);
 
-            MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(response);
-            var table = new ConsoleTable("Name", "Price");
-            table.AddRow(menuItem.Name, menuItem.Price);
-            table.Write(Format.Alternative);
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(data);
+                var table = new ConsoleTable("Name", "Price");
+                table.AddRow(menuItem.Name, menuItem.Price);
+                table.Write(Format.Alternative);
+            }
         }
 
         private static async Task DeleteMenuItem()
         {
-            Console.WriteLine("Enter MenuItem ID:");
-            string id = Console.ReadLine();
+            int id = Helpers.ReadInt("Enter MenuItem ID:");
 
             string request = $"DELETE_MENU_ITEM|{id}";
             string response = await HandleRequest.SendRequest(request);
 
-            MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(response);
-            var table = new ConsoleTable("Name", "IsDeleted");
-            table.AddRow(menuItem.Name, menuItem.IsDeleted);
-            table.Write(Format.Alternative);
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(data);
+                var table = new ConsoleTable("Name", "IsDeleted");
+                table.AddRow(menuItem.Name, menuItem.IsDeleted);
+                table.Write(Format.Alternative);
+            }
         }
     }
 }
