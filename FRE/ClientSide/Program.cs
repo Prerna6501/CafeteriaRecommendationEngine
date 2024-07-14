@@ -1,8 +1,5 @@
-﻿using Azure;
-using Common.CustomExceptions;
-using Common.Models;
+﻿using Common.Models;
 using Common.Utilities;
-using Newtonsoft.Json;
 
 namespace ClientSide
 {
@@ -21,7 +18,7 @@ namespace ClientSide
 
                 try
                 {
-                    var response = await AuthFunction.AuthenticateUser(loginMessage);                    
+                    var response = await AuthFunction.AuthenticateUser(loginMessage);
                     if (ResponseUtils.HandleResponse(response, out var message))
                     {
                         isAuthenticated = true;
