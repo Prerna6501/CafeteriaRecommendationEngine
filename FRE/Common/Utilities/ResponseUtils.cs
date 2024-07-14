@@ -1,4 +1,5 @@
 ﻿using Common.Models;
+using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace Common.Utilities
@@ -12,7 +13,7 @@ namespace Common.Utilities
                 Response = response,
                 IsSuccesful = true,
             };
-            return JsonSerializer.Serialize(responseModel);
+            return JsonConvert.SerializeObject(responseModel, Formatting.Indented);
         }
 
         public static string CreateExceptionJsonResponse(string response)
@@ -22,7 +23,7 @@ namespace Common.Utilities
                 Response = response,
                 IsSuccesful = false,
             };
-            return JsonSerializer.Serialize(responseModel);
+            return JsonConvert.SerializeObject(responseModel,Formatting.Indented);
         }
     }
 }
