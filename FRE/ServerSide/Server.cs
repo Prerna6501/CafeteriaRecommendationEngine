@@ -203,6 +203,11 @@ namespace ServerSide
                 Console.WriteLine(ex.Message);
                 return null;
             }
+            catch (AuthenticateException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ServerSide.Services.Interfaces;
+﻿using Common.CustomExceptions;
+using ServerSide.Services.Interfaces;
 
 namespace ServerSide.Services
 {
@@ -13,7 +14,14 @@ namespace ServerSide.Services
 
         public async Task<string> AuthenticateUser(int Id, string username, string password)
         {
-            return await _userService.AuthenticateUser(Id, username, password);
+            try
+            {
+                return await _userService.AuthenticateUser(Id, username, password);
+            }
+            catch (AuthenticateException ex)
+            {
+                throw new AuthenticateException(ex.Message);
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ namespace ServerSide.Services
                 if (role != null)
                     return role.Name;
             }
-            throw new AuthenticateException($"Invalid User Credentials. Try again...");
+            throw new AuthenticateException("Invalid User Credentials. Try again...");
         }
     }
 }
