@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Common.CustomExceptions;
 using Common.Models;
+using Common.Utilities;
 using Newtonsoft.Json;
 
 namespace ClientSide
@@ -21,14 +22,17 @@ namespace ClientSide
                 try
                 {
                     var response = await AuthFunction.AuthenticateUser(loginMessage);
-                    var responseModel = JsonConvert.DeserializeObject<ResponseModel>(response);
-                    if (responseModel.IsSuccesful)
+                    
+                    if (ResponseUtils.HandleResponse(response, out var message))
                     {
                         isAuthenticated = true;
                         userId = credentials.UserId;
-                        role = responseModel.Response;
+                        role = message;
                     }
-                    Console.WriteLine($"{responseModel.Response} \n");
+                    else
+                    {
+                        Console.WriteLine("\nTry again......\n");
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -1,6 +1,5 @@
 ﻿using Common.Models;
 using Newtonsoft.Json;
-using System.Text.Json;
 
 namespace Common.Utilities
 {
@@ -23,7 +22,23 @@ namespace Common.Utilities
                 Response = response,
                 IsSuccesful = false,
             };
-            return JsonConvert.SerializeObject(responseModel,Formatting.Indented);
+            return JsonConvert.SerializeObject(responseModel, Formatting.Indented);
+        }
+
+        public static bool HandleResponse(string response, out string message)
+        {
+            var responseModel = JsonConvert.DeserializeObject<ResponseModel>(response);
+            message = responseModel.Response;
+            if (responseModel.IsSuccesful)
+            {
+                Console.WriteLine("Operation successful.");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"Exception: {responseModel.Response}");
+                return false;
+            }
         }
     }
 }
