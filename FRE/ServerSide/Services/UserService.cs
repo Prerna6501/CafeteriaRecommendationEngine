@@ -1,4 +1,5 @@
-﻿using ServerSide.Entity;
+﻿using Common.CustomExceptions;
+using ServerSide.Entity;
 using ServerSide.Repositories.Interfaces;
 using ServerSide.Services.Interfaces;
 
@@ -22,7 +23,7 @@ namespace ServerSide.Services
                 if (role != null)
                     return role.Name;
             }
-            return "Invalid login credentials";
+            throw new AuthenticateException($"Invalid User Credentials. Try again...");
         }
     }
 }

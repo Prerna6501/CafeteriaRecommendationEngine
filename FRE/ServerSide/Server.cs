@@ -1,5 +1,5 @@
 ﻿using Common.CustomExceptions;
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using ServerSide.Services;
 using ServerSide.Services.Interfaces;
 using System.Net;
@@ -88,96 +88,96 @@ namespace ServerSide
 
             try
             {
-            switch (requestType.ToUpper())
-            {
-                case "AUTHENTICATE_USER":
+                switch (requestType.ToUpper())
+                {
+                    case "AUTHENTICATE_USER":
 
-                    string[] authData = parameters.Split(',');
-                    if (authData.Length < 3)
-                    {
-                        return "Invalid parameters for authentication.";
-                    }
-                    int userId = int.Parse(authData[0].Trim());
-                    string name = authData[1].Trim();
-                    string password = authData[2].Trim();
-                    return await authService.AuthenticateUser(userId, name, password);
+                        string[] authData = parameters.Split(',');
+                        if (authData.Length < 3)
+                        {
+                            return "Invalid parameters for authentication.";
+                        }
+                        int userId = int.Parse(authData[0].Trim());
+                        string name = authData[1].Trim();
+                        string password = authData[2].Trim();
+                        return await authService.AuthenticateUser(userId, name, password);
 
-                case "ADD_MENU_ITEM":
-                    return await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
+                    case "ADD_MENU_ITEM":
+                        return await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
 
-                case "UPDATE_MENU":
-                    return await MenuItemRequestHandler.HandleUpdateMenuItem(parameters, menuItemService);
+                    case "UPDATE_MENU":
+                        return await MenuItemRequestHandler.HandleUpdateMenuItem(parameters, menuItemService);
 
-                case "DELETE_MENU_ITEM":
-                    return await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);
+                    case "DELETE_MENU_ITEM":
+                        return await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);
 
-                case "VIEW_MENU":
-                    return await MenuItemRequestHandler.HandleViewMenuItem(menuItemService);
+                    case "VIEW_MENU":
+                        return await MenuItemRequestHandler.HandleViewMenuItem(menuItemService);
 
-                case "GIVE_FEEDBACK":
-                    return await FeedbackRequestHandler.HandleGiveFeedback(parameters, feedbackService);
+                    case "GIVE_FEEDBACK":
+                        return await FeedbackRequestHandler.HandleGiveFeedback(parameters, feedbackService);
 
-                case "VIEW_FEEDBACK_ITEM":
-                    return await FeedbackRequestHandler.HandleViewFeedbackForItem(parameters, feedbackService);
+                    case "VIEW_FEEDBACK_ITEM":
+                        return await FeedbackRequestHandler.HandleViewFeedbackForItem(parameters, feedbackService);
 
-                case "VIEW_FEEDBACK_EMPLOYEE":
-                    return await FeedbackRequestHandler.HandleViewFeedbackByEmployee(parameters, feedbackService);
+                    case "VIEW_FEEDBACK_EMPLOYEE":
+                        return await FeedbackRequestHandler.HandleViewFeedbackByEmployee(parameters, feedbackService);
 
-                case "GET_RECOMMENDED_ITEMS":
-                    return await requestHandler.GetTopMenuItemsByMealType(parameters);
+                    case "GET_RECOMMENDED_ITEMS":
+                        return await requestHandler.GetTopMenuItemsByMealType(parameters);
 
-                case "ROLLOUT_CHOICES":
-                    return await requestHandler.RolloutChoices(parameters);
+                    case "ROLLOUT_CHOICES":
+                        return await requestHandler.RolloutChoices(parameters);
 
-                case "VIEW_CHOICE_VOTING_RESULT":
-                    return await requestHandler.GetVotingResults();
+                    case "VIEW_CHOICE_VOTING_RESULT":
+                        return await requestHandler.GetVotingResults();
 
-                case "ROLLOUT_FINAL_MEAL":
-                    return await requestHandler.RolloutFinalMeal(parameters);
+                    case "ROLLOUT_FINAL_MEAL":
+                        return await requestHandler.RolloutFinalMeal(parameters);
 
-                case "CHANGE_AVAILABILITY":
-                    return await MenuItemRequestHandler.ChangeAvailability(parameters, menuItemService);
+                    case "CHANGE_AVAILABILITY":
+                        return await MenuItemRequestHandler.ChangeAvailability(parameters, menuItemService);
 
-                case "VIEW_MONTHLY_REPORT":
-                    return await requestHandler.ViewMonthlyReport();
+                    case "VIEW_MONTHLY_REPORT":
+                        return await requestHandler.ViewMonthlyReport();
 
-                case "VOTE_MENU_ITEM":
-                    return await requestHandler.VoteMenuItems(parameters);
+                    case "VOTE_MENU_ITEM":
+                        return await requestHandler.VoteMenuItems(parameters);
 
-                case "GET_ROLLOUT_CHOICES":
-                    return await requestHandler.GetVotingResults();
+                    case "GET_ROLLOUT_CHOICES":
+                        return await requestHandler.GetVotingResults();
 
-                case "GET_NOTIFICATIONS":
-                    return await requestHandler.GetNotifications();
+                    case "GET_NOTIFICATIONS":
+                        return await requestHandler.GetNotifications();
 
-                case "ADD_DETAILED_FEEDBACK":
-                    return await requestHandler.AddDetailedFeedback(parameters);
+                    case "ADD_DETAILED_FEEDBACK":
+                        return await requestHandler.AddDetailedFeedback(parameters);
 
-                case "GET_DISCARD_LIST":
-                    return await requestHandler.GetDiscardItems();
+                    case "GET_DISCARD_LIST":
+                        return await requestHandler.GetDiscardItems();
 
-                case "REMOVE_DISCARD_ITEM":
-                    return await requestHandler.RemoveDiscardItem(parameters);
+                    case "REMOVE_DISCARD_ITEM":
+                        return await requestHandler.RemoveDiscardItem(parameters);
 
-                case "VIEW_DETAILED_FEEDBACK_ITEM":
-                    return await requestHandler.ViewDetailedFeedbackOfItem(parameters);
+                    case "VIEW_DETAILED_FEEDBACK_ITEM":
+                        return await requestHandler.ViewDetailedFeedbackOfItem(parameters);
 
-                case "GET_DETAILED_FEEDBACK_ITEM":
-                    return await requestHandler.RequestDetailedFeedbackFromUser(parameters);
+                    case "GET_DETAILED_FEEDBACK_ITEM":
+                        return await requestHandler.RequestDetailedFeedbackFromUser(parameters);
 
-                case "SETUP_PROFILE":
-                    return await requestHandler.SetupProfile(parameters);
+                    case "SETUP_PROFILE":
+                        return await requestHandler.SetupProfile(parameters);
 
-                case "GET_DISCARDITEM_NAME":
-                    return await requestHandler.GetDiscardItemName(parameters);
+                    case "GET_DISCARDITEM_NAME":
+                        return await requestHandler.GetDiscardItemName(parameters);
 
-                case "GET_SORTED_ROLLOUT_MENU":
-                    return await requestHandler.GetRollOutMenuSortedByPreferences(parameters);
+                    case "GET_SORTED_ROLLOUT_MENU":
+                        return await requestHandler.GetRollOutMenuSortedByPreferences(parameters);
 
-                default:
-                    return $"Invalid request type: {requestType}";
+                    default:
+                        return $"Invalid request type: {requestType}";
+                }
             }
-        }
             catch (Common.CustomExceptions.ArgumentNullException ex)
             {
                 Console.WriteLine(ex.Message);
@@ -198,13 +198,11 @@ namespace ServerSide
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            catch(EntityNotFoundException ex)
+            catch (EntityNotFoundException ex)
             {
                 Console.WriteLine(ex.Message);
                 return null;
             }
         }
-
-
     }
 }
