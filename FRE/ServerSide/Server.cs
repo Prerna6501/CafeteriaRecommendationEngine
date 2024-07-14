@@ -1,4 +1,5 @@
 ﻿using Common.CustomExceptions;
+using Common.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using ServerSide.Services;
 using ServerSide.Services.Interfaces;
@@ -100,7 +101,9 @@ namespace ServerSide
                         int userId = int.Parse(authData[0].Trim());
                         string name = authData[1].Trim();
                         string password = authData[2].Trim();
-                        return await authService.AuthenticateUser(userId, name, password);
+
+                        var response = await authService.AuthenticateUser(userId, name, password);
+                        return ResponseUtils.CreateSuccessJsonResponse(response);
 
                     case "ADD_MENU_ITEM":
                         return await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
@@ -206,7 +209,7 @@ namespace ServerSide
             catch (AuthenticateException ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
+                return ResponseUtils.CreateExceptionJsonResponse(ex.Message);
             }
         }
     }

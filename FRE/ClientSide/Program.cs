@@ -1,5 +1,7 @@
-﻿using Common.CustomExceptions;
+﻿using Azure;
+using Common.CustomExceptions;
 using Common.Models;
+using Newtonsoft.Json;
 
 namespace ClientSide
 {
@@ -18,27 +20,21 @@ namespace ClientSide
 
                 try
                 {
-                    role = await AuthFunction.AuthenticateUser(loginMessage);
-                    if (!string.IsNullOrEmpty(role))
+                    var response = await AuthFunction.AuthenticateUser(loginMessage);
+                    var responseModel = JsonConvert.DeserializeObject<ResponseModel>(response);
+                    if (responseModel.IsSuccesful)
                     {
                         isAuthenticated = true;
                         userId = credentials.UserId;
+                        role = responseModel.Response;
                     }
-                    else
-                    {
-                        Console.WriteLine("Authentication failed.");
-                    }
-                }
-                catch (AuthenticateException ex)
-                {
-                    Console.WriteLine($"Authentication failed: {ex.Message}");
+                    Console.WriteLine($"{responseModel.Response} \n");
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"An unexpected error occurred: {ex.Message}");
                 }
             }
-
             await FunctionalityMenu.GetFunctionalityMenu(role, userId);
         }
 

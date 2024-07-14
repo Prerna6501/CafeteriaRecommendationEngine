@@ -6,9 +6,7 @@
         {
             try
             {
-                string response = await HandleRequest.SendRequest(message);
-                Console.WriteLine(response);
-                return response;
+                return await HandleRequest.SendRequest(message);
             }
             catch (Exception e)
             {
