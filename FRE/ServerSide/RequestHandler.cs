@@ -14,8 +14,9 @@ namespace ServerSide.Services
         private readonly IDetailedFeedbackService _detailedFeedbackService;
         private readonly IDiscardItemService _discardItemService;
         private readonly IProfileService _profileService;
+        private readonly IUserActivityService _userActivityService;
 
-        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService, INotificationService notificationService, IDetailedFeedbackService detailedFeedbackService, IDiscardItemService discardItemService, IProfileService profileService)
+        public RequestHandler(IRecommendationService recommendationService, IVotingResultService votingResultService, IFixedMealService fixedMealService, INotificationService notificationService, IDetailedFeedbackService detailedFeedbackService, IDiscardItemService discardItemService, IProfileService profileService, IUserActivityService userActivityService)
         {
             _recommendationService = recommendationService;
             _votingResultService = votingResultService;
@@ -24,6 +25,7 @@ namespace ServerSide.Services
             _detailedFeedbackService = detailedFeedbackService;
             _discardItemService = discardItemService;
             _profileService = profileService;
+            _userActivityService = userActivityService;
         }
 
         public async Task<string> AddDetailedFeedback(string parameters)

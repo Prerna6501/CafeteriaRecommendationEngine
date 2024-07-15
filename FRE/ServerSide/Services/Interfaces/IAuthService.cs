@@ -2,6 +2,7 @@
 {
     public interface IAuthService
     {
-        public Task<string> AuthenticateUser(int Id, string username, string password);
+        public Task<string> AuthenticateUser(string parameters);
+        public Task<string> LogoutUser(string parameter);
     }
 }

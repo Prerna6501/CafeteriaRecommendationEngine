@@ -19,6 +19,7 @@ namespace ServerSide.Data.Extentions
             services.AddScoped<IDetailedFeedbackRepository, DetailedFeedbackRepository>();
             services.AddScoped<IDiscardItemRepository, DiscardItemRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IUserActivityRepository, UserActivityRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             return services;

@@ -202,13 +202,20 @@ namespace ClientSide
                         break;
 
                     case 11:
-                        Console.WriteLine("Logout");
+                        await Logout(userId);
                         PrintSeparatorLine();
                         return;
                     default:
                         break;
                 }
             }
+        }
+
+        private static async Task Logout(int userId)
+        {
+            string request = $"LOGOUT|{userId}";
+            string response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
         }
 
         private static async Task GetRollOutMenuSortedByPreferences(int userId)

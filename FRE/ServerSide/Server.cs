@@ -46,7 +46,6 @@ namespace ServerSide
 
         static async void HandleClient(TcpClient client, ServiceProvider serviceProvider)
         {
-            var authService = serviceProvider.GetRequiredService<AuthService>();
             NetworkStream stream = client.GetStream();
             byte[] bytes = new byte[256];
             string data;
@@ -91,19 +90,11 @@ namespace ServerSide
             {
                 switch (requestType.ToUpper())
                 {
+                    case "LOGOUT":
+                        return await authService.LogoutUser(parameters);
+
                     case "AUTHENTICATE_USER":
-
-                        string[] authData = parameters.Split(',');
-                        if (authData.Length < 3)
-                        {
-                            return "Invalid parameters for authentication.";
-                        }
-                        int userId = int.Parse(authData[0].Trim());
-                        string name = authData[1].Trim();
-                        string password = authData[2].Trim();
-
-                        var response = await authService.AuthenticateUser(userId, name, password);
-                        return ResponseUtils.CreateSuccessJsonResponse(response);
+                        return await authService.AuthenticateUser(parameters);
 
                     case "ADD_MENU_ITEM":
                         return await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);

@@ -18,7 +18,7 @@ namespace ClientSide
 
                 try
                 {
-                    var response = await AuthFunction.AuthenticateUser(loginMessage);
+                    var response = await HandleRequest.SendRequest(loginMessage);
                     if (ResponseUtils.HandleResponse(response, out var message))
                     {
                         isAuthenticated = true;
