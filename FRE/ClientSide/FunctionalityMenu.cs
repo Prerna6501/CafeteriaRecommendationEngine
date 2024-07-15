@@ -291,7 +291,7 @@ namespace ClientSide
             var request = $"REMOVE_DISCARD_ITEM|{discardId}";
             var response = await HandleRequest.SendRequest(request);
             Console.WriteLine(response);
-            }
+        }
 
         private static async Task GetDetailedFeedbackFromUser()
         {
@@ -418,7 +418,10 @@ namespace ClientSide
 
             string request = $"GIVE_FEEDBACK|{itemId},{rating},{comments},{userId}";
             string response = await HandleRequest.SendRequest(request);
-            Console.WriteLine(response);
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                Console.WriteLine(response);
+            }
         }
 
         private static async Task ViewFeedbackForItem()
@@ -430,29 +433,33 @@ namespace ClientSide
             string response = await HandleRequest.SendRequest(request);
 
             Console.WriteLine("Feedback for the item:\n");
-
-            List<FeedbackModel> feedbacks = JsonConvert.DeserializeObject<List<FeedbackModel>>(response);
-            var table = new ConsoleTable("FeedBack Id", "MenuItem Id", "Rating", "Comments");
-            foreach (var item in feedbacks)
+            if (ResponseUtils.HandleResponse(response, out var data))
             {
-                table.AddRow(item.Id, item.MenuItemId, item.Rating, item.Comment);
+                List<FeedbackModel> feedbacks = JsonConvert.DeserializeObject<List<FeedbackModel>>(data);
+                var table = new ConsoleTable("FeedBack Id", "MenuItem Id", "Rating", "Comments");
+                foreach (var item in feedbacks)
+                {
+                    table.AddRow(item.Id, item.MenuItemId, item.Rating, item.Comment);
+                }
+                table.Write(Format.Alternative);
             }
-            table.Write(Format.Alternative);
         }
 
         private static async Task ViewAllFeedbackByEmployee(int userId)
         {
             string request = $"VIEW_FEEDBACK_EMPLOYEE|{userId}";
             string response = await HandleRequest.SendRequest(request);
-
-            Console.WriteLine("All feedback given by you:\n");
-            List<FeedbackModel> feedbacks = JsonConvert.DeserializeObject<List<FeedbackModel>>(response);
-            var table = new ConsoleTable("FeedBack Id", "MenuItem Id", "MenuItem Name", "Rating", "Comments");
-            foreach (var item in feedbacks)
+            if (ResponseUtils.HandleResponse(response, out var data))
             {
-                table.AddRow(item.Id, item.MenuItemId, item.MenuItemName, item.Rating, item.Comment);
+                Console.WriteLine("All feedback given by you:\n");
+                List<FeedbackModel> feedbacks = JsonConvert.DeserializeObject<List<FeedbackModel>>(data);
+                var table = new ConsoleTable("FeedBack Id", "MenuItem Id", "MenuItem Name", "Rating", "Comments");
+                foreach (var item in feedbacks)
+                {
+                    table.AddRow(item.Id, item.MenuItemId, item.MenuItemName, item.Rating, item.Comment);
+                }
+                table.Write(Format.Alternative);
             }
-            table.Write(Format.Alternative);
         }
 
         private static async Task GetRecommendedItems()
