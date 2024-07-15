@@ -44,7 +44,7 @@ namespace ServerSide.Services
         public async Task<string> LogoutUser(string parameter)
         {
             int userId = int.Parse(parameter.Trim());
-            await _userActivityService.LogUserActivity(userId, ActivityTypeEnum.logout.ToString());
+            await _userActivityService.LogUserActivity(userId, ActivityTypeEnum.Logout.ToString());
             
             return ResponseUtils.CreateSuccessJsonResponse("Logout..");
         }

@@ -70,7 +70,7 @@ namespace ServerSide
         {
             try
             {
-                var response = await menuItemService.Where(x => x.IsDeleted == false && x.IsAvailable == true).ToListAsync();
+                var response = await menuItemService.GetAllAsync();
                 return ResponseUtils.CreateSuccessJsonResponse(JsonConvert.SerializeObject(response, Formatting.Indented));
             }
             catch (Exception ex)
