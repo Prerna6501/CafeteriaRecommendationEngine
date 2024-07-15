@@ -1,5 +1,6 @@
 ﻿using Common.CustomExceptions;
 using Common.Models;
+using Common.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ServerSide.Entity;
@@ -27,11 +28,11 @@ namespace ServerSide
                     HasSweetTooth = createMenuItemModel.HasSweetTooth
                 };
                 var response = await menuItemService.AddMenuItem(menuItemAdd);
-                return JsonConvert.SerializeObject(response, Formatting.Indented);
+                return ResponseUtils.CreateSuccessJsonResponse(JsonConvert.SerializeObject(response, Formatting.Indented));
             }
-            catch (Common.CustomExceptions.ArgumentNullException ex)
+            catch (EmptyArgumentException ex)
             {
-                throw new Common.CustomExceptions.ArgumentNullException(ex.Message);
+                throw new EmptyArgumentException(ex.Message);
             }
         }
 
@@ -50,7 +51,7 @@ namespace ServerSide
                     menuItemUpdate.MenuItemTypeId = Convert.ToInt32(updateParams[5]);
 
                     var updatedResponse = await menuItemService.UpdateAsync(menuItemUpdate);
-                    return JsonConvert.SerializeObject(updatedResponse, Formatting.Indented);
+                    return ResponseUtils.CreateSuccessJsonResponse(JsonConvert.SerializeObject(updatedResponse, Formatting.Indented));
                 }
                 throw new EntityNotFoundException($"Menu Item with ID: {Convert.ToInt32(updateParams[0])} not found.");
             }
@@ -70,7 +71,7 @@ namespace ServerSide
             try
             {
                 var response = await menuItemService.Where(x => x.IsDeleted == false && x.IsAvailable == true).ToListAsync();
-                return JsonConvert.SerializeObject(response, Formatting.Indented);
+                return ResponseUtils.CreateSuccessJsonResponse(JsonConvert.SerializeObject(response, Formatting.Indented));
             }
             catch (Exception ex)
             {
@@ -85,7 +86,7 @@ namespace ServerSide
 
             if (response == null) { return "No menuitem found"; }
 
-            else { return JsonConvert.SerializeObject(response, Formatting.Indented); }
+            else { return ResponseUtils.CreateSuccessJsonResponse(JsonConvert.SerializeObject(response, Formatting.Indented)); }
         }
 
         public static async Task<string> ChangeAvailability(string parameter, IMenuItemService menuItemService)

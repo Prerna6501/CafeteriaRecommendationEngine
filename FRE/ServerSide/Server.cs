@@ -83,7 +83,6 @@ namespace ServerSide
         private static async Task<string> ProcessRequest(string requestType, string parameters, ServiceProvider serviceProvider)
         {
             var authService = serviceProvider.GetRequiredService<AuthService>();
-            var notificationService = serviceProvider.GetRequiredService<NotificationService>();
             var menuItemService = serviceProvider.GetRequiredService<MenuItemService>();
             var feedbackService = serviceProvider.GetRequiredService<FeedbackService>();
             var requestHandler = serviceProvider.GetRequiredService<IRequestHandler>();
@@ -107,20 +106,16 @@ namespace ServerSide
                         return ResponseUtils.CreateSuccessJsonResponse(response);
 
                     case "ADD_MENU_ITEM":
-                        var addMenuResponse = await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
-                        return ResponseUtils.CreateSuccessJsonResponse(addMenuResponse);
+                        return await MenuItemRequestHandler.HandleAddMenuItem(parameters, menuItemService);
 
                     case "UPDATE_MENU":
-                        var updateMenuResponse = await MenuItemRequestHandler.HandleUpdateMenuItem(parameters, menuItemService);
-                        return ResponseUtils.CreateSuccessJsonResponse(updateMenuResponse);
+                        return await MenuItemRequestHandler.HandleUpdateMenuItem(parameters, menuItemService);
 
                     case "DELETE_MENU_ITEM":
-                        var deleteMenuResponse = await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);
-                        return ResponseUtils.CreateSuccessJsonResponse(deleteMenuResponse);
+                        return await MenuItemRequestHandler.HandleDeleteMenuItem(parameters, menuItemService);
 
                     case "VIEW_MENU":
-                        var viewMenuResponse = await MenuItemRequestHandler.HandleViewMenuItem(menuItemService);
-                        return ResponseUtils.CreateSuccessJsonResponse(viewMenuResponse);
+                        return await MenuItemRequestHandler.HandleViewMenuItem(menuItemService);
 
                     case "GIVE_FEEDBACK":
                         return await FeedbackRequestHandler.HandleGiveFeedback(parameters, feedbackService);
