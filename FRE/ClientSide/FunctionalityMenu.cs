@@ -21,11 +21,11 @@ namespace ClientSide
                 }
                 else if (role == EnumExtensions.GetDescription(UserTypeEnum.Chef))
                 {
-                    await ChefFunctionality();
+                    await ChefFunctionality(int.Parse(userId));
                 }
                 else if (role == EnumExtensions.GetDescription(UserTypeEnum.Admin))
                 {
-                    await AdminFunctionality();
+                    await AdminFunctionality(int.Parse(userId));
                 }
                 else
                 {
@@ -33,7 +33,7 @@ namespace ClientSide
                 }
             }
         }
-        private static async Task AdminFunctionality()
+        private static async Task AdminFunctionality(int userId)
         {
             while (true)
             {
@@ -66,7 +66,7 @@ namespace ClientSide
                         PrintSeparatorLine();
                         break;
                     case 5:
-                        Console.WriteLine("Logout");
+                        await Logout(userId);
                         return;
                     default:
                         break;
@@ -74,7 +74,7 @@ namespace ClientSide
             }
         }
 
-        private static async Task ChefFunctionality()
+        private static async Task ChefFunctionality(int userId)
         {
             while (true)
             {
@@ -136,7 +136,7 @@ namespace ClientSide
                         PrintSeparatorLine();
                         break;
                     case 12:
-                        Console.WriteLine("Logout");
+                        await Logout(userId);
                         return;
                     default:
                         break;
