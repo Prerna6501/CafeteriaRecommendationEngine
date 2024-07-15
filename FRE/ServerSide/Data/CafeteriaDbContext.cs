@@ -25,6 +25,7 @@ namespace ServerSide.Data
         public DbSet<QuestionType> QuestionTypes { get; set; }
         public DbSet<DiscardItem> DiscardItems { get; set; }
         public DbSet<EmployeeProfile> EmployeeProfiles { get; set; }
+        public DbSet<UserActivity> UserActivities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
