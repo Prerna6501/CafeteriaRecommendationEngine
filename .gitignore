@@ -13,5 +13,10 @@
 /FRE/Common/obj
 /FRE/ServerSide/bin/Debug/net8.0
 /FRE/ServerSide/obj
-/FRE/UnitTests
+/FRE/UnitTests/bin/Debug/net8.0/cs
+/FRE/UnitTests/bin/Debug/net8.0
+/FRE/UnitTests/obj/Debug/net8.0
+/FRE/UnitTests/obj
+/FRE/UnitTests/obj/project.assets.json
+/.gitignore
 /.vs
