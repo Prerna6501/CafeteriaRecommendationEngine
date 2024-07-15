@@ -93,7 +93,6 @@ namespace ServerSide.Services
         public async Task<string> ViewDetailedFeedbackOfItem(string parameters)
         {
             int discardId = int.Parse(parameters.Trim());
-            //var detailedFeedback = _detailedFeedbackService.Where(x => x.DiscardItemId== discardId).Include(x => x.QuestionType).Include(y => y.DiscardItem).ThenInclude(x => x.MenuItem);
             var detailedFeedback = await _detailedFeedbackService.Where(x => x.DiscardItemId == discardId).Include(x => x.QuestionType).ToListAsync();
             List<DetailedFeedbackViewModel> result = new List<DetailedFeedbackViewModel>();
             foreach (var item in detailedFeedback)
