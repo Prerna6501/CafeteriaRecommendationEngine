@@ -186,7 +186,7 @@ namespace ServerSide
                         return $"Invalid request type: {requestType}";
                 }
             }
-            catch (Common.CustomExceptions.ArgumentNullException ex)
+            catch (EmptyArgumentException ex)
             {
                 Console.WriteLine(ex.Message);
                 return ResponseUtils.CreateExceptionJsonResponse(ex.Message);
