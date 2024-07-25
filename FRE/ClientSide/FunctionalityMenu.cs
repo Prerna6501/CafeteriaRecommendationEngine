@@ -1,0 +1,635 @@
+﻿using Common;
+using Common.Enums;
+using Common.Helpers;
+using Common.Models;
+using Common.Utilities;
+using ConsoleTables;
+using Newtonsoft.Json;
+using ServerSide.Entity;
+
+namespace ClientSide
+{
+    class FunctionalityMenu
+    {
+        public static async Task GetFunctionalityMenu(string role, string userId)
+        {
+            if (role != null)
+            {
+                if (role == EnumExtensions.GetDescription(UserTypeEnum.Employee))
+                {
+                    await EmployeeFunctionality(int.Parse(userId));
+                }
+                else if (role == EnumExtensions.GetDescription(UserTypeEnum.Chef))
+                {
+                    await ChefFunctionality(int.Parse(userId));
+                }
+                else if (role == EnumExtensions.GetDescription(UserTypeEnum.Admin))
+                {
+                    await AdminFunctionality(int.Parse(userId));
+                }
+                else
+                {
+                    Console.WriteLine("Invalid role");
+                }
+            }
+        }
+        private static async Task AdminFunctionality(int userId)
+        {
+            while (true)
+            {
+                Console.WriteLine("Admin Funtionality /n Please select :");
+                Console.WriteLine("1.View MenuItem \n2.Create MenuItems \n3.Update Menultems \n4.Delete MenuItems \n5.Exit\n");
+                string input = Console.ReadLine();
+                bool IsValidChoice = int.TryParse(input, out int choice);
+                if (!IsValidChoice || choice < 1 || choice > 5)
+                {
+                    Console.WriteLine("Wrong choice, try again...\n");
+                    continue;
+                }
+
+                switch (choice)
+                {
+                    case 1:
+                        await ViewMenuItems();
+                        PrintSeparatorLine();
+                        break;
+                    case 2:
+                        await CreateMenuItem();
+                        PrintSeparatorLine();
+                        break;
+                    case 3:
+                        await UpdateMenuItem();
+                        PrintSeparatorLine();
+                        break;
+                    case 4:
+                        await DeleteMenuItem();
+                        PrintSeparatorLine();
+                        break;
+                    case 5:
+                        await Logout(userId);
+                        return;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private static async Task ChefFunctionality(int userId)
+        {
+            while (true)
+            {
+                Console.WriteLine("Chef Functionality\nPlease select:");
+                Console.WriteLine("1. Get Recommended Items\n2. Rollout Choices\n3. View Choice Voting Result\n4. Give Final Menu\n5. Change Availability\n6. View Feedback for a particular item\n7. View Monthly Report\n8. Get Discard List\n9. Remove discarded item\n10. Get Detailed feedback from user \n11. View Detailed feebacks for a particular item\n12. Exit\n");
+
+                string input = Console.ReadLine();
+                bool isValidChoice = int.TryParse(input, out int choice);
+                if (!isValidChoice || choice < 1 || choice > 12)
+                {
+                    Console.WriteLine("Wrong choice, try again...\n");
+                    continue;
+                }
+
+                switch (choice)
+                {
+                    case 1:
+                        await GetRecommendedItems();
+                        PrintSeparatorLine();
+                        break;
+                    case 2:
+                        await RolloutChoices();
+                        PrintSeparatorLine();
+                        break;
+                    case 3:
+                        await ViewChoiceVotingResult();
+                        PrintSeparatorLine();
+                        break;
+                    case 4:
+                        await RolloutFinalMeal();
+                        PrintSeparatorLine();
+                        break;
+                    case 5:
+                        await ChangeAvailability();
+                        PrintSeparatorLine();
+                        break;
+                    case 6:
+                        await ViewFeedbackForItem();
+                        PrintSeparatorLine();
+                        break;
+                    case 7:
+                        await ViewMonthlyReport();//OPTIONAL
+                        PrintSeparatorLine();
+                        break;
+                    case 8:
+                        await GetDiscardList();
+                        PrintSeparatorLine();
+                        break;
+                    case 9:
+                        await RemoveDiscardedItem();
+                        PrintSeparatorLine();
+                        break;
+                    case 10:
+                        await GetDetailedFeedbackFromUser();
+                        PrintSeparatorLine();
+                        break;
+                    case 11:
+                        await ViewDetailedFeebacksForAItem();
+                        PrintSeparatorLine();
+                        break;
+                    case 12:
+                        await Logout(userId);
+                        return;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private static async Task EmployeeFunctionality(int userId)
+        {
+            while (true)
+            {
+                Console.WriteLine("Employee Functionality\nPlease select:");
+                Console.WriteLine("1. View MenuItem\n2. Give Feedback\n3. View Feedback for a particular item\n4. View all feedback given by you\n5. Get Rolled out menu\n6. Vote for Roll out menu\n7. Get notifications\n8. Give detailed feedback\n9. Setup Profile\n10. Get Rollout menu with your preferences\n11. Logout");
+                string input = Console.ReadLine();
+                bool isValidChoice = int.TryParse(input, out int choice);
+                if (!isValidChoice || choice < 1 || choice > 11)
+                {
+                    Console.WriteLine("Wrong choice, try again...\n");
+                    continue;
+                }
+
+                switch (choice)
+                {
+                    case 1:
+                        await ViewMenuItems();
+                        PrintSeparatorLine();
+                        break;
+                    case 2:
+                        await GiveFeedback(userId);
+                        PrintSeparatorLine();
+                        break;
+                    case 3:
+                        await ViewFeedbackForItem();
+                        PrintSeparatorLine();
+                        break;
+                    case 4:
+                        await ViewAllFeedbackByEmployee(userId);
+                        PrintSeparatorLine();
+                        break;
+                    case 5:
+                        await GetRolloutChoices();
+                        PrintSeparatorLine();
+                        break;
+                    case 6:
+                        await VoteForMenuItems();
+                        PrintSeparatorLine();
+                        break;
+                    case 7:
+                        await GetNotifications();
+                        PrintSeparatorLine();
+                        break;
+                    case 8:
+                        await GiveDetailFeedback(userId);
+                        PrintSeparatorLine();
+                        break;
+                    case 9:
+                        await SetupProfile(userId);
+                        PrintSeparatorLine();
+                        break;
+                    case 10:
+                        await GetRollOutMenuSortedByPreferences(userId);
+                        PrintSeparatorLine();
+                        break;
+
+                    case 11:
+                        await Logout(userId);
+                        PrintSeparatorLine();
+                        return;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private static async Task Logout(int userId)
+        {
+            string request = $"LOGOUT|{userId}";
+            string response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
+        }
+
+        private static async Task GetRollOutMenuSortedByPreferences(int userId)
+        {
+            string request = $"GET_SORTED_ROLLOUT_MENU|{userId}";
+            string response = await HandleRequest.SendRequest(request);
+            List<MenuItemModel> menuItemModel = JsonConvert.DeserializeObject<List<MenuItemModel>>(response);
+            var table = new ConsoleTable("Id", "Name", "Sentiment", "Average Rating");
+            foreach (var item in menuItemModel)
+            {
+                table.AddRow(item.Id, item.Name, item.Sentiments, item.AverageRating);
+            }
+            table.Write(Format.Alternative);
+        }
+
+        private static async Task SetupProfile(int userId)
+        {
+            EmployeeProfileModel profile = new EmployeeProfileModel();
+            Console.WriteLine("Add Your Profile:");
+            Console.WriteLine("1) Please select one - 1.Vegetarian, 2.Non Vegetarian, 3.Eggetarian");
+            var dietPreferenceChoice = GetValidChoice(1, 3);
+            profile.DietPreference = (DietPreferenceEnum)(dietPreferenceChoice);
+
+            Console.WriteLine("2) Please select your spice level - 1.High, 2.Medium, 3.Low");
+            var spiceLevelChoice = GetValidChoice(1, 3);
+            profile.SpiceLevel = (SpiceLevelEnum)(spiceLevelChoice);
+
+            Console.WriteLine("3) What do you prefer most? - 1.North Indian, 2.South Indian, 3.Other");
+            var cuisinePreferenceChoice = GetValidChoice(1, 3);
+            profile.CuisinePreference = (CuisinePreferenceEnum)(cuisinePreferenceChoice - 1);
+
+            Console.WriteLine("4) Do you have a sweet tooth? - Yes, No");
+            profile.HasSweetTooth = GetValidYesNoChoice();
+
+            profile.UserId = userId;
+
+            string serializedProfile = JsonConvert.SerializeObject(profile, Formatting.Indented);
+            string request = $"SETUP_PROFILE|{serializedProfile}";
+            string response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
+        }
+
+        private static int GetValidChoice(int min, int max)
+        {
+            int choice;
+            while (true)
+            {
+                Console.Write($"Enter a choice ({min}-{max}): ");
+                if (int.TryParse(Console.ReadLine(), out choice) && choice >= min && choice <= max)
+                {
+                    return choice;
+                }
+                Console.WriteLine("Invalid choice, try again...");
+            }
+        }
+
+        private static bool GetValidYesNoChoice()
+        {
+            while (true)
+            {
+                Console.Write("Enter a choice (Yes/No): ");
+                string input = Console.ReadLine().ToLower();
+                if (input == "yes")
+                {
+                    return true;
+                }
+                else if (input == "no")
+                {
+                    return false;
+                }
+                Console.WriteLine("Invalid choice, try again...");
+            }
+        }
+
+
+        private static async Task RemoveDiscardedItem()
+        {
+            Console.WriteLine("Enter DiscardID that you want to remove permanently");
+            var discardId = Console.ReadLine();
+            var request = $"REMOVE_DISCARD_ITEM|{discardId}";
+            var response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
+        }
+
+        private static async Task GetDetailedFeedbackFromUser()
+        {
+            Console.WriteLine("Enter DiscardID that you want detailed feedback from the user.");
+            var discardId = Console.ReadLine();
+            var request = $"GET_DETAILED_FEEDBACK_ITEM|{discardId}";
+            var response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
+        }
+
+        private static async Task ViewDetailedFeebacksForAItem()
+        {
+            Console.WriteLine("Enter DiscardID that you want detailed feedback.");
+            var discardId = Console.ReadLine();
+            var request = $"VIEW_DETAILED_FEEDBACK_ITEM|{discardId}";
+            var response = await HandleRequest.SendRequest(request);
+            List<DetailedFeedbackViewModel> feedbacks = JsonConvert.DeserializeObject<List<DetailedFeedbackViewModel>>(response);
+            foreach (var feedback in feedbacks)
+            {
+                Console.WriteLine($"Id :{feedback.Id}");
+                Console.WriteLine($"DiscardItem Id:{feedback.DiscardItemId}");
+                Console.WriteLine($"UserId :{feedback.UserId}");
+                Console.WriteLine($"Question :{feedback.Question}");
+                Console.WriteLine($"Response :{feedback.Comment}");
+                Console.WriteLine("\n----------------------------------------------------\n");
+            }
+        }
+
+        private static async Task GetDiscardList()
+        {
+            string request = "GET_DISCARD_LIST|";
+            string response = await HandleRequest.SendRequest(request);
+            List<DiscardItemModel> discardItemList = JsonConvert.DeserializeObject<List<DiscardItemModel>>(response);
+            var table = new ConsoleTable("DiscardId", "MenuItemId", "Status", "Average rating", "Sentiments");
+            foreach (var item in discardItemList)
+            {
+                table.AddRow(item.Id, item.Name, item.Status, item.AverageRating, item.Sentiments);
+            }
+            table.Write(Format.Alternative);
+        }
+
+        private static async Task GiveDetailFeedback(int userId)
+        {
+            Console.WriteLine("Enter the Discard item Id:  ");
+            string discardItemId = Console.ReadLine();
+            string requestForDiscardItem = $"GET_DISCARDITEM_NAME|{discardItemId}";
+            string name = await HandleRequest.SendRequest(requestForDiscardItem);
+
+            Console.WriteLine(string.Format(AppConstants.QuestionDislikeAboutItem, name));
+            string dislikeAboutFoodResponse = Console.ReadLine();
+            Console.WriteLine(string.Format(AppConstants.QuestionLikesAboutItem, name));
+            string tasteResponse = Console.ReadLine();
+            Console.WriteLine(AppConstants.QuestionMomsRecipe);
+            string momsRecipeResponse = Console.ReadLine();
+
+            DetailedFeedbackModel detailedFeedbackModel = new DetailedFeedbackModel
+            {
+                DiscardItemId = int.Parse(discardItemId),
+                Answer1 = dislikeAboutFoodResponse,
+                Answer2 = tasteResponse,
+                Answer3 = momsRecipeResponse,
+                UserId = userId
+            };
+            string feedback = JsonConvert.SerializeObject(detailedFeedbackModel, Formatting.Indented);
+
+            string request = $"ADD_DETAILED_FEEDBACK|{feedback}";
+            var responseForAddingFeedback = await HandleRequest.SendRequest(request);
+            Console.WriteLine(responseForAddingFeedback);
+        }
+
+        private static async Task GetNotifications()
+        {
+            string request = "GET_NOTIFICATIONS|";
+            string response = await HandleRequest.SendRequest(request);
+            List<Notification> notificationList = JsonConvert.DeserializeObject<List<Notification>>(response);
+            var table = new ConsoleTable("Id", "Message", "Date");
+            foreach (var item in notificationList)
+            {
+                table.AddRow(item.Id, item.Message, item.CreatedDate);
+            }
+            table.Write(Format.MarkDown);
+        }
+
+        private static async void PrintSeparatorLine()
+        {
+            Console.WriteLine("===========================================================================================================================================");
+        }
+
+        private static async Task GetRolloutChoices()
+        {
+            string request = "GET_ROLLOUT_CHOICES|";
+            string response = await HandleRequest.SendRequest(request);
+            List<VotingResultModel> votingResults = JsonConvert.DeserializeObject<List<VotingResultModel>>(response);
+            var table = new ConsoleTable("MenuItem Id", "MenuItem Name", "MealType");
+            foreach (var item in votingResults)
+            {
+                table.AddRow(item.MenuItemId, item.MenuItemName, item.MealType);
+            }
+            table.Write(Format.Alternative);
+        }
+
+        private static async Task VoteForMenuItems()
+        {
+            Console.WriteLine("Enter MenuItem ID for breakfast");
+            string breakfast = Console.ReadLine();
+            Console.WriteLine("Enter MenuItem ID for lunch");
+            string lunch = Console.ReadLine();
+            Console.WriteLine("Enter MenuItem ID for dinner");
+            string dinner = Console.ReadLine();
+
+            string request = $"VOTE_MENU_ITEM|Breakfast:{breakfast};Lunch:{lunch};Dinner:{dinner}";
+            string response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
+        }
+
+        private static async Task GiveFeedback(int userId)
+        {
+            Console.WriteLine("Enter MenuItem ID to give feedback:");
+            string itemId = Console.ReadLine();
+            Console.WriteLine("Enter your rating (1-5):");
+            string rating = Console.ReadLine();
+            Console.WriteLine("Enter your comments:");
+            string comments = Console.ReadLine();
+
+            string request = $"GIVE_FEEDBACK|{itemId},{rating},{comments},{userId}";
+            string response = await HandleRequest.SendRequest(request);
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                Console.WriteLine(response);
+            }
+        }
+
+        private static async Task ViewFeedbackForItem()
+        {
+            Console.WriteLine("Enter MenuItem ID to view feedback:");
+            string itemId = Console.ReadLine();
+
+            string request = $"VIEW_FEEDBACK_ITEM|{itemId}";
+            string response = await HandleRequest.SendRequest(request);
+
+            Console.WriteLine("Feedback for the item:\n");
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                List<FeedbackModel> feedbacks = JsonConvert.DeserializeObject<List<FeedbackModel>>(data);
+                var table = new ConsoleTable("FeedBack Id", "MenuItem Id", "Rating", "Comments");
+                foreach (var item in feedbacks)
+                {
+                    table.AddRow(item.Id, item.MenuItemId, item.Rating, item.Comment);
+                }
+                table.Write(Format.Alternative);
+            }
+        }
+
+        private static async Task ViewAllFeedbackByEmployee(int userId)
+        {
+            string request = $"VIEW_FEEDBACK_EMPLOYEE|{userId}";
+            string response = await HandleRequest.SendRequest(request);
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                Console.WriteLine("All feedback given by you:\n");
+                List<FeedbackModel> feedbacks = JsonConvert.DeserializeObject<List<FeedbackModel>>(data);
+                var table = new ConsoleTable("FeedBack Id", "MenuItem Id", "MenuItem Name", "Rating", "Comments");
+                foreach (var item in feedbacks)
+                {
+                    table.AddRow(item.Id, item.MenuItemId, item.MenuItemName, item.Rating, item.Comment);
+                }
+                table.Write(Format.Alternative);
+            }
+        }
+
+        private static async Task GetRecommendedItems()
+        {
+            Console.WriteLine("Enter Mealtype Recommendation you want to see: \n1.Breakfast \n2.Lunch \n3.Dinner");
+            string mealtypeId = Console.ReadLine();
+            Console.WriteLine("\nNo of recommendation you need:");
+            string topN = Console.ReadLine();
+            string request = $"GET_RECOMMENDED_ITEMS|{mealtypeId},{topN}";
+            string response = await HandleRequest.SendRequest(request);
+            List<MenuItemModel> menuItemModel = JsonConvert.DeserializeObject<List<MenuItemModel>>(response);
+            var table = new ConsoleTable("Id", "Name", "Sentiment", "Average Rating");
+            foreach (var item in menuItemModel)
+            {
+                table.AddRow(item.Id, item.Name, item.Sentiments, item.AverageRating);
+            }
+            table.Write(Format.Alternative);
+        }
+
+        private static async Task RolloutChoices()
+        {
+            Console.WriteLine("Enter the Roll out menu for breakfast (comma-separated):");
+            string breakFastOptions = Console.ReadLine();
+            Console.WriteLine("Enter the Roll out menu for lunch (comma-separated):");
+            string lunchOptions = Console.ReadLine();
+            Console.WriteLine("Enter the Roll out menu for dinner (comma-separated):");
+            string dinnerOptions = Console.ReadLine();
+
+            string request = $"ROLLOUT_CHOICES|Breakfast:{breakFastOptions};Lunch:{lunchOptions};Dinner:{dinnerOptions}";
+            string response = await HandleRequest.SendRequest(request);
+
+            Console.WriteLine(response);
+        }
+
+        private static async Task ViewChoiceVotingResult()
+        {
+            string request = "VIEW_CHOICE_VOTING_RESULT|";
+            string response = await HandleRequest.SendRequest(request);
+            List<VotingResultModel> votingResults = JsonConvert.DeserializeObject<List<VotingResultModel>>(response);
+            var table = new ConsoleTable("Menuitem Id", "MenuItem Name", "MealType", "Votes");
+            foreach (var item in votingResults)
+            {
+                table.AddRow(item.MenuItemId, item.MenuItemName, item.MealType, item.Votes);
+            }
+            table.Write(Format.Alternative);
+        }
+
+        private static async Task RolloutFinalMeal()
+        {
+            Console.WriteLine("Enter the Final menu for breakfast(1):");
+            string breakFastOption = Console.ReadLine();
+            Console.WriteLine("Enter the Final menu for lunch (2):");
+            string lunchOptions = Console.ReadLine();
+            Console.WriteLine("Enter the Final menu for dinner (2):");
+            string dinnerOptions = Console.ReadLine();
+
+            string request = $"ROLLOUT_FINAL_MEAL|Breakfast:{breakFastOption};Lunch:{lunchOptions};Dinner:{dinnerOptions}";
+            string response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
+        }
+
+        private static async Task ChangeAvailability()
+        {
+            Console.WriteLine("Enter MenuItem ID to change availability:");
+            string itemId = Console.ReadLine();
+            Console.WriteLine("Enter availability status (true/false):");
+            string availabilityStatus = Console.ReadLine();
+
+            string request = $"CHANGE_AVAILABILITY|{itemId},{availabilityStatus}";
+            string response = await HandleRequest.SendRequest(request);
+            Console.WriteLine(response);
+        }
+
+
+        private static async Task ViewMonthlyReport()
+        {
+            string request = "VIEW_MONTHLY_REPORT|";
+            string response = await HandleRequest.SendRequest(request);
+
+            Console.WriteLine("Monthly report:");
+            Console.WriteLine(response);
+        }
+
+        private static async Task ViewMenuItems()
+        {
+            string response = await HandleRequest.SendRequest("VIEW_MENU|");
+
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                Console.WriteLine("List of MenuItems:");
+                List<MenuItem> menuItems = JsonConvert.DeserializeObject<List<MenuItem>>(data);
+                var table = new ConsoleTable("Id", "Name", "Price", "IsAvailable");
+                foreach (var menuItem in menuItems)
+                {
+                    table.AddRow(menuItem.Id, menuItem.Name, menuItem.Price, menuItem.IsAvailable);
+                }
+                table.Write(Format.Alternative);
+            }
+        }
+        private static async Task CreateMenuItem()
+        {
+            CreateMenuItemModel menuItemModel = new CreateMenuItemModel();
+            menuItemModel.Name = Helpers.ReadString("Enter MenuItem Name:");
+            menuItemModel.Price = Helpers.ReadInt("Enter Price:");
+            menuItemModel.AvailabilityStatus = Helpers.ReadBool("Enter MenuItem Availability Status (true/false):");
+            menuItemModel.MenuItemTypeId = Helpers.ReadInt("Enter the MenuTypeId");
+            menuItemModel.DietPreference = (DietPreferenceEnum)Helpers.ReadValidChoice(1, 3, "Please select one - 1.Vegetarian, 2.Non Vegetarian, 3.Eggetarian");
+            menuItemModel.SpiceLevel = (SpiceLevelEnum)Helpers.ReadValidChoice(1, 3, "Please select your spice level of the food - 1.High, 2.Medium, 3.Low");
+            menuItemModel.CuisinePreference = (CuisinePreferenceEnum)Helpers.ReadValidChoice(1, 3, "Which cuisine does it belong to - 1.North Indian, 2.South Indian, 3.Other");
+            menuItemModel.HasSweetTooth = Helpers.ReadYesNo("Is it a sweet dish - Yes, No");
+
+            string serializedMenuItem = JsonConvert.SerializeObject(menuItemModel, Formatting.Indented);
+            string request = $"ADD_MENU_ITEM|{serializedMenuItem}";
+            string response = await HandleRequest.SendRequest(request);
+
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(data);
+                var table = new ConsoleTable("Name", "Price", "MenuTypeId");
+                table.AddRow(menuItem.Name, menuItem.Price, menuItem.MenuItemTypeId);
+                table.Write(Format.Alternative);
+            }
+        }
+
+        private static async Task UpdateMenuItem()
+        {
+            int id = Helpers.ReadInt("Enter MenuItem ID:");
+            string name = Helpers.ReadString("Enter MenuItem Name:");
+            int price = Helpers.ReadInt("Enter MenuItem Price:");
+            bool availabilityStatus = Helpers.ReadBool("Enter MenuItem Availability Status (true/false):");
+            bool softDelete = Helpers.ReadBool("Do you want to soft delete (true/false):");
+            int menuItemTypeId = Helpers.ReadInt("Enter the MenuTypeId");
+
+            string request = $"UPDATE_MENU|{id},{name},{price},{availabilityStatus},{softDelete},{menuItemTypeId}";
+            string response = await HandleRequest.SendRequest(request);
+
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(data);
+                var table = new ConsoleTable("Name", "Price");
+                table.AddRow(menuItem.Name, menuItem.Price);
+                table.Write(Format.Alternative);
+            }
+        }
+
+        private static async Task DeleteMenuItem()
+        {
+            int id = Helpers.ReadInt("Enter MenuItem ID:");
+
+            string request = $"DELETE_MENU_ITEM|{id}";
+            string response = await HandleRequest.SendRequest(request);
+
+            if (ResponseUtils.HandleResponse(response, out var data))
+            {
+                MenuItem menuItem = JsonConvert.DeserializeObject<MenuItem>(data);
+                var table = new ConsoleTable("Name", "IsDeleted");
+                table.AddRow(menuItem.Name, menuItem.IsDeleted);
+                table.Write(Format.Alternative);
+            }
+        }
+    }
+}
+
+
+
+
